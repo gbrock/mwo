@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'PartyController@index');
+Route::resource('party', 'PartyController');
+Route::resource('party.link', 'PartyLinkController');
