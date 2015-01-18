@@ -2,6 +2,8 @@
 
 class PartyLinkController extends \BaseController {
 
+	protected $nav_controller = 'Party';
+
 	/**
 	 * Display a listing of the resource.
 	 *

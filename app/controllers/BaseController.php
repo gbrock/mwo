@@ -4,6 +4,8 @@ use Illuminate\Support\Collection;
 
 class BaseController extends Controller {
 
+	protected $nav_controller;
+
 	protected $layout = 'master';
 	protected $asset_folder = 'includes';
 
@@ -19,6 +21,11 @@ class BaseController extends Controller {
 
 		$this->css->push('screen.css');
 
+		if(!$this->nav_controller)
+		{
+			$this->nav_controller = substr_replace(get_class($this), '', -strlen('Controller'));
+		}
+
 		// Let's see how long until we need JS.
 		// $this->js->push('jquery.js');
 		// $this->js->push('bootstrap.js');
@@ -33,11 +40,8 @@ class BaseController extends Controller {
 	{
 		if ( ! is_null($this->layout))
 		{
-			$route = explode('@', Route::currentRouteAction());
-			$controller = $route[0];
-
 			// Share the current controller throughout our views
-			View::share('active_controller', $controller);
+			View::share('active_controller', $this->nav_controller . 'Controller');
 
 			$this->layout = View::make('layouts.' . $this->layout, array(
 				'script_base' => $this->asset_folder . '/js',
