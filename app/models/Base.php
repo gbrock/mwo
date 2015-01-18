@@ -1,6 +1,7 @@
 <?php
 
 class Base extends Eloquent {
+
 	/**
 	 * The rules passed to Validate.
 	 * @var array
@@ -41,7 +42,7 @@ class Base extends Eloquent {
 	{
 		if($this->autoHydrate)
 		{
-			$this->hydrate();
+			$this->fill(Input::all());
 		}
 
 		if($this->rules)
@@ -66,11 +67,6 @@ class Base extends Eloquent {
 	public function errors()
 	{
 		return $this->validator->errors();
-	}
-
-	public function hydrate()
-	{
-		$this->fill(Input::all());
 	}
 
 	/**

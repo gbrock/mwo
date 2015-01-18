@@ -24,7 +24,7 @@ class AssetController extends BaseController {
 			);
 			$oParser = new Less_Parser($oParserOptions);
 
-			// Bootstrap will be included only for "screen.css".
+			// Bootstrap and FontAwesome will be included only for "screen.css".
 			$bIncludePlugins = (substr($sRequestScript, -10) === 'screen.css');
 			$sBootstrapPath = base_path('vendor/twbs/bootstrap/less/bootstrap.less');
 			$sFontAwesomePath = base_path('vendor/fortawesome/font-awesome/less/font-awesome.less');

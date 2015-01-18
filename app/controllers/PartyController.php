@@ -9,7 +9,19 @@ class PartyController extends \BaseController {
 	 */
 	public function index()
 	{
-		$this->layout->content = '<p>Hello World</p>';
+		// Get the amount of records per page
+		$iLimit = $this->getLimit();
+
+		// Get the records we need to display
+		$parties = Party::paginate($iLimit);
+
+		// Set up the data needed by the view(s)
+		$aViewData = array();
+		$aViewData['records'] = $parties;
+		$aViewData['sort_url'] = 'directory?';
+
+		// Render the view
+		$this->layout->content = View::make('parties/index', $aViewData);
 	}
 
 

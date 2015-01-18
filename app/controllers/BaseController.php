@@ -10,6 +10,8 @@ class BaseController extends Controller {
 	protected $css = array();
 	protected $js = array();
 
+	protected $page_record_limit = 100;
+
 	public function __construct()
 	{
 		$this->css = new Collection($this->css);
@@ -36,6 +38,24 @@ class BaseController extends Controller {
 				'js' => $this->js->toArray(),
 			));
 		}
+	}
+
+	protected function getLimit()
+	{
+		// The index defaults
+		$iDefaultLimit = 10;
+		$iMaxLimit = (int) $this->page_record_limit;
+
+		// Sanity check; table max must be at least global default max
+		$iMaxLimit = max($iMaxLimit, $iDefaultLimit);
+		
+		// Limit is either &_GET['limit'] or default, whichever is higher
+		$iLimit = max((int) Input::get('limit'), $iDefaultLimit);
+
+		// Don't let the limit go above max
+		$iLimit = min($iLimit, $iMaxLimit);
+
+		return $iLimit;
 	}
 
 }

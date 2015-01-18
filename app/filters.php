@@ -13,7 +13,16 @@
 
 App::before(function($request)
 {
-	//
+	App::setLocale('en');
+
+	/**
+	 * HTML::icon($iconClassAndOthers, $nonBreakingSpaces)
+	 * @var [type]
+	 */
+	HTML::macro('icon', function($class, $nbs = 1)
+	{
+	    return '<span class="fa fa-' . $class . '" aria-hidden="true">' . str_repeat('&nbsp;', $nbs) . '</span>';
+	});
 });
 
 
