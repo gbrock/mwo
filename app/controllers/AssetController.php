@@ -3,13 +3,19 @@
 class AssetController extends BaseController {
 
 	/**
+	 * Whether or not the users should cache the output
+	 * @var boolean
+	 */
+	protected $cache = TRUE;
+
+	/**
 	 * Renders a LESS file based on a given CSS request.
 	 * @param  string
 	 */
 	public function getStylesheet($sRequestScript = '')
 	{
 		$sCacheKey = 'css:' . $sRequestScript;
-		$bAllowCache = TRUE; // Toggle caching
+		$bAllowCache = $this->cache;
 		$iCacheMinutes = 60*12;
 
 		if($bAllowCache && Cache::has($sCacheKey))
@@ -87,7 +93,7 @@ class AssetController extends BaseController {
 	{
 		$sContent = FALSE;
 		$sCacheKey = 'js:' . $sRequestScript;
-		$bAllowCache = TRUE;
+		$bAllowCache = $this->cache;
 		$iCacheMinutes = 60*12;
 
 		if($bAllowCache && Cache::has($sCacheKey))

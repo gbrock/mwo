@@ -33,6 +33,13 @@ class BaseController extends Controller {
 	{
 		if ( ! is_null($this->layout))
 		{
+			$route = explode('@', Route::currentRouteAction());
+			$controller = $route[0];
+			$action = $route[1];
+
+			// Share the current controller throughout our views
+			View::share('active_controller', $controller);
+
 			$this->layout = View::make('layouts.' . $this->layout, array(
 				'script_base' => $this->asset_folder . '/js',
 				'style_base' => $this->asset_folder . '/css',
