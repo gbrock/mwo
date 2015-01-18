@@ -32,9 +32,9 @@ The default HTML5 file.
 
 @yield('body')
 @if(isset($js) && is_array($js) && count($js))
-	@foreach($js as $script)
 
-	<script src="{{ 
+	@foreach($js as $script)
+<script src="{{ 
 			asset(
 				(isset($script_base) ? trim($script_base, '/') . '/' : '')
 				.

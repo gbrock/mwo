@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
+		"components/jquery": "1.*",
 		"laravel/framework": "4.2.*",
     	"twbs/bootstrap": "3.3.*",
     	"fortawesome/font-awesome": "4.2.*",
