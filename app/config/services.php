@@ -28,4 +28,9 @@ return array(
 		'secret' => '',
 	),
 
+	'smartystreets' => array(
+		'id' => $_ENV['SMARTYSTREETS_AUTH_ID'],
+		'secret' => $_ENV['SMARTYSTREETS_AUTH_TOKEN'],
+	),
+
 );
