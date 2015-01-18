@@ -2,6 +2,12 @@
 
 define('LARAVEL_START', microtime(true));
 
+/**
+ * Require our own helpers, mainly to override Laravel's dd() function.
+ */
+require __DIR__.'/../app/helpers.php';
+
+
 /*
 |--------------------------------------------------------------------------
 | Register The Composer Auto Loader
