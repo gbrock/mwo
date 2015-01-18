@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'home' => 'Home',
     'party' => 'Party|Parties',
     'person' => 'Person|People',
     'organization' => 'Organization|Organizations',

@@ -2,7 +2,7 @@
 
 // The home crumb
 Breadcrumbs::register('home', function($breadcrumbs) {
-    $breadcrumbs->push('Home', url(''));
+    $breadcrumbs->push(Lang::get('label.home'), url(''));
 });
 
 // Any action with a parent
@@ -14,7 +14,7 @@ Breadcrumbs::register('action', function($breadcrumbs, $action, $parent, $parent
 // The directory
 Breadcrumbs::register('parties', function($breadcrumbs) {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push('Parties', action('PartyController@index'));
+    $breadcrumbs->push(Lang::choice('label.party', 0), action('PartyController@index'));
 });
 
 // A directory record
