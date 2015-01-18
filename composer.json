@@ -1,7 +1,7 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "gbrock/mwo",
+	"description": "Middleware Organizer - Get things together, man.",
+	"keywords": [],
 	"license": "MIT",
 	"type": "project",
 	"require": {
@@ -32,6 +32,5 @@
 	},
 	"config": {
 		"preferred-install": "dist"
-	},
-	"minimum-stability": "stable"
+	}
 }
