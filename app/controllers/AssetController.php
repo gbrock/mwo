@@ -1,0 +1,176 @@
+<?php
+
+class AssetController extends BaseController {
+
+	/**
+	 * Renders a LESS file based on a given CSS request.
+	 * @param  string
+	 */
+	public function getStylesheet($sRequestScript = '')
+	{
+		$sCacheKey = 'css:' . $sRequestScript;
+		$bAllowCache = FALSE; // Toggle caching
+		$iCacheMinutes = 60*12;
+
+		if($bAllowCache && Cache::has($sCacheKey))
+		{
+			$sContent = Cache::get($sCacheKey);
+		}
+		else
+		{
+			// The LESS parser
+			$oParserOptions = array(
+				
+			);
+			$oParser = new Less_Parser($oParserOptions);
+
+			// Bootstrap will be included only for "screen.css".
+			$bIncludePlugins = (substr($sRequestScript, -10) === 'screen.css');
+			$sBootstrapPath = base_path('vendor/twbs/bootstrap/less/bootstrap.less');
+			$sFontAwesomePath = base_path('vendor/fortawesome/font-awesome/less/font-awesome.less');
+
+			// Where to find the LESS file
+			$sLessPath = 'views/assets/less/';
+
+			// Swap out the extension for .less
+			$sLessFilename = substr_replace($sRequestScript, 'less', -3);
+
+			// What real LESS file are we looking for
+			$sSrcFile = app_path($sLessPath . $sLessFilename);
+
+			if(!file_exists($sSrcFile))
+			{
+				App::abort(404);
+			}
+
+			if($bIncludePlugins)
+			{
+				// Add Bootstrap (variables declared later will take precedence)
+				$oParser->parseFile($sBootstrapPath);
+				// Add FontAwesome
+				$oParser->parseFile($sFontAwesomePath);
+			}
+
+			// Parse the file
+			$sContent = $oParser
+							->parseFile($sSrcFile, url())
+							->getCss();
+
+			if($bAllowCache)
+			{
+				Cache::put($sCacheKey, $sContent, $iCacheMinutes);
+			}
+		}
+
+		if(!$bAllowCache)
+		{
+			Cache::forget($sCacheKey);
+		}
+
+		$response = Response::make($sContent);
+		$response->header('Content-Type', 'text/css');
+
+		return $response;
+	}
+
+	/**
+	 * Renders a JS file based on a given request.
+	 * @param  string
+	 */
+	public function getJavascript($sRequestScript = '')
+	{
+		$sCacheKey = 'js:' . $sRequestScript;
+		$bAllowCache = TRUE;
+		$bAllowCache = FALSE;
+		$iCacheMinutes = 60*12;
+
+		if($bAllowCache && Cache::has($sCacheKey))
+		{
+			$sContent = Cache::get($sCacheKey);
+		}
+		else
+		{
+			// Where to find the JS file
+			$sScriptPath = 'views/assets/js/';
+
+			$sScriptFilename = $sRequestScript;
+
+			// What real JS file are we looking for
+			$sJSFile = app_path($sScriptPath . $sScriptFilename);
+			$sPHPFile = $sJSFile . '.php';
+
+			if(file_exists($sJSFile))
+			{
+				$sContent = file_get_contents($sJSFile);
+			}
+			elseif(file_exists($sPHPFile))
+			{
+				ob_start();
+				include($sPHPFile);
+				$sContent = ob_get_clean();
+			}
+
+			if($sContent && $bAllowCache)
+			{
+				Cache::put($sCacheKey, $sContent, $iCacheMinutes);
+			}
+		}
+
+		if(!$bAllowCache)
+		{
+			Cache::forget($sCacheKey);
+		}
+
+		$response = Response::make($sContent);
+		$response->header('Content-Type', 'application/javascript');
+
+		return $response;
+	}
+
+	/**
+	 * Finds the font file specified and serves it to the browser.
+	 * @param  string
+	 */
+	public function getFont($sRequestFont = '')
+	{
+		$sFontAwesomePath = base_path('vendor/fortawesome/font-awesome/fonts/');
+		$sFontPath = $sFontAwesomePath . $sRequestFont;
+
+		if(file_exists($sFontPath))
+		{
+			// open the file in a binary mode
+			$fp = fopen($sFontPath, 'rb');
+			$path = pathinfo($sFontPath);
+
+			switch($path['extension'])
+			{
+				case 'eot':
+					$sHeader = 'application/vnd.ms-fontobject';
+					break;
+				case 'svg':
+					$sHeader = 'image/svg+xml';
+					break;
+				case 'ttf':
+					$sHeader = 'application/x-font-ttf';
+					break;
+				case 'woff':
+					$sHeader = 'application/x-font-woff';
+					break;
+				case 'otf':
+					$sHeader = 'application/x-font-otf';
+					break;
+
+			}
+			// send the right headers
+			header("Content-Type: " . $sHeader);
+			header("Content-Length: " . filesize($sFontPath));
+
+			// dump the font and stop the script
+			fpassthru($fp);
+			exit;
+		}
+
+		App::abort(404);
+	}
+
+}

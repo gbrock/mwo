@@ -14,3 +14,27 @@
 Route::get('/', 'PartyController@index');
 Route::resource('party', 'PartyController');
 Route::resource('party.link', 'PartyLinkController');
+
+/**
+ * Assets
+ */
+
+Route::get('includes/css/{script}', 'AssetController@getStylesheet')
+	->where('script', '[A-Za-z0-9\/\-_\.]+.css$');
+
+Route::get('includes/js/{script}', 'AssetController@getJavascript')
+	->where('script', '[A-Za-z0-9\/\-_\.]+.js$');
+
+Route::get('includes/fonts/{script}', 'AssetController@getFont')
+	->where('script', '[A-Za-z0-9\/\-_\.]+');
+
+
+/**
+ * Errors
+ */
+
+// Missing routes return a 404
+App::missing(function($exception)
+{
+    return Response::view('errors.missing', array(), 404);
+});

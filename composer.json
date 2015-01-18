@@ -5,7 +5,10 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+    	"twbs/bootstrap": "3.3.*",
+    	"fortawesome/font-awesome": "4.2.*",
+		"oyejorge/less.php": "~1.5"
 	},
 	"autoload": {
 		"classmap": [
