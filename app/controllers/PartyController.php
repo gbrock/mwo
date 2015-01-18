@@ -9,7 +9,7 @@ class PartyController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$this->layout->content = '<p>Hello World</p>';
 	}
 
 
