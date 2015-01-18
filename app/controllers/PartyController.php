@@ -229,7 +229,10 @@ class PartyController extends \BaseController {
 			// Otherwise, it failed.
 			Notification::error($object->errors()->all());
 			return Redirect::action('PartyController@edit', $party->id)
-				->withErrors($object->errors()->toArray())
+				->withErrors(array_merge(
+					$party->errors()->toArray(),
+					$type->errors()->toArray()
+				))
 				->withInput();
 		}
 

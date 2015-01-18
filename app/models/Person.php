@@ -31,7 +31,7 @@ class Person extends PartyType
 	 * @var array
 	 */
 	public $rules = array(
-		'gender'					=> 'between:1,255',
+		'gender'					=> 'max:255',
 		'birth'						=> 'date',
 	);
 

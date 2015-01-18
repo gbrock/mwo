@@ -11,10 +11,18 @@
 				@lang('parties.id') <strong class="pull-right">#{{ $party->id }}</strong>
 				<br>
 				@if($party->created_at->timestamp !== $party->updated_at->timestamp)
-					@lang('labels.updated_at') <strong class="pull-right" data-toggle="tooltip" title="{{ $party->updated_at->toDayDateTimeString()}}">{{ $party->updated_at->diffForHumans() }}</strong>
+					@lang('labels.updated_at') <strong class="pull-right">
+						<abbr title="{{ $party->updated_at->toDayDateTimeString()}}">
+							{{ $party->updated_at->diffForHumans() }}
+						</abbr>
+					</strong>
 					<br>
 				@endif
-				@lang('labels.created_at') <strong class="pull-right" data-toggle="tooltip" title="{{ $party->created_at->toDayDateTimeString()}}">{{ $party->created_at->diffForHumans() }}</strong>
+				@lang('labels.created_at') <strong class="pull-right">
+					<abbr title="{{ $party->created_at->toDayDateTimeString()}}">
+						{{ $party->created_at->diffForHumans() }}
+					</abbr>
+				</strong>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
