@@ -75,8 +75,25 @@ class PartyController extends \BaseController {
 		if(Input::get('save') !== NULL) // save attempt
 		{
 			$party = new Party;
-			if($party->save()) // Validated and stored
+
+			$success = $party->validate();
+
+			switch($party->type)
 			{
+				case 'p':
+					$type = new Person;
+					break;
+				case 'o':
+					$type = new Organization;
+					break;
+			}
+
+			$success = $type->validate() && $success;
+
+			if($success) // Validated
+			{
+				$party->save();
+				$type->party()->associate($party);
 				Notification::success(Lang::get('messages.created', array('name' => $party->name)));
 				return Redirect::action('PartyController@show', $party->id);
 			}
@@ -84,7 +101,10 @@ class PartyController extends \BaseController {
 			// Otherwise, it failed.
 			Notification::error($party->errors()->all());
 			return Redirect::action('PartyController@create')
-				->withErrors($party->errors()->toArray())
+				->withErrors(array_merge(
+					$party->errors()->toArray(),
+					$type->errors()->toArray()
+				))
 				->withInput();
 		}
 		elseif(Input::get('type')) // just switching types

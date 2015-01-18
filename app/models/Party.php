@@ -30,25 +30,6 @@ class Party extends Base
 	public static function boot()
 	{
 		parent::boot();
-
-		static::created(function($model) {
-			switch($model->type)
-			{
-				case 'p':
-					$person = new Person;
-					$person->party()->associate($model);
-					return $person->save();
-					break;
-				case 'o':
-					$organization = new Organization;
-					$organization->party()->associate($model);
-					return $organization->save();
-					break;
-			}
-
-			// We must save a Type record.
-			return FALSE;
-		});
 	}
 
 	/**
