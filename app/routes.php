@@ -36,5 +36,5 @@ Route::get('includes/fonts/{script}', 'AssetController@getFont')
 // Missing routes return a 404
 App::missing(function($exception)
 {
-    return Response::view('errors.missing', array(), 404);
+	return App::make('ErrorController')->get404();
 });

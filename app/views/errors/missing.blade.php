@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-	<h1>404 - Not Found</h1>
-	<p>Sorry, the requested resource could not be located.</p>
+	<h1>@lang('labels.missing_page')</h1>
+	<p>@lang('messages.missing_page')</p>
 @stop

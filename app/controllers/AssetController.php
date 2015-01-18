@@ -9,7 +9,7 @@ class AssetController extends BaseController {
 	public function getStylesheet($sRequestScript = '')
 	{
 		$sCacheKey = 'css:' . $sRequestScript;
-		$bAllowCache = FALSE; // Toggle caching
+		$bAllowCache = TRUE; // Toggle caching
 		$iCacheMinutes = 60*12;
 
 		if($bAllowCache && Cache::has($sCacheKey))
