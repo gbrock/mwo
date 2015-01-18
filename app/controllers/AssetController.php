@@ -79,6 +79,7 @@ class AssetController extends BaseController {
 	 */
 	public function getJavascript($sRequestScript = '')
 	{
+		$sContent = FALSE;
 		$sCacheKey = 'js:' . $sRequestScript;
 		$bAllowCache = TRUE;
 		$bAllowCache = FALSE;
@@ -99,6 +100,7 @@ class AssetController extends BaseController {
 			$sJSFile = app_path($sScriptPath . $sScriptFilename);
 			$sPHPFile = $sJSFile . '.php';
 
+
 			if(file_exists($sJSFile))
 			{
 				$sContent = file_get_contents($sJSFile);
@@ -109,6 +111,11 @@ class AssetController extends BaseController {
 				include($sPHPFile);
 				$sContent = ob_get_clean();
 			}
+			else
+			{
+				App::abort(404);
+			}
+
 
 			if($sContent && $bAllowCache)
 			{
@@ -119,6 +126,11 @@ class AssetController extends BaseController {
 		if(!$bAllowCache)
 		{
 			Cache::forget($sCacheKey);
+		}
+
+		if(!$sContent)
+		{
+			App::abort(404);
 		}
 
 		$response = Response::make($sContent);
