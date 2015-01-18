@@ -3,7 +3,7 @@
 class AssetController extends BaseController {
 
 	/**
-	 * Whether or not the users should cache the output
+	 * Whether or not the headers should cache the output
 	 * @var boolean
 	 */
 	protected $cache = TRUE;

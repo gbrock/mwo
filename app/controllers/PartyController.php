@@ -74,17 +74,17 @@ class PartyController extends \BaseController {
 	{
 		if(Input::get('save') !== NULL) // save attempt
 		{
-			$object = new Party;
-			if($object->save()) // Validated and stored
+			$party = new Party;
+			if($party->save()) // Validated and stored
 			{
-				// Notification::success('Party "' . $object->name . '" saved.');
-				return Redirect::action('PartyController@show', $object->id);
+				Notification::success(Lang::get('messages.created', array('name' => $party->name)));
+				return Redirect::action('PartyController@show', $party->id);
 			}
 
 			// Otherwise, it failed.
-			// Notification::error($object->errors()->all());
+			Notification::error($party->errors()->all());
 			return Redirect::action('PartyController@create')
-				->withErrors($object->errors()->toArray())
+				->withErrors($party->errors()->toArray())
 				->withInput();
 		}
 		elseif(Input::get('type')) // just switching types
@@ -202,12 +202,12 @@ class PartyController extends \BaseController {
 
 			if($success) // Validated and stored
 			{
-				// Notification::success('Party "' . $object->name . '" saved.');
+				Notification::success(Lang::get('messages.updated', array('name' => $party->name)));
 				return Redirect::action('PartyController@show', $party->id);
 			}
 
 			// Otherwise, it failed.
-			// Notification::error($object->errors()->all());
+			Notification::error($object->errors()->all());
 			return Redirect::action('PartyController@edit', $party->id)
 				->withErrors($object->errors()->toArray())
 				->withInput();
@@ -231,6 +231,7 @@ class PartyController extends \BaseController {
 			return App::abort(404);
 		}
 
+		Notification::error(Lang::get('messages.deleted', array('name' => $party->name)));
 		$party->delete();
 
 		return Redirect::action('PartyController@index');

@@ -35,7 +35,6 @@ class BaseController extends Controller {
 		{
 			$route = explode('@', Route::currentRouteAction());
 			$controller = $route[0];
-			$action = $route[1];
 
 			// Share the current controller throughout our views
 			View::share('active_controller', $controller);

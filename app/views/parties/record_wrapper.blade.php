@@ -5,7 +5,7 @@
 		<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
 			<img src="http://placehold.it/800x800" class="img-responsive img-rounded">
 			<br>
-			{{-- @include('parties.showNav', array('party' => $party)) --}}
+			@include('parties.show_nav')
 			<br>
 			<div class="well well-sm small text-muted">
 				@lang('parties.id') <strong class="pull-right">#{{ $party->id }}</strong>

@@ -13,7 +13,7 @@
 
 Route::get('/', 'PartyController@index');
 Route::resource('party', 'PartyController');
-Route::resource('party.link', 'PartyLinkController');
+Route::resource('party.links', 'PartyLinkController');
 
 /**
  * Assets

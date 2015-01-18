@@ -23,6 +23,7 @@
 				{{ $crumbs }}
 			@endif
 		@show
+		{{ Notification::showAll() }}
 		@yield('content')
 	</div>
 @stop

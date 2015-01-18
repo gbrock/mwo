@@ -124,6 +124,7 @@ return array(
 
 		// additions
 		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+		'Krucas\Notification\NotificationServiceProvider',
 	),
 
 	/*
@@ -193,6 +194,7 @@ return array(
 
 		// additions
 		'Breadcrumbs'		=> 'DaveJamesMiller\Breadcrumbs\Facade',
+        'Notification'		=> 'Krucas\Notification\Facades\Notification',
 	),
 
 );

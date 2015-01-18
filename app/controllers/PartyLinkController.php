@@ -9,7 +9,22 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function index($partyId)
 	{
-		//
+		$party = Party::with('links')->find($partyId);
+
+		if(!$party) {
+			return App::abort(404);
+		}
+
+		// Set up the data needed by the view(s)
+		$aViewData = array(
+			'party' => $party,
+		);
+
+		// Set up the breadcrumbs
+		$aViewData['crumbs'] = Breadcrumbs::render('action', 'Links', 'party', $party);
+
+		// Render the view
+		$this->layout->content = View::make('party_links.index', $aViewData);
 	}
 
 

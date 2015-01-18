@@ -18,6 +18,12 @@ class Party extends Base
         	->hasOne('Person');
     }
 
+	public function links()
+    {
+        return $this
+        	->hasMany('PartyLink');
+    }
+
 	/**
 	 * Model hooks.
 	 */

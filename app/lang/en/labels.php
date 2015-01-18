@@ -5,6 +5,7 @@ return array(
     'party' => 'Party|Parties',
     'person' => 'Person|People',
     'organization' => 'Organization|Organizations',
+    'party_link' => 'Link|Links',
     'create' => 'Add',
 	'save' => 'Save',
     'edit' => 'Edit',
