@@ -20,6 +20,9 @@ class PartyController extends \BaseController {
 		$aViewData['records'] = $parties;
 		$aViewData['sort_url'] = 'directory?';
 
+		// Set up the breadcrumbs
+		$aViewData['crumbs'] = Breadcrumbs::render('parties');
+
 		// Render the view
 		$this->layout->content = View::make('parties/index', $aViewData);
 	}
@@ -32,7 +35,15 @@ class PartyController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+
+		// Set up the data needed by the view(s)
+		$aViewData = array();
+
+		// Set up the breadcrumbs
+		$aViewData['crumbs'] = Breadcrumbs::render('action', Lang::get('labels.create'), 'parties');
+
+		// Render the view
+		$this->layout->content = View::make('parties/create', $aViewData);
 	}
 
 

@@ -20,7 +20,7 @@
 			@lang('parties.empty_table')
 			<a href="{{ action('PartyController@create') }}">
 				@lang('parties.create_friendly')
-				{{ HTML::icon('plus',0) }}
+				{{ HTML::icon('plus', 0) }}
 			</a>
 		</div>
 	@endif

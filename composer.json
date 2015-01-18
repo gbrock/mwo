@@ -9,7 +9,8 @@
 		"laravel/framework": "4.2.*",
     	"twbs/bootstrap": "3.3.*",
     	"fortawesome/font-awesome": "4.2.*",
-		"oyejorge/less.php": "~1.5"
+		"oyejorge/less.php": "~1.5",
+		"davejamesmiller/laravel-breadcrumbs": "~2.3"
 	},
 	"autoload": {
 		"classmap": [

@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'create' => Lang::get('labels.create', array(
+	'create' => Lang::get('labels.create_item', array(
     	'item' => Lang::choice('labels.party', 1),
     )),
     'description' => 'a listing of every individual and organization in the system',

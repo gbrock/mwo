@@ -122,6 +122,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
+		// additions
+		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
 	),
 
 	/*
@@ -189,6 +191,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 
+		// additions
+		'Breadcrumbs'		=> 'DaveJamesMiller\Breadcrumbs\Facade',
 	),
 
 );
