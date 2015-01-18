@@ -66,9 +66,15 @@ class AssetController extends BaseController {
 		{
 			Cache::forget($sCacheKey);
 		}
-
+		
 		$response = Response::make($sContent);
 		$response->header('Content-Type', 'text/css');
+
+		if($bAllowCache)
+		{
+			$response = $this->cacheHeaders(60*60*2, $response); // two hours
+		}
+
 
 		return $response;
 	}
@@ -82,7 +88,6 @@ class AssetController extends BaseController {
 		$sContent = FALSE;
 		$sCacheKey = 'js:' . $sRequestScript;
 		$bAllowCache = TRUE;
-		$bAllowCache = FALSE;
 		$iCacheMinutes = 60*12;
 
 		if($bAllowCache && Cache::has($sCacheKey))
@@ -136,6 +141,11 @@ class AssetController extends BaseController {
 		$response = Response::make($sContent);
 		$response->header('Content-Type', 'application/javascript');
 
+		if($bAllowCache)
+		{
+			$response = $this->cacheHeaders(60*60*2, $response); // two hours
+		}
+
 		return $response;
 	}
 
@@ -177,12 +187,33 @@ class AssetController extends BaseController {
 			header("Content-Type: " . $sHeader);
 			header("Content-Length: " . filesize($sFontPath));
 
+			// how long to cache it
+			$this->cacheHeaders(60*60*24);
+
 			// dump the font and stop the script
 			fpassthru($fp);
 			exit;
 		}
 
 		App::abort(404);
+	}
+
+	protected function cacheHeaders($iSeconds = 3600, $respObj = FALSE)
+	{
+		$sValidUntil = gmdate('D, d M Y H:i:s', time() + $iSeconds) . ' GMT';
+
+		if($respObj)
+		{
+			$respObj->header('Cache-Control', 'public');
+			$respObj->header('Expires', $sValidUntil);
+
+			return $respObj;
+		}
+		else
+		{
+			header('Cache-Control: public');
+			header('Expires: ' . $sValidUntil);
+		}
 	}
 
 }

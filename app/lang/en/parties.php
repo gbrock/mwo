@@ -1,8 +1,13 @@
 <?php
 
 return array(
+	'id' => 'Party ID',
+	'name' => 'Display Name',
 	'create' => Lang::get('labels.create_item', array(
     	'item' => Lang::choice('labels.party', 1),
+    )),
+	'edit' => Lang::get('labels.edit_item', array(
+    	'item' => ':item',
     )),
     'description' => 'a listing of every individual and organization in the system',
     'create_friendly' => 'Add someone to your list now',

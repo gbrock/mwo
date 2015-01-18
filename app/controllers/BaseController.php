@@ -18,8 +18,10 @@ class BaseController extends Controller {
 		$this->js = new Collection($this->js);
 
 		$this->css->push('screen.css');
-		$this->js->push('jquery.js');
-		$this->js->push('bootstrap.js');
+
+		// Let's see how long until we need JS.
+		// $this->js->push('jquery.js');
+		// $this->js->push('bootstrap.js');
 	}
 
 	/**

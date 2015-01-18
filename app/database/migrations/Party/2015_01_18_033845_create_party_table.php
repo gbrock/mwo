@@ -28,6 +28,7 @@ class CreatePartyTable extends Migration {
 			
 			// The trackers
 			$table->timestamps();
+			$table->softDeletes();
 
 			// The foreign relations
 		});
