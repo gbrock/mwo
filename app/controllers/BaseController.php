@@ -4,6 +4,9 @@ use Illuminate\Support\Collection;
 
 class BaseController extends Controller {
 
+	protected $title;
+	protected $title_separator = ' &ndash; ';
+
 	protected $nav_controller;
 
 	protected $layout = 'master';

@@ -1,5 +1,10 @@
 @extends('layouts.html5')
 
+@section('title')
+	{{{ isset($page_title) && $page_title ? $page_title . ' &ndash; ' : '' }}}
+	@lang('labels.site')
+@stop
+
 @section('body')
 	<nav class="navbar navbar-static-top navbar-inverse">
 		<div class="container">

@@ -11,7 +11,7 @@ The default HTML5 file.
 	@section('head_meta')
 	@show
 
-	<title>{{ $page_title or 'Site Title' }}</title>
+	<title></title>
 @if(isset($css) && is_array($css) && count($css))
 	@foreach ($css as $stylesheet)
 	

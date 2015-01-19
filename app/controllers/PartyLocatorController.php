@@ -24,6 +24,11 @@ class PartyLocatorController extends \BaseController {
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
+			'page_title' => Lang::get('common.items_by_category_specified', array(
+				'x' => Lang::choice('labels.party_' . $this->data_key, 0),
+				'y' => Lang::choice('labels.party', 1),
+				'z' => $party->name,
+			)),
 			'party' => $party,
 			'crumbs' => Breadcrumbs::render('party_locators', $this->breadcrumb_name, $party),
 			'controller' => get_class($this),
@@ -50,6 +55,7 @@ class PartyLocatorController extends \BaseController {
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
+			'page_title' => Lang::get('labels.create_item', array('item' => Lang::choice('labels.party_' . $this->data_key, 1))),
 			'party' => $party,
 			$this->data_key => new $this->model_name,
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.create'), 'party_locators', array($this->breadcrumb_name, $party)),
@@ -111,6 +117,7 @@ class PartyLocatorController extends \BaseController {
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			$this->data_key => $locator,
+			'page_title' => Lang::get('labels.record_id', array('type' => Lang::choice('labels.party_' . $this->data_key, 1), 'id' => $locator->id)),
 			'party' => $party,
 			'crumbs' => Breadcrumbs::render('party_locator', $this->breadcrumb_name, $party, $locator),
 			'controller' => get_class($this),
@@ -141,6 +148,7 @@ class PartyLocatorController extends \BaseController {
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			$this->data_key => $locator,
+			'page_title' => Lang::get('labels.edit_item', array('item' => Lang::get('labels.record_id', array('type' => Lang::choice('labels.party_' . $this->data_key, 1), 'id' => $locator->id)))),
 			'party' => $party,
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.edit'), 'party_locator', array($this->breadcrumb_name, $party, $locator)),
 			'controller' => get_class($this),

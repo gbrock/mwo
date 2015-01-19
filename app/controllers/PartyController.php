@@ -9,6 +9,8 @@ class PartyController extends \BaseController {
     {
         $this->beforeFilter('@filterRequests');
 
+        $this->title = Lang::choice('labels.party', 0);
+
     	parent::__construct();
     }
 
@@ -55,6 +57,7 @@ class PartyController extends \BaseController {
 
 		// Set up the breadcrumbs
 		$aViewData['crumbs'] = Breadcrumbs::render('parties');
+		$aViewData['page_title'] = Lang::choice('labels.party', 0);
 
 		// Render the view
 		$this->loadView('parties.index', $aViewData);
@@ -72,7 +75,11 @@ class PartyController extends \BaseController {
 		$sPartyType = Input::old('type', 'p');
 
 		// Set up the data needed by the view(s)
-		$aViewData = array();
+		$aViewData = array(
+			'page_title' => Lang::get('parties.create'),
+			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.create'), 'parties'),
+			'party_type' => $sPartyType,
+		);
 
 		switch($sPartyType)
 		{
@@ -86,11 +93,6 @@ class PartyController extends \BaseController {
 				return App::abort();
 				break;
 		}
-
-		$aViewData['party_type'] = $sPartyType;
-
-		// Set up the breadcrumbs
-		$aViewData['crumbs'] = Breadcrumbs::render('action', Lang::get('labels.create'), 'parties');
 
 		// Render the view
 		$this->loadView('parties/create', $aViewData);
@@ -174,6 +176,8 @@ class PartyController extends \BaseController {
 			'crumbs' => Breadcrumbs::render('party', $party),
 		);
 
+		$aViewData['page_title'] = $party->name;
+
 		// Share it with the layout
 		View::share($aViewData);
 
@@ -207,6 +211,8 @@ class PartyController extends \BaseController {
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.edit'), 'party', $party), // Breadcrumbs
 			'active_action' => 'PartyController@show', // Visibly-highlighted action
 		);
+		
+		$aViewData['page_title'] = Lang::get('labels.edit_item', array('item' => $party->name));
 
 		// Share it with the layout
 		View::share($aViewData);
@@ -223,6 +229,7 @@ class PartyController extends \BaseController {
 				return App::abort();
 				break;
 		}
+
 
 		$aViewData['party_type'] = $sPartyType;
 

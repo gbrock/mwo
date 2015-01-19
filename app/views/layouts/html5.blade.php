@@ -10,7 +10,7 @@ The default HTML5 file.
 	<meta charset="utf-8" />
 	@yield('head_meta')
 
-	<title>{{ $page_title or 'Site Title' }}</title>
+	<title>@yield('title')</title>
 @if(isset($css) && is_array($css) && count($css))
 	@foreach ($css as $stylesheet)
 	
