@@ -15,7 +15,7 @@ $party_nav_items[] = array(
 	'action' => 'PartyLinkController@index',
 	'action_param' => array($party->id),
 	'icon' => 'link',
-	'label' => ($party->links()->count() ? '<span class="badge pull-right">' . number_format($party->links()->count()) . '</span>' : '') . Lang::choice('labels.party_link', $party->links()->count()),
+	'label' => ($party->links()->count() ? '<span class="badge pull-right">' . number_format($party->links()->count()) . '</span>' : '') . Lang::choice('labels.party_link', 0),
 );
 
 ?>

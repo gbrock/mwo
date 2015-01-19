@@ -1,4 +1,4 @@
-@extends('parties.record_wrapper')
+@extends('layouts.party')
 
 @section('inner')
 	<div class="panel panel-default">

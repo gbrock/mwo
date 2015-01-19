@@ -163,8 +163,6 @@ class PartyController extends \BaseController {
 			return App::abort(404);
 		}
 
-		// $this->layout->content = View::make('layouts.party');
-
 		View::share('party', $party);
 
 		// Type is derived from model and cannot be changed
@@ -225,7 +223,7 @@ class PartyController extends \BaseController {
 			{
 				$type =& $party->organization;
 			}
-			
+
 			$success = $party->save();
 			$success = $type->save() && $success;
 
