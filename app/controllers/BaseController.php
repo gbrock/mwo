@@ -40,7 +40,7 @@ class BaseController extends Controller {
 	{
 		if ( ! is_null($this->layout))
 		{
-			// Share the current controller throughout our views
+			// Share the current controller throughout our views to use in the nav
 			View::share('active_controller', $this->nav_controller . 'Controller');
 
 			$this->layout = View::make('layouts.' . $this->layout, array(

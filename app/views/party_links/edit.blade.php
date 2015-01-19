@@ -1,5 +1,3 @@
-@extends('parties.record_wrapper')
-
 @section('inner')
 	{{ Form::open(array(
 		'action' => array('PartyLinkController@update', $party->id, $link->id),

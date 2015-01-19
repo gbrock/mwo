@@ -4,6 +4,8 @@ class PartyLinkController extends \BaseController {
 
 	protected $nav_controller = 'Party';
 
+	protected $layout = 'party';
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -11,19 +13,15 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function index($partyId)
 	{
-		$party = Party::with('links')->find($partyId);
-
-		if(!$party) {
-			return App::abort(404);
-		}
+		$party = $this->load($partyId);
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'party' => $party,
+			'crumbs' => Breadcrumbs::render('party_links', $party),
 		);
 
-		// Set up the breadcrumbs
-		$aViewData['crumbs'] = Breadcrumbs::render('party_links', $party);
+		View::share($aViewData);
 
 		// Render the view
 		$this->layout->content = View::make('party_links.index', $aViewData);
@@ -37,25 +35,19 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function create($partyId)
 	{
-		$party = Party::with('links')->find($partyId);
-
-		if(!$party) {
-			return App::abort(404);
-		}
+		$party = $this->load($partyId);
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'party' => $party,
 			'link' => new PartyLink,
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.create'), 'party_links', $party),
-			'active_action' => 'PartyLinkController@index',
 		);
 
-		// Set up the form to post
-		View::share('form_action', array('PartyLinkController@store', $party->id));
+		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make('party_links/create', $aViewData);
+		$this->layout->content = View::make('party_links.create', $aViewData);
 	}
 
 
@@ -66,11 +58,7 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function store($partyId)
 	{
-		$party = Party::with('links')->find($partyId);
-
-		if(!$party) {
-			return App::abort(404);
-		}
+		$party = $this->load($partyId);
 
 		if(Input::get('save') !== NULL) // save attempt
 		{
@@ -79,7 +67,6 @@ class PartyLinkController extends \BaseController {
 
 			if($link->save()) // Validated
 			{
-
 				Notification::success(Lang::get('messages.created', array('name' => Lang::choice('labels.party_link', 1))));
 				return Redirect::action('PartyLinkController@index', $party->id);
 			}
@@ -103,24 +90,20 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function show($partyId, $id)
 	{
-		// Get party by ID which has links
-		$party = Party::has('links')->find($partyId);
-
-		// If there was no party, or no link by the specified ID
-		if(!$party || !$link = $party->links->find($id)) {
-			return App::abort(404);
-		}
+		$link = $this->load($partyId, $id);
+		$party = $link->party;
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'link' => $link,
-			'party' => $link->party,
+			'party' => $party,
 			'crumbs' => Breadcrumbs::render('party_link', $party, $link),
-			'active_action' => 'PartyLinkController@index',
 		);
 
+		View::share($aViewData);
+
 		// Render the view
-		$this->layout->content = View::make('party_links/show', $aViewData);
+		$this->layout->content = View::make('party_links.show', $aViewData);
 	}
 
 
@@ -132,24 +115,17 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function edit($partyId, $id)
 	{
-		// Get party by ID which has links
-		$party = Party::has('links')->find($partyId);
-
-		// If there was no party, or no link by the specified ID
-		if(!$party || !$link = $party->links->find($id)) {
-			return App::abort(404);
-		}
+		$link = $this->load($partyId, $id);
+		$party = $link->party;
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'link' => $link,
 			'party' => $party,
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.edit'), 'party_link', array($party, $link)),
-			'active_action' => 'PartyLinkController@index',
 		);
 
-		// Set up the form to post
-		View::share('form_action', array('PartyLinkController@update', array($party->id, $link->id)));
+		View::share($aViewData);
 
 		// Render the view
 		$this->layout->content = View::make('party_links.edit', $aViewData);
@@ -164,13 +140,8 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function update($partyId, $id)
 	{
-		// Get party by ID which has links
-		$party = Party::has('links')->find($partyId);
-
-		// If there was no party, or no link by the specified ID
-		if(!$party || !$link = $party->links->find($id)) {
-			return App::abort(404);
-		}
+		$link = $this->load($partyId, $id);
+		$party = $link->party;
 
 		if(Input::get('save') !== NULL) // save attempt
 		{
@@ -199,13 +170,8 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function destroy($partyId, $id)
 	{
-		// Get party by ID which has links
-		$party = Party::has('links')->find($partyId);
-
-		// If there was no party, or no link by the specified ID
-		if(!$party || !$link = $party->links->find($id)) {
-			return App::abort(404);
-		}
+		$link = $this->load($partyId, $id);
+		$party = $link->party;
 
 		Notification::error(Lang::get('messages.deleted', array('name' => Lang::choice('labels.party_link', 1))));
 		$link->delete();
@@ -213,5 +179,49 @@ class PartyLinkController extends \BaseController {
 		return Redirect::action('PartyLinkController@index', $party->id);
 	}
 
+	/**
+	 * Loads either a party's links or a specific link, both by ID.
+	 * Spews a 404 if nothing was found.
+	 * @param  int
+	 * @param  int
+	 */
+	private function load($partyId, $id = FALSE)
+	{
+		$party = FALSE;
+		$link = FALSE;
+		$to_return = FALSE;
+
+		if(!$id)
+		{
+			// Get party by ID
+			$party = Party::all()->find($partyId);
+
+			// If party was found
+			if($party) {
+				$to_return = $party;
+			}
+
+		}
+		else
+		{
+			// Get party by ID which has links
+			$party = Party::has('links')->find($partyId);
+
+			// If there is a party and a link by the specified ID
+			if($party && $link = $party->links->find($id)) {
+				$to_return = $link;
+			}
+		}
+
+		$this->layout->party = $party;
+		$this->layout->active_action = 'PartyLinkController@index';
+
+		if($to_return)
+		{
+			return $to_return;
+		}
+
+		return App::abort(404);
+	}
 
 }

@@ -1,5 +1,3 @@
-@extends('parties.record_wrapper')
-
 @section('inner')
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -8,11 +6,9 @@
 		@if($party->links->count())
 			<div class="list-group">
 				@foreach($party->links as $l)
-					<div class="list-group-item">
-						<a href="{{ action('PartyLinkController@show', array($party->id, $l->id)) }}">
-							{{{ $l->url }}}
-						</a>
-					</div>
+					<a class="list-group-item" href="{{ action('PartyLinkController@show', array($party->id, $l->id)) }}">
+						{{{ $l->url }}}
+					</a>
 				@endforeach
 			</div>
 			<div class="panel-footer">

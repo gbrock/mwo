@@ -26,12 +26,17 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+			{{ Form::open(array(
+				'action' => array('PartyController@destroy', $party->id),
+				'method' => 'DELETE',
+			)) }}
 			<h3 class="clearfix">
 				<img src="http://placehold.it/128x128" width="64" height="64" class="img-responsive img-rounded visible-xs pull-left">
 				<span class="visible-inline-xs">&nbsp;</span>
 				{{ HTML::icon($party->icon) }}
 				{{{ $party->name }}}
 			</h3>
+			{{ Form::close() }}
 			
 			@yield('inner')
 			<div class="visible-xs">

@@ -12,6 +12,7 @@ return array(
 	'save' => 'Save',
     'edit' => 'Edit',
 	'destroy' => 'Delete',
+    'overview' => 'Overview',
     'create_item' => 'Add :item',
     'edit_item' => 'Edit :item',
     'optional' => 'Optional.',
@@ -20,4 +21,5 @@ return array(
     'created_at' => 'Added',
     'visit_external' => 'visit link',
     'missing_page' => '404 - Not Found',
+    'see_also' => 'See more for :item',
 );

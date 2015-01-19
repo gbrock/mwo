@@ -1,5 +1,3 @@
-@extends('parties.record_wrapper')
-
 @section('inner')
 	<div class="panel panel-default">
 		<div class="panel-body">
