@@ -23,42 +23,13 @@ Breadcrumbs::register('party', function($breadcrumbs, $party) {
     $breadcrumbs->push($party->name, action('PartyController@show', $party->id));
 });
 
-Breadcrumbs::register('party_links', function($breadcrumbs, $party) {
-	$breadcrumbs->parent('party', $party);
-    $breadcrumbs->push(Lang::choice('labels.party_link', 0), action('PartyLinkController@index', $party->id));
-});
 
-Breadcrumbs::register('party_link', function($breadcrumbs, $party, $link) {
-	$breadcrumbs->parent('party_links', $party);
-    $breadcrumbs->push('#' . $link->id, action('PartyLinkController@show', array($party->id, $link->id)));
-});
-
-Breadcrumbs::register('party_emails', function($breadcrumbs, $party) {
+Breadcrumbs::register('party_locators', function($breadcrumbs, $locator_name, $party) {
     $breadcrumbs->parent('party', $party);
-    $breadcrumbs->push(Lang::choice('labels.party_email', 0), action('PartyEmailController@index', $party->id));
+    $breadcrumbs->push(Lang::choice('labels.party_' . $locator_name, 0), action('Party' . ucfirst($locator_name) . 'Controller@index', $party->id));
 });
 
-Breadcrumbs::register('party_email', function($breadcrumbs, $party, $email) {
-    $breadcrumbs->parent('party_emails', $party);
-    $breadcrumbs->push('#' . $email->id, action('PartyEmailController@show', array($party->id, $email->id)));
-});
-
-Breadcrumbs::register('party_phones', function($breadcrumbs, $party) {
-    $breadcrumbs->parent('party', $party);
-    $breadcrumbs->push(Lang::choice('labels.party_phone', 0), action('PartyPhoneController@index', $party->id));
-});
-
-Breadcrumbs::register('party_phone', function($breadcrumbs, $party, $phone) {
-    $breadcrumbs->parent('party_phones', $party);
-    $breadcrumbs->push('#' . $phone->id, action('PartyPhoneController@show', array($party->id, $phone->id)));
-});
-
-Breadcrumbs::register('party_addresses', function($breadcrumbs, $party) {
-    $breadcrumbs->parent('party', $party);
-    $breadcrumbs->push(Lang::choice('labels.party_address', 0), action('PartyAddressController@index', $party->id));
-});
-
-Breadcrumbs::register('party_address', function($breadcrumbs, $party, $address) {
-    $breadcrumbs->parent('party_addresses', $party);
-    $breadcrumbs->push('#' . $address->id, action('PartyAddressController@show', array($party->id, $address->id)));
+Breadcrumbs::register('party_locator', function($breadcrumbs, $locator_name, $party, $locator) {
+    $breadcrumbs->parent('party_locators', $locator_name, $party);
+    $breadcrumbs->push('#' . $locator->id, action('Party' . ucfirst($locator_name) . 'Controller@show', array($party->id, $locator->id)));
 });
