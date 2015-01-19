@@ -5,6 +5,8 @@ return array(
     'home' => 'Home',
     'party' => 'Party|Parties',
     'person' => 'Person|People',
+    'user' => 'User|Users',
+    'account' => 'User Account|User Accounts',
     'organization' => 'Organization|Organizations',
     'party_link' => 'Link|Links',
     'party_email' => 'E-mail|E-mails',

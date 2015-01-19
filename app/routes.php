@@ -20,6 +20,10 @@ Route::resource('party.emails', 'PartyEmailController');
 Route::resource('party.phones', 'PartyPhoneController');
 Route::resource('party.addresses', 'PartyAddressController');
 
+Route::get('party/{id}/user', 'UserController@show');
+Route::post('party/{id}/user/store', 'UserController@store');
+Route::put('party/{id}/user/update', 'UserController@update');
+
 /**
  * Assets
  */

@@ -12,6 +12,13 @@ $party_nav_items[] = array(
 );
 
 $party_nav_items[] = array(
+	'action' => 'UserController@show',
+	'action_param' => array($party->id),
+	'icon' => 'key',
+	'label' => Lang::choice('labels.account', 1),
+);
+
+$party_nav_items[] = array(
 	'action' => 'PartyLinkController@index',
 	'action_param' => array($party->id),
 	'icon' => 'link',
