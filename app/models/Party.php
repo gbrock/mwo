@@ -36,6 +36,12 @@ class Party extends Base
         	->hasMany('PartyPhone');
     }
 
+	public function addresses()
+    {
+        return $this
+        	->hasMany('PartyAddress');
+    }
+
 	/**
 	 * Model hooks.
 	 */

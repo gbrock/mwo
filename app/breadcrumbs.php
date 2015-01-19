@@ -52,3 +52,13 @@ Breadcrumbs::register('party_phone', function($breadcrumbs, $party, $phone) {
     $breadcrumbs->parent('party_phones', $party);
     $breadcrumbs->push('#' . $phone->id, action('PartyPhoneController@show', array($party->id, $phone->id)));
 });
+
+Breadcrumbs::register('party_addresses', function($breadcrumbs, $party) {
+    $breadcrumbs->parent('party', $party);
+    $breadcrumbs->push(Lang::choice('labels.party_address', 0), action('PartyAddressController@index', $party->id));
+});
+
+Breadcrumbs::register('party_address', function($breadcrumbs, $party, $address) {
+    $breadcrumbs->parent('party_addresses', $party);
+    $breadcrumbs->push('#' . $address->id, action('PartyAddressController@show', array($party->id, $address->id)));
+});

@@ -13,7 +13,7 @@ class PartyLink extends PartyLocator {
 	protected $fillable = array('url');
 
 	/**
-	 * The validation rules automatically used by Ardent.
+	 * The validation rules automatically used.
 	 *
 	 * @var array
 	 */

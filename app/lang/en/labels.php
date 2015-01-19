@@ -9,6 +9,7 @@ return array(
     'party_link' => 'Link|Links',
     'party_email' => 'E-mail|E-mails',
     'party_phone' => 'Phone|Phones',
+    'party_address' => 'Address|Addresses',
     'back' => 'Back',
     'create' => 'Add',
 	'save' => 'Save',

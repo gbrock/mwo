@@ -13,7 +13,7 @@ class PartyEmail extends PartyLocator {
 	protected $fillable = array('address');
 
 	/**
-	 * The validation rules automatically used by Ardent.
+	 * The validation rules automatically used.
 	 *
 	 * @var array
 	 */

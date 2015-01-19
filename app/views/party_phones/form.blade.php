@@ -2,6 +2,7 @@
 	'name' => 'number',
 	'attr' => array(
 		' type' => 'tel', // the space before the key is there to trick Laravel... nasty.
+		'autofocus',
 	),
 	'label' => FALSE,
 	'value' => $phone->exists() ? $phone->number : FALSE,

@@ -33,7 +33,7 @@ class CreatePartyLocationTable extends Migration {
 			$table->timestamps();
 
 			// The foreign relations
-			$table->integer('api_id')->unsigned();
+			$table->integer('api_id')->unsigned()->nullable();
 			$table->index('api_id');
 			$table->foreign('api_id')->references('id')->on('api_location_result');
 

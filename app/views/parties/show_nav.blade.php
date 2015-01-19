@@ -32,6 +32,13 @@ $party_nav_items[] = array(
 	'label' => ($party->phones()->count() ? '<span class="badge pull-right">' . number_format($party->phones()->count()) . '</span>' : '') . Lang::choice('labels.party_phone', 0),
 );
 
+$party_nav_items[] = array(
+	'action' => 'PartyAddressController@index',
+	'action_param' => array($party->id),
+	'icon' => 'map-marker',
+	'label' => ($party->addresses()->count() ? '<span class="badge pull-right">' . number_format($party->addresses()->count()) . '</span>' : '') . Lang::choice('labels.party_address', 0),
+);
+
 ?>
 <ul class="nav {{ $nav_class or 'nav-pills nav-stacked' }}">
 	@foreach($party_nav_items as $i => $nav)
