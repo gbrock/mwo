@@ -23,6 +23,7 @@ return array(
     'updated_at' => 'Last Edited',
     'created_at' => 'Added',
     'visit_external' => 'visit link',
-    'missing_page' => '404 - Not Found',
     'see_also' => 'See more for :item',
+    'missing_page' => '404 - Not Found',
+    'bad_method' => '405 - Bad Method',
 );

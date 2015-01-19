@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -40,4 +42,10 @@ Route::get('includes/fonts/{script}', 'AssetController@getFont')
 App::missing(function($exception)
 {
 	return App::make('ErrorController')->get404();
+});
+
+// MethodNotAllowed gets tossed separately
+App::error(function(MethodNotAllowedHttpException $exception)
+{
+    return App::make('ErrorController')->get405();
 });
