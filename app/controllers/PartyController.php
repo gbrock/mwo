@@ -2,6 +2,38 @@
 
 class PartyController extends \BaseController {
 
+	/**
+     * Instantiate a new UserController instance.
+     */
+    public function __construct()
+    {
+        $this->beforeFilter('@filterRequests');
+
+    	parent::__construct();
+    }
+
+    /**
+     * Filter the incoming requests.
+     */
+    public function filterRequests($route, $request)
+    {
+    	$target = explode('@', $route->getActionName());
+
+    	if(count($target) === 2)
+    	{
+    		$method = $target[1];
+	    	switch($method)
+	    	{
+	    		// Change the layout for these requests
+	    		case 'show':
+	    		case 'edit':
+	    			$this->layout = 'party';
+	    			break;
+	    	}
+    	}
+
+    }
+
 
 	/**
 	 * Display a listing of the resource.
@@ -139,13 +171,14 @@ class PartyController extends \BaseController {
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'party' => $party,
+			'crumbs' => Breadcrumbs::render('party', $party),
 		);
 
-		// Set up the breadcrumbs
-		$aViewData['crumbs'] = Breadcrumbs::render('party', $party);
+		// Share it with the layout
+		View::share($aViewData);
 
 		// Render the view
-		$this->loadView('parties/show', $aViewData);
+		$this->loadView('parties.show', $aViewData);
 	}
 
 
@@ -170,8 +203,13 @@ class PartyController extends \BaseController {
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
-			'party' => $party,
+			'party' => $party, // Main object
+			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.edit'), 'party', $party), // Breadcrumbs
+			'active_action' => 'PartyController@show', // Visibly-highlighted action
 		);
+
+		// Share it with the layout
+		View::share($aViewData);
 
 		switch($sPartyType)
 		{
@@ -187,13 +225,9 @@ class PartyController extends \BaseController {
 		}
 
 		$aViewData['party_type'] = $sPartyType;
-		$aViewData['active_action'] = 'PartyController@show';
-
-		// Set up the breadcrumbs
-		$aViewData['crumbs'] = Breadcrumbs::render('action', Lang::get('labels.edit'), 'party', $party);
 
 		// Render the view
-		$this->layout->inner = View::make('parties/edit', $aViewData);
+		$this->loadView('parties.edit', $aViewData);
 	}
 
 

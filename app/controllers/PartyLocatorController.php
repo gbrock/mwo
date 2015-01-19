@@ -82,7 +82,7 @@ class PartyLocatorController extends \BaseController {
 
 			if($locator->save()) // Validated
 			{
-				Notification::success(Lang::get('messages.created', array('name' => Lang::choice('labels.party_' . $this->data_key, 1))));
+				Notification::success(Lang::get('messages.created', array('name' => $locator->label)));
 				return Redirect::action(get_class($this) . '@index', $party->id);
 			}
 
@@ -172,7 +172,7 @@ class PartyLocatorController extends \BaseController {
 		{
 			if($locator->save()) // Validated and stored
 			{
-				Notification::success(Lang::get('messages.updated', array('name' => '#' . $locator->id)));
+				Notification::success(Lang::get('messages.updated', array('name' => $locator->label)));
 				return Redirect::action(get_class($this) . '@show', array($party->id, $locator->id));
 			}
 
@@ -198,7 +198,7 @@ class PartyLocatorController extends \BaseController {
 		$locator = $this->load($partyId, $id);
 		$party = $locator->party;
 
-		Notification::error(Lang::get('messages.deleted', array('name' => Lang::choice('labels.party_' . $this->data_key, 1))));
+		Notification::error(Lang::get('messages.deleted', array('name' => $locator->label)));
 		$locator->delete();
 
 		return Redirect::action(get_class($this) . '@index', $party->id);

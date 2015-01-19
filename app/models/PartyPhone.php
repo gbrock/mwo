@@ -35,4 +35,33 @@ class PartyPhone extends PartyLocator {
     	}
     }
 
+	/**
+	 * The FontAwesome glyphicon to be used in conjunction with this record.
+	 * @var string
+	 */
+	public $glyphicon = 'phone';
+
+    public function getLabelAttribute()
+    {
+		$lang_label = 'party_phones.format_number';
+		
+		if($this->extension)
+		{
+			$lang_label .= '_w_extension';
+		}
+
+		// Grab the formatter from our language files
+		$r = Lang::get($lang_label, array(
+			'number' => $this->number,
+			'extension' => $this->extension,
+		));
+
+		if($this->type)
+		{
+			$r .= ' <span class="label label-default">' . $this->type . '</span> ';
+		}
+
+		return $r;
+    }
+
 }

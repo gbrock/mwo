@@ -7,6 +7,7 @@ class BaseController extends Controller {
 	protected $nav_controller;
 
 	protected $layout = 'master';
+	protected $layout_data = array();
 	protected $asset_folder = 'includes';
 
 	protected $css = array();
@@ -43,12 +44,16 @@ class BaseController extends Controller {
 			// Share the current controller throughout our views to use in the nav
 			View::share('active_controller', $this->nav_controller . 'Controller');
 
-			$this->layout = View::make('layouts.' . $this->layout, array(
+			$default = array(
 				'script_base' => $this->asset_folder . '/js',
 				'style_base' => $this->asset_folder . '/css',
 				'css' => $this->css->toArray(),
 				'js' => $this->js->toArray(),
-			));
+			);
+
+			$data = array_merge($default, $this->layout_data);
+
+			$this->layout = View::make('layouts.' . $this->layout, $data);
 		}
 	}
 

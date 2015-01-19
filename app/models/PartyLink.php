@@ -38,4 +38,15 @@ class PartyLink extends PartyLocator {
 		return '';
 	}
 
+	/**
+	 * The FontAwesome glyphicon to be used in conjunction with this record.
+	 * @var string
+	 */
+	public $glyphicon = 'link';
+
+    public function getLabelAttribute()
+    {
+		return $this->url;
+    }
+
 }

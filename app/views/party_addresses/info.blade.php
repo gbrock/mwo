@@ -8,5 +8,5 @@
 	@lang('party_addresses.type')
 </dt>
 <dd>
-	{{{ $address->type }}}
+	{{{ $address->type or '&mdash;' }}}
 </dd>

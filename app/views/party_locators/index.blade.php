@@ -6,7 +6,8 @@
 		<div class="list-group">
 			@foreach($items as $i)
 				<a class="list-group-item" href="{{ action("$controller@show", array($party->id, $i->id)) }}">
-					{{{ $i->label }}}
+					{{ $i->glyphicon ? HTML::icon($i->glyphicon . ' fa-fw') : '' }}
+					{{ $i->label }}
 				</a>
 			@endforeach
 		</div>

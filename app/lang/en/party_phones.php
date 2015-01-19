@@ -13,4 +13,7 @@ return array(
     )),
     'empty_table' => 'There\'s nothing here yet!',
     'create_friendly' => 'Add a phone number now',
+
+    'format_number' => ':number',
+    'format_number_w_extension' => ':number x(:extension)',
 );
