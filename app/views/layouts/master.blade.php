@@ -23,7 +23,7 @@
 					{{ $crumbs }}
 			@endif
 		@show
-		<div class="blink_me">
+		<div class="wake-blink">
 			{{ Notification::showAll() }}
 		</div>
 		@yield('content')
