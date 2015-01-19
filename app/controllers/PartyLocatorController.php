@@ -5,11 +5,11 @@ class PartyLocatorController extends \BaseController {
 	protected $nav_controller = 'Party';
 
 	protected $layout = 'party';
+	protected $view_folder = 'party_locators';
 
 	protected $data_key = '';
 	protected $data_key_p = '';
 	protected $breadcrumb_name = '';
-	protected $view_folder = '';
 	protected $model_name = '';
 	
 
@@ -26,12 +26,16 @@ class PartyLocatorController extends \BaseController {
 		$aViewData = array(
 			'party' => $party,
 			'crumbs' => Breadcrumbs::render('party_locators', $this->breadcrumb_name, $party),
+			'controller' => get_class($this),
+			'data_key' => $this->data_key,
+			'data_key_p' => $this->data_key_p,
+			'items' => $party->{$this->data_key_p},
 		);
 
 		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make($this->view_folder . '.index', $aViewData);
+		$this->loadView($this->view_folder . '.index', $aViewData);
 	}
 
 
@@ -49,12 +53,16 @@ class PartyLocatorController extends \BaseController {
 			'party' => $party,
 			$this->data_key => new $this->model_name,
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.create'), 'party_locators', array($this->breadcrumb_name, $party)),
+			'controller' => get_class($this),
+			'data_key' => $this->data_key,
+			'data_key_p' => $this->data_key_p,
+			'items' => $party->{$this->data_key_p},
 		);
 
 		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make($this->view_folder . '.create', $aViewData);
+		$this->loadView($this->view_folder . '.create', $aViewData);
 	}
 
 
@@ -105,12 +113,17 @@ class PartyLocatorController extends \BaseController {
 			$this->data_key => $locator,
 			'party' => $party,
 			'crumbs' => Breadcrumbs::render('party_locator', $this->breadcrumb_name, $party, $locator),
+			'controller' => get_class($this),
+			'data_key' => $this->data_key,
+			'data_key_p' => $this->data_key_p,
+			'items' => $party->{$this->data_key_p},
+			'target' => $locator,
 		);
 
 		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make($this->view_folder . '.show', $aViewData);
+		$this->loadView($this->view_folder . '.show', $aViewData);
 	}
 
 
@@ -130,12 +143,17 @@ class PartyLocatorController extends \BaseController {
 			$this->data_key => $locator,
 			'party' => $party,
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.edit'), 'party_locator', array($this->breadcrumb_name, $party, $locator)),
+			'controller' => get_class($this),
+			'data_key' => $this->data_key,
+			'data_key_p' => $this->data_key_p,
+			'items' => $party->{$this->data_key_p},
+			'target' => $locator,
 		);
 
 		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make($this->view_folder . '.edit', $aViewData);
+		$this->loadView($this->view_folder . '.edit', $aViewData);
 	}
 
 

@@ -1,4 +1,4 @@
-@extends('html5')
+@extends('layouts.html5')
 
 @section('body')
 	<nav class="navbar navbar-static-top navbar-inverse">
@@ -20,12 +20,14 @@
 	<div class="container">
 		@section('breadcrumbs')
 			@if(isset($crumbs))
-					{{ $crumbs }}
+				{{ $crumbs }}
 			@endif
 		@show
 		<div class="wake-blink">
 			{{ Notification::showAll() }}
 		</div>
-		@yield('content')
+		@section('content')
+			{{ $rendered_view or '' }}
+		@show
 	</div>
 @stop

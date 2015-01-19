@@ -25,7 +25,7 @@ class PartyController extends \BaseController {
 		$aViewData['crumbs'] = Breadcrumbs::render('parties');
 
 		// Render the view
-		$this->layout->content = View::make('parties/index', $aViewData);
+		$this->loadView('parties.index', $aViewData);
 	}
 
 
@@ -61,7 +61,7 @@ class PartyController extends \BaseController {
 		$aViewData['crumbs'] = Breadcrumbs::render('action', Lang::get('labels.create'), 'parties');
 
 		// Render the view
-		$this->layout->content = View::make('parties/create', $aViewData);
+		$this->loadView('parties/create', $aViewData);
 	}
 
 
@@ -145,7 +145,7 @@ class PartyController extends \BaseController {
 		$aViewData['crumbs'] = Breadcrumbs::render('party', $party);
 
 		// Render the view
-		$this->layout->content = View::make('parties/show', $aViewData);
+		$this->loadView('parties/show', $aViewData);
 	}
 
 

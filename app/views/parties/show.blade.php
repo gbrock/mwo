@@ -27,6 +27,12 @@
 				<dd>
 					# {{ $party->id }}
 				</dd>
+				<dt>
+					@lang('parties.name')
+				</dt>
+				<dd>
+					{{{ $party->name }}}
+				</dd>
 				@if($party->isPerson())
 					<dt>
 						@lang('people.gender')

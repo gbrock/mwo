@@ -52,6 +52,11 @@ class BaseController extends Controller {
 		}
 	}
 
+	protected function loadView($view, $data = array())
+	{
+		$this->layout->rendered_view = View::make($view, $data);
+	}
+
 	protected function getLimit()
 	{
 		// The index defaults

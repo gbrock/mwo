@@ -24,7 +24,8 @@
 			</h3>
 			{{ Form::close() }}
 			
-			@yield('inner')
+			{{ $rendered_view or '' }}
+			
 			<div class="visible-xs">
 				<hr>
 				<em>@lang('labels.see_also', array('item' => $party->name))</em>
