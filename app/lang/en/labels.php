@@ -8,6 +8,7 @@ return array(
     'organization' => 'Organization|Organizations',
     'party_link' => 'Link|Links',
     'party_email' => 'E-mail|E-mails',
+    'party_phone' => 'Phone|Phones',
     'back' => 'Back',
     'create' => 'Add',
 	'save' => 'Save',
