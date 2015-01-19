@@ -23,6 +23,12 @@ App::before(function($request)
 	{
 	    return '<span class="fa fa-' . $class . '" aria-hidden="true">' . str_repeat('&nbsp;', $nbs) . '</span>';
 	});
+
+	HTML::macro('prep_url', function($url, $scheme = 'http://')
+	{
+	  return parse_url($url, PHP_URL_SCHEME) === null ?
+	    $scheme . $url : $url;
+	});
 });
 
 

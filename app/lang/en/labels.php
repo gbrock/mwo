@@ -7,6 +7,7 @@ return array(
     'person' => 'Person|People',
     'organization' => 'Organization|Organizations',
     'party_link' => 'Link|Links',
+    'back' => 'Back',
     'create' => 'Add',
 	'save' => 'Save',
     'edit' => 'Edit',
@@ -17,5 +18,6 @@ return array(
     'cancel' => 'Cancel',
     'updated_at' => 'Last Edited',
     'created_at' => 'Added',
+    'visit_external' => 'visit link',
     'missing_page' => '404 - Not Found',
 );

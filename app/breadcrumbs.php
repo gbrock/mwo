@@ -28,7 +28,7 @@ Breadcrumbs::register('party_links', function($breadcrumbs, $party) {
     $breadcrumbs->push(Lang::choice('labels.party_link', 0), action('PartyLinkController@index', $party->id));
 });
 
-// Breadcrumbs::register('party_link', function($breadcrumbs, $party, $link) {
-// 	$breadcrumbs->parent('party', $party);
-//     $breadcrumbs->push(Lang::choice('labels.party_link', 0), action('PartyLinkController@index', $party->id));
-// });
+Breadcrumbs::register('party_link', function($breadcrumbs, $party, $link) {
+	$breadcrumbs->parent('party_links', $party);
+    $breadcrumbs->push('#' . $link->id, action('PartyLinkController@show', array($party->id, $link->id)));
+});

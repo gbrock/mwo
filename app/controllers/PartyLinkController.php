@@ -46,6 +46,7 @@ class PartyLinkController extends \BaseController {
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'party' => $party,
+			'link' => new PartyLink,
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.create'), 'party_links', $party),
 			'active_action' => 'PartyLinkController@index',
 		);
@@ -102,7 +103,24 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function show($partyId, $id)
 	{
-		//
+		// Get party by ID which has links
+		$party = Party::has('links')->find($partyId);
+
+		// If there was no party, or no link by the specified ID
+		if(!$party || !$link = $party->links->find($id)) {
+			return App::abort(404);
+		}
+
+		// Set up the data needed by the view(s)
+		$aViewData = array(
+			'link' => $link,
+			'party' => $link->party,
+			'crumbs' => Breadcrumbs::render('party_link', $party, $link),
+			'active_action' => 'PartyLinkController@index',
+		);
+
+		// Render the view
+		$this->layout->content = View::make('party_links/show', $aViewData);
 	}
 
 
@@ -114,7 +132,27 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function edit($partyId, $id)
 	{
-		//
+		// Get party by ID which has links
+		$party = Party::has('links')->find($partyId);
+
+		// If there was no party, or no link by the specified ID
+		if(!$party || !$link = $party->links->find($id)) {
+			return App::abort(404);
+		}
+
+		// Set up the data needed by the view(s)
+		$aViewData = array(
+			'link' => $link,
+			'party' => $party,
+			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.edit'), 'party_link', array($party, $link)),
+			'active_action' => 'PartyLinkController@index',
+		);
+
+		// Set up the form to post
+		View::share('form_action', array('PartyLinkController@update', array($party->id, $link->id)));
+
+		// Render the view
+		$this->layout->content = View::make('party_links.edit', $aViewData);
 	}
 
 
@@ -126,7 +164,30 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function update($partyId, $id)
 	{
-		//
+		// Get party by ID which has links
+		$party = Party::has('links')->find($partyId);
+
+		// If there was no party, or no link by the specified ID
+		if(!$party || !$link = $party->links->find($id)) {
+			return App::abort(404);
+		}
+
+		if(Input::get('save') !== NULL) // save attempt
+		{
+			if($link->save()) // Validated and stored
+			{
+				Notification::success(Lang::get('messages.updated', array('name' => '#' . $link->id)));
+				return Redirect::action('PartyLinkController@show', array($party->id, $link->id));
+			}
+
+			// Otherwise, it failed.
+			Notification::error($link->errors()->all());
+			return Redirect::action('PartyLinkController@edit', array($party->id, $link->id))
+				->withErrors($link->errors()->toArray())
+				->withInput();
+		}
+
+		return App::abort(404);
 	}
 
 
@@ -138,7 +199,18 @@ class PartyLinkController extends \BaseController {
 	 */
 	public function destroy($partyId, $id)
 	{
-		//
+		// Get party by ID which has links
+		$party = Party::has('links')->find($partyId);
+
+		// If there was no party, or no link by the specified ID
+		if(!$party || !$link = $party->links->find($id)) {
+			return App::abort(404);
+		}
+
+		Notification::error(Lang::get('messages.deleted', array('name' => Lang::choice('labels.party_link', 1))));
+		$link->delete();
+
+		return Redirect::action('PartyLinkController@index', $party->id);
 	}
 
 
