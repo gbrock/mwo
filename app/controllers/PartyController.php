@@ -98,7 +98,7 @@ class PartyController extends \BaseController {
 				$party->save();
 				$type->party()->associate($party);
 				$type->save();
-				
+
 				Notification::success(Lang::get('messages.created', array('name' => $party->name)));
 				return Redirect::action('PartyController@show', $party->id);
 			}
@@ -163,6 +163,10 @@ class PartyController extends \BaseController {
 			return App::abort(404);
 		}
 
+		// $this->layout->content = View::make('layouts.party');
+
+		View::share('party', $party);
+
 		// Type is derived from model and cannot be changed
 		$sPartyType = $party->type;
 
@@ -185,12 +189,13 @@ class PartyController extends \BaseController {
 		}
 
 		$aViewData['party_type'] = $sPartyType;
+		$aViewData['active_action'] = 'PartyController@show';
 
 		// Set up the breadcrumbs
 		$aViewData['crumbs'] = Breadcrumbs::render('action', Lang::get('labels.edit'), 'party', $party);
 
 		// Render the view
-		$this->layout->content = View::make('parties/edit', $aViewData);
+		$this->layout->inner = View::make('parties/edit', $aViewData);
 	}
 
 
@@ -210,20 +215,19 @@ class PartyController extends \BaseController {
 
 		if(Input::get('save') !== NULL) // save attempt
 		{
-			$object =& $party;
 			$type = FALSE;
 
-			if($object->person()->exists())
+			if($party->person()->exists())
 			{
-				$type =& $object->person;
+				$type =& $party->person;
 			}
-			elseif($object->organization()->exists())
+			elseif($party->organization()->exists())
 			{
-				$type =& $object->organization;
+				$type =& $party->organization;
 			}
-
-			$success = $object->save();
-			$success = $success && $type && $type->save();
+			
+			$success = $party->save();
+			$success = $type->save() && $success;
 
 			if($success) // Validated and stored
 			{
@@ -232,11 +236,11 @@ class PartyController extends \BaseController {
 			}
 
 			// Otherwise, it failed.
-			Notification::error($object->errors()->all());
+			Notification::error($party->errors()->all());
 			return Redirect::action('PartyController@edit', $party->id)
 				->withErrors(array_merge(
 					$party->errors()->toArray(),
-					$type->errors()->toArray()
+					($type ? $type->errors()->toArray() : array())
 				))
 				->withInput();
 		}

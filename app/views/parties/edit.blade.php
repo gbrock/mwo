@@ -1,20 +1,20 @@
-@extends('layouts.master')
+@extends('layouts.party')
 
-@section('content')
-	<p class="lead text-muted">
-		<span class="fa fa-wrench">&nbsp;</span>
-		@lang('parties.edit', array('item' => $party->name))
-	</p>
-
+@section('inner')
 	{{ Form::open(array(
 		'action' => array('PartyController@update', $party->id),
 		'method' => 'put',
 	)) }}
-		@include('parties.form')
-		@include($party_type_form)
-		@include('forms.submit', array(
-			'btns' => '<a href="' . action('PartyController@show', $party->id) . '" class="btn btn-default">' . Lang::get('labels.cancel') . '</a>'
-		))
-
+	<div class="panel panel-default">
+		<div class="panel-body">
+			@include('parties.form')
+			@include($party_type_form)
+		</div>
+		<div class="panel-footer">
+			@include('forms.submit', array(
+				'btns' => '<a href="' . action('PartyController@show', $party->id) . '" class="btn btn-default">' . Lang::get('labels.cancel') . '</a>'
+			))
+		</div>
+	</div>
 	{{ Form::close() }}
 @stop
