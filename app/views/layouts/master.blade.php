@@ -4,7 +4,7 @@
 	<nav class="navbar navbar-static-top navbar-inverse">
 		<div class="container">
 			<a href="{{ url() }}" class="navbar-brand">
-				MWO
+				@lang('labels.site')
 			</a>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">

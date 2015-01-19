@@ -86,6 +86,9 @@ class PartyController extends \BaseController {
 				case 'o':
 					$type = new Organization;
 					break;
+				default:
+					return App::abort();
+					break;
 			}
 
 			$success = $type->validate() && $success;
@@ -94,6 +97,8 @@ class PartyController extends \BaseController {
 			{
 				$party->save();
 				$type->party()->associate($party);
+				$type->save();
+				
 				Notification::success(Lang::get('messages.created', array('name' => $party->name)));
 				return Redirect::action('PartyController@show', $party->id);
 			}

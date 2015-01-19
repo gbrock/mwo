@@ -22,3 +22,13 @@ Breadcrumbs::register('party', function($breadcrumbs, $party) {
     $breadcrumbs->parent('parties');
     $breadcrumbs->push($party->name, action('PartyController@show', $party->id));
 });
+
+Breadcrumbs::register('party_links', function($breadcrumbs, $party) {
+	$breadcrumbs->parent('party', $party);
+    $breadcrumbs->push(Lang::choice('labels.party_link', 0), action('PartyLinkController@index', $party->id));
+});
+
+// Breadcrumbs::register('party_link', function($breadcrumbs, $party, $link) {
+// 	$breadcrumbs->parent('party', $party);
+//     $breadcrumbs->push(Lang::choice('labels.party_link', 0), action('PartyLinkController@index', $party->id));
+// });

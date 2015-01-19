@@ -3,7 +3,7 @@
 
 return array(
 	'missing_page' => 'Sorry, the requested resource could not be located.',
-	'updated' => 'Saved ":name" successfully.',
-	'created' => 'Added ":name" successfully.',
-	'deleted' => 'Deleted ":name" successfully.',
+	'updated' => ':name saved successfully.',
+	'created' => ':name added successfully.',
+	'deleted' => ':name deleted.',
 );

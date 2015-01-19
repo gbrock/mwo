@@ -1,5 +1,7 @@
 <?php
 
+$active_action = (isset($active_action) ? $active_action : Route::currentRouteAction());
+
 $party_nav_items = array();
 
 $party_nav_items[] = array(
@@ -19,7 +21,7 @@ $party_nav_items[] = array(
 ?>
 <ul class="nav nav-pills nav-stacked">
 	@foreach($party_nav_items as $i => $nav)
-		<li{{ $nav['action'] == Route::currentRouteAction() ? ' class="active"' : '' }}>
+		<li{{ $nav['action'] == $active_action ? ' class="active"' : '' }}>
 			<a href="{{ action($nav['action'], $nav['action_param']) }}">
 				@if($i === 0)<strong>@endif
 				{{ HTML::icon($nav['icon'] . ' fa-fw') }}

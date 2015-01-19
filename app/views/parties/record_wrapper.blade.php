@@ -45,30 +45,8 @@
 				</div>
 			</h3>
 			{{ Form::close() }}
-			<div class="panel panel-default">
-				@if(isset($form_action))	
-					{{ Form::open(array(
-						'action' => $form_action,
-					)) }}
-				@endif
-				<div class="panel-body">
-					{{-- $inner --}}
-				</div>
-				@if(isset($form_action))
-					<div class="panel-footer">
-						<div class="clearfix">
-							<div class="pull-right">
-								<div class="btn-group">
-									<button type="submit" class="btn btn-success">
-										{{ $form_submit or 'Submit'}}
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					{{ Form::close() }}
-				@endif
-			</div>
+			
+			@yield('inner')
 		</div>
 	</div>
 @stop

@@ -75,4 +75,14 @@ class Party extends Base
 
 		return $icon;
 	}
+
+	public function isPerson()
+	{
+		return $this->type === 'p';
+	}
+
+	public function isOrganization()
+	{
+		return $this->type === 'o';
+	}
 }
