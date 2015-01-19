@@ -17,13 +17,12 @@ Breadcrumbs::register('parties', function($breadcrumbs) {
     $breadcrumbs->push(Lang::choice('labels.party', 0), action('PartyController@index'));
 });
 
-// A directory record
 Breadcrumbs::register('party', function($breadcrumbs, $party) {
     $breadcrumbs->parent('parties');
     $breadcrumbs->push($party->name, action('PartyController@show', $party->id));
 });
 
-
+// The emails, phones, links, and addresses associated with a directory record
 Breadcrumbs::register('party_locators', function($breadcrumbs, $locator_name, $party) {
     $breadcrumbs->parent('party', $party);
     $breadcrumbs->push(Lang::choice('labels.party_' . $locator_name, 0), action('Party' . ucfirst($locator_name) . 'Controller@index', $party->id));

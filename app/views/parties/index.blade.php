@@ -15,16 +15,14 @@
 
 	@if(count($records))
 
-		<ul class="list-group">
+		<div class="list-group">
 			@foreach ($records as $r)
-				<li class="list-group-item">
-					<a href="{{ action('PartyController@show', $r->id) }}">
-						{{ HTML::icon($r->icon) }}
-						{{{ $r->name }}}
-					</a>
-				</li>
+				<a href="{{ action('PartyController@show', $r->id) }}" class="list-group-item">
+					{{ HTML::icon($r->icon) }}
+					{{{ $r->name }}}
+				</a>
 			@endforeach
-		</ul>
+		</div>
 				
 		{{ $records->appends( // use the current table GET variables (i.e. sorting)
 			array(
