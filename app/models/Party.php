@@ -24,6 +24,12 @@ class Party extends Base
         	->hasMany('PartyLink');
     }
 
+	public function emails()
+    {
+        return $this
+        	->hasMany('PartyEmail');
+    }
+
 	/**
 	 * Model hooks.
 	 */

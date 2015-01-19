@@ -20,10 +20,12 @@
 	<div class="container">
 		@section('breadcrumbs')
 			@if(isset($crumbs))
-				{{ $crumbs }}
+					{{ $crumbs }}
 			@endif
 		@show
-		{{ Notification::showAll() }}
+		<div class="blink_me">
+			{{ Notification::showAll() }}
+		</div>
 		@yield('content')
 	</div>
 @stop

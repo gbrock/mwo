@@ -32,3 +32,13 @@ Breadcrumbs::register('party_link', function($breadcrumbs, $party, $link) {
 	$breadcrumbs->parent('party_links', $party);
     $breadcrumbs->push('#' . $link->id, action('PartyLinkController@show', array($party->id, $link->id)));
 });
+
+Breadcrumbs::register('party_emails', function($breadcrumbs, $party) {
+    $breadcrumbs->parent('party', $party);
+    $breadcrumbs->push(Lang::choice('labels.party_email', 0), action('PartyEmailController@index', $party->id));
+});
+
+Breadcrumbs::register('party_email', function($breadcrumbs, $party, $email) {
+    $breadcrumbs->parent('party_emails', $party);
+    $breadcrumbs->push('#' . $email->id, action('PartyEmailController@show', array($party->id, $email->id)));
+});

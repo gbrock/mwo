@@ -7,6 +7,7 @@ return array(
     'person' => 'Person|People',
     'organization' => 'Organization|Organizations',
     'party_link' => 'Link|Links',
+    'party_email' => 'E-mail|E-mails',
     'back' => 'Back',
     'create' => 'Add',
 	'save' => 'Save',

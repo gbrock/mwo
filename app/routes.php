@@ -14,6 +14,7 @@
 Route::get('/', 'PartyController@index');
 Route::resource('party', 'PartyController');
 Route::resource('party.links', 'PartyLinkController');
+Route::resource('party.emails', 'PartyEmailController');
 
 /**
  * Assets

@@ -1,6 +1,6 @@
 <?php
 
-class PartyLinkController extends \PartyLocatorController {
+class PartyEmailController extends \PartyLocatorController {
 
 	/**
 	 * Display a listing of the resource.
@@ -14,13 +14,13 @@ class PartyLinkController extends \PartyLocatorController {
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'party' => $party,
-			'crumbs' => Breadcrumbs::render('party_links', $party),
+			'crumbs' => Breadcrumbs::render('party_emails', $party),
 		);
 
 		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make('party_links.index', $aViewData);
+		$this->layout->content = View::make('party_emails.index', $aViewData);
 	}
 
 
@@ -36,14 +36,14 @@ class PartyLinkController extends \PartyLocatorController {
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'party' => $party,
-			'link' => new PartyLink,
-			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.create'), 'party_links', $party),
+			'email' => new PartyEmail,
+			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.create'), 'party_emails', $party),
 		);
 
 		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make('party_links.create', $aViewData);
+		$this->layout->content = View::make('party_emails.create', $aViewData);
 	}
 
 
@@ -58,19 +58,19 @@ class PartyLinkController extends \PartyLocatorController {
 
 		if(Input::get('save') !== NULL) // save attempt
 		{
-			$link = new PartyLink;
-			$link->party()->associate($party);
+			$email = new PartyEmail;
+			$email->party()->associate($party);
 
-			if($link->save()) // Validated
+			if($email->save()) // Validated
 			{
-				Notification::success(Lang::get('messages.created', array('name' => Lang::choice('labels.party_link', 1))));
-				return Redirect::action('PartyLinkController@index', $party->id);
+				Notification::success(Lang::get('messages.created', array('name' => Lang::choice('labels.party_email', 1))));
+				return Redirect::action('PartyEmailController@index', $party->id);
 			}
 
 			// Otherwise, it failed.
-			Notification::error($link->errors()->all());
-			return Redirect::action('PartyLinkController@create', $party->id)
-				->withErrors($link->errors()->toArray())
+			Notification::error($email->errors()->all());
+			return Redirect::action('PartyEmailController@create', $party->id)
+				->withErrors($email->errors()->toArray())
 				->withInput();
 		}
 
@@ -86,20 +86,20 @@ class PartyLinkController extends \PartyLocatorController {
 	 */
 	public function show($partyId, $id)
 	{
-		$link = $this->load($partyId, $id);
-		$party = $link->party;
+		$email = $this->load($partyId, $id);
+		$party = $email->party;
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
-			'link' => $link,
+			'email' => $email,
 			'party' => $party,
-			'crumbs' => Breadcrumbs::render('party_link', $party, $link),
+			'crumbs' => Breadcrumbs::render('party_email', $party, $email),
 		);
 
 		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make('party_links.show', $aViewData);
+		$this->layout->content = View::make('party_emails.show', $aViewData);
 	}
 
 
@@ -111,20 +111,20 @@ class PartyLinkController extends \PartyLocatorController {
 	 */
 	public function edit($partyId, $id)
 	{
-		$link = $this->load($partyId, $id);
-		$party = $link->party;
+		$email = $this->load($partyId, $id);
+		$party = $email->party;
 
 		// Set up the data needed by the view(s)
 		$aViewData = array(
-			'link' => $link,
+			'email' => $email,
 			'party' => $party,
-			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.edit'), 'party_link', array($party, $link)),
+			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.edit'), 'party_email', array($party, $email)),
 		);
 
 		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make('party_links.edit', $aViewData);
+		$this->layout->content = View::make('party_emails.edit', $aViewData);
 	}
 
 
@@ -136,21 +136,21 @@ class PartyLinkController extends \PartyLocatorController {
 	 */
 	public function update($partyId, $id)
 	{
-		$link = $this->load($partyId, $id);
-		$party = $link->party;
+		$email = $this->load($partyId, $id);
+		$party = $email->party;
 
 		if(Input::get('save') !== NULL) // save attempt
 		{
-			if($link->save()) // Validated and stored
+			if($email->save()) // Validated and stored
 			{
-				Notification::success(Lang::get('messages.updated', array('name' => '#' . $link->id)));
-				return Redirect::action('PartyLinkController@show', array($party->id, $link->id));
+				Notification::success(Lang::get('messages.updated', array('name' => '#' . $email->id)));
+				return Redirect::action('PartyEmailController@show', array($party->id, $email->id));
 			}
 
 			// Otherwise, it failed.
-			Notification::error($link->errors()->all());
-			return Redirect::action('PartyLinkController@edit', array($party->id, $link->id))
-				->withErrors($link->errors()->toArray())
+			Notification::error($email->errors()->all());
+			return Redirect::action('PartyEmailController@edit', array($party->id, $email->id))
+				->withErrors($email->errors()->toArray())
 				->withInput();
 		}
 
@@ -166,17 +166,17 @@ class PartyLinkController extends \PartyLocatorController {
 	 */
 	public function destroy($partyId, $id)
 	{
-		$link = $this->load($partyId, $id);
-		$party = $link->party;
+		$email = $this->load($partyId, $id);
+		$party = $email->party;
 
-		Notification::error(Lang::get('messages.deleted', array('name' => Lang::choice('labels.party_link', 1))));
-		$link->delete();
+		Notification::error(Lang::get('messages.deleted', array('name' => Lang::choice('labels.party_email', 1))));
+		$email->delete();
 
-		return Redirect::action('PartyLinkController@index', $party->id);
+		return Redirect::action('PartyEmailController@index', $party->id);
 	}
 
 	/**
-	 * Loads either a party's links or a specific link, both by ID.
+	 * Loads either a party's emails or a specific link, both by ID.
 	 * Spews a 404 if nothing was found.
 	 * @param  int
 	 * @param  int
@@ -184,7 +184,7 @@ class PartyLinkController extends \PartyLocatorController {
 	private function load($partyId, $id = FALSE)
 	{
 		$party = FALSE;
-		$link = FALSE;
+		$email = FALSE;
 		$to_return = FALSE;
 
 		if(!$id)
@@ -201,16 +201,16 @@ class PartyLinkController extends \PartyLocatorController {
 		else
 		{
 			// Get party by ID which has links
-			$party = Party::has('links')->find($partyId);
+			$party = Party::has('emails')->find($partyId);
 
 			// If there is a party and a link by the specified ID
-			if($party && $link = $party->links->find($id)) {
-				$to_return = $link;
+			if($party && $email = $party->emails->find($id)) {
+				$to_return = $email;
 			}
 		}
 
 		$this->layout->party = $party;
-		$this->layout->active_action = 'PartyLinkController@index';
+		$this->layout->active_action = 'PartyEmailController@index';
 
 		if($to_return)
 		{
