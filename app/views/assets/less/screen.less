@@ -2,9 +2,32 @@
 @grid-float-breakpoint: 0px; // never hide the nav
 
 // our own Files
-@import 'bs3-fa4-cooperate.less';
-@import 'animations.less';
 
 // our developing styles; anything below this line should be moved to
 // an appropriate File above.
 
+object {
+	width: 100%;
+}
+
+/**
+ * Animate alerts by blinking them once
+ */
+.blink {
+	.animation-name('blinker');
+	.animation-duration(0.2s);
+	.animation-timing-function('linear');
+	.animation-iteration-count(2);
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
