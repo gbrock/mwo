@@ -123,8 +123,9 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
 		// additions
-		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
-		'Krucas\Notification\NotificationServiceProvider',
+		'DaveJamesMiller\Breadcrumbs\ServiceProvider', // Breadcrumbs
+		'Krucas\Notification\NotificationServiceProvider', // Notifications
+		'Cartalyst\Sentry\SentryServiceProvider', // Users and Permissions
 	),
 
 	/*
@@ -195,6 +196,7 @@ return array(
 		// additions
 		'Breadcrumbs'		=> 'DaveJamesMiller\Breadcrumbs\Facade',
         'Notification'		=> 'Krucas\Notification\Facades\Notification',
+        'Sentry'			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 	),
 
 );
