@@ -95,7 +95,7 @@ return array(
 		|
 		*/
 
-		'model' => 'Cartalyst\Sentry\Groups\Eloquent\Group',
+		'model' => 'Group',
 
 	),
 
@@ -120,7 +120,7 @@ return array(
 		|
 		*/
 
-		'model' => 'Cartalyst\Sentry\Users\Eloquent\User',
+		'model' => 'User',
 
 		/*
 		|--------------------------------------------------------------------------
@@ -133,7 +133,7 @@ return array(
 		|
 		*/
 
-		'login_attribute' => 'email',
+		'login_attribute' => 'address',
 
 	),
 
@@ -149,7 +149,7 @@ return array(
 	|
 	*/
 
-	'user_groups_pivot_table' => 'users_groups',
+	'user_groups_pivot_table' => 'users_group',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -186,7 +186,7 @@ return array(
 		|
 		*/
 
-		'model' => 'Cartalyst\Sentry\Throttling\Eloquent\Throttle',
+		'model' => 'Throttle',
 
 		/*
 		|--------------------------------------------------------------------------

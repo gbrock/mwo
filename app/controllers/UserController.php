@@ -70,7 +70,8 @@ class UserController extends \BaseController {
 		$aViewData['crumbs'] = Breadcrumbs::render('action', Lang::choice('labels.account', 1), 'party', $party);
 
 		// Render the view
-		$this->layout->content = View::make('user/show', $aViewData);	}
+		$this->layout->content = View::make('user/show', $aViewData);
+	}
 
 
 	/**

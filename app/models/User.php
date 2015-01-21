@@ -1,14 +1,11 @@
 <?php
 
-use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
 
-class User extends PartyType implements UserInterface, RemindableInterface {
+class User extends SentryUserModel {
 
-	use UserTrait, RemindableTrait, SoftDeletingTrait;
+    use SoftDeletingTrait;
 
 	/**
 	 * The database table used by the model.
@@ -16,27 +13,43 @@ class User extends PartyType implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'user';
-
+	
 	/**
-	 * The fields which are guarded from input (i.e. used by the system).
+	 * Which model(s) should have their timestamps updated ON UPDATE.
 	 * @var array
 	 */
-	protected $guarded = array('party_id');
+	protected $touches = array('party');
 
 	/**
-	 * The fields which may be filled.
-	 * @var array
-	 */
-	protected $fillable = array('gender', 'birth');
-
-	/**
-	 * The validation rules automatically used.
+	 * The table's primary key.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	public $rules = array(
-		'gender'					=> 'max:255',
-		'birth'						=> 'date',
-	);
+	protected $primaryKey = 'party_id';
+
+	protected static function boot()
+	{
+		parent::boot();
+
+		static::addGlobalScope(new RequireEmailScope);
+	}
+
+    /**
+     * The main parent relationship to Party.
+     */
+	public function party()
+    {
+        return $this
+        	->belongsTo('Party');
+    }
+
+    /**
+     * The main parent relationship to Party.
+     */
+	public function emails()
+    {
+        return $this
+        	->hasMany('PartyEmail', 'party_id');
+    }
 
 }

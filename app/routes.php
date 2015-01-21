@@ -20,6 +20,17 @@ Route::resource('party.emails', 'PartyEmailController');
 Route::resource('party.phones', 'PartyPhoneController');
 Route::resource('party.addresses', 'PartyAddressController');
 
+
+// Authentication / Account management
+Route::get('login', 'AuthController@login');
+Route::post('login', 'AuthController@authenticate');
+Route::get('logout', 'AuthController@logout');
+Route::get('register', 'AuthController@create');
+Route::post('register', 'AuthController@store');
+
+
+
+// Edit user for party
 Route::get('party/{id}/user', 'UserController@show');
 Route::post('party/{id}/user/store', 'UserController@store');
 Route::put('party/{id}/user/update', 'UserController@update');
