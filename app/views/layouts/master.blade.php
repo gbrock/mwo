@@ -28,16 +28,22 @@
 					</li>
 				</ul>
 				<div class="navbar-right"> {{-- Bad form to not use .navbar-right, but there's a negative margin involved with that and this solution floats it right on mobile too (kinda nice-looking) --}}
-					<ul class="nav navbar-nav">
-						<li>
-							<a href="{{ action('AuthController@create') }}">
-								@lang('labels.register')
-							</a>
-						</li>
-					</ul>
-					<a class="btn navbar-btn btn-primary" href="{{ action('AuthController@login') }}">
-						@lang('labels.login')
-					</a>
+					@if(Sentry::check())
+						<a class="btn navbar-btn btn-danger" href="{{ action('AuthController@logout') }}">
+							@lang('labels.logout')
+						</a>
+					@else
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="{{ action('AuthController@create') }}">
+									@lang('labels.register')
+								</a>
+							</li>
+						</ul>
+						<a class="btn navbar-btn btn-primary" href="{{ action('AuthController@login') }}">
+							@lang('labels.login')
+						</a>
+					@endif
 				</div>
 			</div>
 		</div>

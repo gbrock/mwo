@@ -14,6 +14,7 @@ class RequireEmailScope implements ScopeInterface {
 	public function apply(Builder $builder) {
 		$model = $builder->getModel();
 
+		$builder->select($model->getTable() . '.*');
 		$builder->join(
 			'party_email',
 			'party_email' . '.' . 'party_id',

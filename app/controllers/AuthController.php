@@ -4,9 +4,6 @@ class AuthController extends \BaseController {
 
 	public function login()
 	{
-		// $user = Sentry::findUserById(1);
-		// $user->password = 'test';
-		// $user->save();
 		$this->loadView('auth.login');
 	}
 
@@ -70,13 +67,14 @@ class AuthController extends \BaseController {
 		{
 			// Logged in successfully!
 			// 
-			dd(Sentry::check());
 		}
 	}
 
 	public function logout()
 	{
+		Sentry::logout();
 
+		return Redirect::action('AuthController@login');
 	}
 
 	public function create()

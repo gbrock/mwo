@@ -27,12 +27,12 @@ class User extends SentryUserModel {
 	 */
 	protected $primaryKey = 'party_id';
 
-	protected static function boot()
-	{
-		parent::boot();
+	// protected static function boot()
+	// {
+	// 	parent::boot();
 
-		static::addGlobalScope(new RequireEmailScope);
-	}
+	// 	static::addGlobalScope(new RequireEmailScope);
+	// }
 
     /**
      * The main parent relationship to Party.
@@ -51,5 +51,38 @@ class User extends SentryUserModel {
         return $this
         	->hasMany('PartyEmail', 'party_id');
     }
+
+	/**
+	 * Validates the user and throws a number of
+	 * Exceptions if validation fails.
+	 *
+	 * @return bool
+	 * @throws \Cartalyst\Sentry\Users\LoginRequiredException
+	 * @throws \Cartalyst\Sentry\Users\PasswordRequiredException
+	 * @throws \Cartalyst\Sentry\Users\UserExistsException
+	 */
+	public function validate()
+	{
+		if ( ! $login = $this->{static::$loginAttribute})
+		{
+			throw new LoginRequiredException("A login is required for a user, none given.");
+		}
+
+		if ( ! $password = $this->getPassword())
+		{
+			throw new PasswordRequiredException("A password is required for user [$login], none given.");
+		}
+
+		// Check if the user already exists
+		$query = $this->newQuery();
+		$persistedUser = $query->where($this->getLoginName(), '=', $login)->first();
+
+		if ($persistedUser and $persistedUser->getId() != $this->getId())
+		{
+			throw new UserExistsException("A user already exists with login [$login], logins must be unique for users.");
+		}
+
+		return true;
+	}
 
 }
