@@ -6,7 +6,7 @@ $aPlugins = array(
 	// 'alert',
 	'button',
 	// 'carousel',
-	// 'collapse',
+	'collapse',
 	'dropdown',
 	'modal',
 	'tooltip', // popover requires tooltip, otherwise alpha load order works

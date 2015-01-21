@@ -10,7 +10,7 @@ $gender_input = array(
 $birth_input = array(
 	'name' => 'birth',
 	'label' => Lang::get('people.birth'),
-	'help_text' => Lang::get('labels.optional'),
+	'help_text' => Lang::get('messages.optional'),
 	'attr' => array(
 		' type' => 'date', // the space before the key is there to trick Laravel... nasty.
 	),
