@@ -19,7 +19,7 @@ class PartyEmail extends PartyLocator {
 	 * @var array
 	 */
 	public $rules = array(
-		'address'				=> 'required|email|max:254',
+		'address'				=> 'required|email|unique:party_emails,address|max:254',
 	);
 
 	//

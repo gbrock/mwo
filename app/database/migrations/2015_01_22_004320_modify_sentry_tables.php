@@ -24,7 +24,6 @@ class ModifySentryTables extends Migration {
 		    /**
 		     * New columns
 		     */
-		    $table->string('username', 64);
 		    $table->softDeletes();
 
 		    /**

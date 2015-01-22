@@ -92,6 +92,8 @@ class AuthController extends \BaseController {
 
 		);
 
+		$user = new User;
+
 		$this->loadView('auth.create', $aViewData);
 	}
 
@@ -106,65 +108,45 @@ class AuthController extends \BaseController {
 		$email = new PartyEmail;
 		$success = ($email->validate() && $success);
 
+		$user = new User;
+		$user->password = Input::get('password');
+		$success = ($user->validate() && $success);
+
 		$errors = array_merge(
 			$party->errors()->toArray(),
-			$email->errors()->toArray()
+			$email->errors()->toArray(),
+			$user->errors()->toArray()
 		);
 
 		if($success)
 		{
 			$party->save();
+
+			$person->party()->associate($party);
+			$person->save();
+
 			$email->party()->associate($party);
+			$email->save();
 
-			try
-			{
-
-			    // Let's register a user.
-			    $user = Sentry::register(array(
-			    	'party_id' => $party->id,
-			        'username'    => Input::get('username'),
-			        'password' => Input::get('password'),
-			    ));
-
-			    // Associate it with the newly-created Party
-			    $user->party()->associate($party);
-
-			    // Let's get the activation code
-			    $activationCode = $user->getActivationCode();
-
-			    // Send activation code to the user so he can activate the account
-			}
-			catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
-			{
-				$errors['username'] = Lang::get('validation.required', array(
-					'attribute' => Lang::get('auth.username'),
-				));
-			}
-			catch (Cartalyst\Sentry\Users\PasswordRequiredException $e)
-			{
-				$errors['password'] = Lang::get('validation.required', array(
-					'attribute' => Lang::get('auth.password'),
-				));
-			}
-			catch (Cartalyst\Sentry\Users\UserExistsException $e)
-			{
-				$errors['username'] = Lang::get('validation.unique', array(
-					'attribute' => Lang::get('auth.username'),
-				));
-			}
+		    // Let's register a user.
+		    $user->party()->associate($party);
+		    $user->activated = 1; // auto-activate
+		    $user->save();
 		}
 
-
-		if(!count($errors)) // All good, new account created.
+		if(!count($errors))
 		{
-			$email->save();
-			dd('woot');
+			 // All good, new account created.
+		    $user = Sentry::findUserByID($user->id);
+
+			Sentry::login($user, FALSE);
+		    Notification::success(Lang::get('auth.account_created'));
+		    return Redirect::to('/');
 		}
 		else
 		{
 			// So, it failed.
 			$party->delete();
-			
 		}
 
 		Notification::error($errors[key($errors)]);

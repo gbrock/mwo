@@ -3,9 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartyLocationTable extends Migration {
+class CreatePartyAddressTable extends Migration {
 
-	protected $table = 'party_locations';
+	protected $table = 'party_addresses';
 
 	/**
 	 * Run the migrations.

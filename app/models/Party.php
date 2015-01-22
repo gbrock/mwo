@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class Party extends Base {
     use SoftDeletingTrait;
 
+    protected $table = 'parties';
+
 	public function organization()
     {
         return $this

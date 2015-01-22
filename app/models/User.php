@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
+class User extends UserBase {
 
-class User extends SentryUserModel {
-
-    use SoftDeletingTrait;
+	protected $validateOnSave = FALSE;
+	protected $autoHydrate = FALSE;
 	
 	/**
 	 * Which model(s) should have their timestamps updated ON UPDATE.
@@ -20,12 +18,22 @@ class User extends SentryUserModel {
 	 */
 	protected $primaryKey = 'party_id';
 
-	// protected static function boot()
-	// {
-	// 	parent::boot();
 
-	// 	static::addGlobalScope(new RequireEmailScope);
-	// }
+	protected $hidden = array(
+		'password',
+		'reset_password_code',
+		'activation_code',
+		'persist_code',
+		'party_id',
+	);
+
+	/**
+	 * The validation rules run against the input.
+	 * @var array
+	 */
+	protected $rules = array(
+		'password'                  => 'required|confirmed',
+	);
 
     /**
      * The main parent relationship to Party.
@@ -56,37 +64,28 @@ class User extends SentryUserModel {
 		);
     }
 
-	/**
-	 * Validates the user and throws a number of
-	 * Exceptions if validation fails.
-	 *
-	 * @return bool
-	 * @throws \Cartalyst\Sentry\Users\LoginRequiredException
-	 * @throws \Cartalyst\Sentry\Users\PasswordRequiredException
-	 * @throws \Cartalyst\Sentry\Users\UserExistsException
-	 */
 	public function validate()
 	{
-		if ( ! $login = $this->{static::$loginAttribute})
+		if($this->autoHydrate)
 		{
-			throw new Cartalyst\Sentry\Users\LoginRequiredException("A login is required for a user, none given.");
+			$this->fill(Input::all());
 		}
 
-		if ( ! $password = $this->getPassword())
+		if($this->rules)
 		{
-			throw new Cartalyst\Sentry\Users\PasswordRequiredException("A password is required for user [$login], none given.");
+			$forced_addins = array(
+				'password' => Input::get('password'),
+				'password_confirmation' => Input::get('password_confirmation'),
+			);
+			$this->validator = Validator::make(array_merge($this->toArray(), $forced_addins), $this->rules, $this->messages);
+			return $this->validator->passes();
 		}
 
-		// Check if the user already exists
-		$query = $this->newQuery();
-		$persistedUser = $query->where($this->getLoginName(), '=', $login)->first();
-
-		if ($persistedUser and $persistedUser->getId() != $this->getId())
-		{
-			throw new Cartalyst\Sentry\Users\UserExistsException("A user already exists with login [$login], logins must be unique for users.");
-		}
-
-		return true;
+		return FALSE;
 	}
 
+	protected function getIdAttribute()
+	{
+		return $this->party->id;
+	}
 }

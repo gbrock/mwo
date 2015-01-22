@@ -12,4 +12,5 @@ return array(
 	'register_now' => 'Create Account',
 	'login_successful' => 'You have been logged in.',
 	'logout_successful' => 'You have been logged out.',
+	'account_created' => 'Your account has been created!  You are now logged in.',
 );

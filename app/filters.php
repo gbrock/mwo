@@ -44,7 +44,7 @@ App::before(function($request)
 	Menu::make('userMenu', function($menu){
 		if(Sentry::check())
 		{
-			$display_name = Sentry::getUser()->username;
+			$display_name = Sentry::getUser()->party->name;
 			$menu->add(HTML::icon('user') . $display_name,  array('action' => 'AuthController@update'));
 			$menu->add(Lang::get('titles.logout'),  array('action' => 'AuthController@logout'));
 		}
