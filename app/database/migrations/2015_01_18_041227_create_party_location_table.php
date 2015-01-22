@@ -3,9 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartyEmailTable extends Migration {
+class CreatePartyLocationTable extends Migration {
 
-	protected $table = 'party_email';
+	protected $table = 'party_locations';
 
 	/**
 	 * Run the migrations.
@@ -23,15 +23,23 @@ class CreatePartyEmailTable extends Migration {
 			$table->increments('id');
 			
 			// The data
-			$table->string('address', 254);
+			$table->text('provided_as');
+			$table->string('type', 24)->nullable();
+			$table->string('delivery_line_1', 50)->nullable();
+			$table->string('delivery_line_2', 50)->nullable();
+			$table->string('last_line', 50)->nullable();
 			
 			// The trackers
 			$table->timestamps();
 
 			// The foreign relations
+			$table->integer('api_id')->unsigned()->nullable();
+			$table->index('api_id');
+			$table->foreign('api_id')->references('id')->on('api_location_results');
+
 			$table->integer('party_id')->unsigned();
 			$table->index('party_id');
-			$table->foreign('party_id')->references('id')->on('party');
+			$table->foreign('party_id')->references('id')->on('parties');
 		});
 	}
 

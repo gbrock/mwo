@@ -7,11 +7,6 @@ use Carbon\Carbon;
 */
 class Person extends PartyType
 {
-	/**
-	 * The database table.  We use singular form.
-	 * @var string
-	 */
-	protected $table = 'person';
 
 	/**
 	 * The fields which are guarded from input (i.e. used by the system).

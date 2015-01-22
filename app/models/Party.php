@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Party extends Base
-{
+class Party extends Base {
     use SoftDeletingTrait;
 
 	public function organization()
@@ -49,12 +48,6 @@ class Party extends Base
 	{
 		parent::boot();
 	}
-
-	/**
-	 * The database table.  We use singular form.
-	 * @var string
-	 */
-	protected $table = 'party';
 
 	/**
 	 * The fields which are guarded from input (i.e. used by the system).

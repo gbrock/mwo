@@ -2,13 +2,6 @@
 
 return array(
 
-    // Primary labels
-    'site' => 'Organizer',
-    'home' => 'Home',
-    'login' => 'Login',
-    'logout' => 'Logout',
-    'register' => 'Register',
-
     // Object labels
     'party' => 'Party|Parties',
     'person' => 'Person|People',

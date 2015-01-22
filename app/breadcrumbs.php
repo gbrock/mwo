@@ -2,7 +2,7 @@
 
 // The home crumb
 Breadcrumbs::register('home', function($breadcrumbs) {
-    $breadcrumbs->push(Lang::get('labels.home'), url(''));
+    $breadcrumbs->push(Lang::get('titles.home'), url(''));
 });
 
 // Any action with a parent

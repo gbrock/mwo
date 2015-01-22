@@ -3,9 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrganizationTable extends Migration {
+class CreatePersonTable extends Migration {
 
-	protected $table = 'organization';
+	protected $table = 'people';
 
 	/**
 	 * Run the migrations.
@@ -24,12 +24,13 @@ class CreateOrganizationTable extends Migration {
 			$table->primary('party_id');
 			
 			// The data
-			$table->date('founded')->nullable();
+			$table->string('gender')->nullable();
+			$table->date('birth')->nullable();
 			
 			// The trackers
 
 			// The foreign relations
-			$table->foreign('party_id')->references('id')->on('party');
+			$table->foreign('party_id')->references('id')->on('parties');
 		});
 	}
 

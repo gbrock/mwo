@@ -27,6 +27,8 @@ Route::post('login', 'AuthController@authenticate');
 Route::get('logout', 'AuthController@logout');
 Route::get('register', 'AuthController@create');
 Route::post('register', 'AuthController@store');
+Route::get('my_account', 'AuthController@edit');
+Route::post('my_account', 'AuthController@update');
 
 
 

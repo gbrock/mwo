@@ -4,6 +4,11 @@ class AuthController extends \BaseController {
 
 	public function login()
 	{
+		if(Sentry::check())
+		{
+			return Redirect::to('/');
+		}
+
 		$this->loadView('auth.login');
 	}
 
@@ -60,19 +65,23 @@ class AuthController extends \BaseController {
 
 		if($error)
 		{
+			// Login failure...
 			Notification::error($error);
 			return Redirect::action('AuthController@login');
 		}
 		else
 		{
 			// Logged in successfully!
-			// 
+			Notification::success(Lang::get('auth.login_successful'));
+			return Redirect::to('/');
 		}
 	}
 
 	public function logout()
 	{
 		Sentry::logout();
+
+		Notification::success(Lang::get('auth.logout_successful'));
 
 		return Redirect::action('AuthController@login');
 	}
@@ -83,6 +92,16 @@ class AuthController extends \BaseController {
 	}
 
 	public function store()
+	{
+		
+	}
+
+	public function edit()
+	{
+		
+	}
+
+	public function update()
 	{
 		
 	}

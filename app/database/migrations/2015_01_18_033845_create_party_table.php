@@ -3,9 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartyLinkTable extends Migration {
+class CreatePartyTable extends Migration {
 
-	protected $table = 'party_link';
+	protected $table = 'parties';
 
 	/**
 	 * Run the migrations.
@@ -23,15 +23,14 @@ class CreatePartyLinkTable extends Migration {
 			$table->increments('id');
 			
 			// The data
-			$table->text('url');
+			$table->string('name');
+			$table->char('type', 1);
 			
 			// The trackers
 			$table->timestamps();
+			$table->softDeletes();
 
 			// The foreign relations
-			$table->integer('party_id')->unsigned();
-			$table->index('party_id');
-			$table->foreign('party_id')->references('id')->on('party');
 		});
 	}
 
@@ -44,5 +43,4 @@ class CreatePartyLinkTable extends Migration {
 	{
 		Schema::drop($this->table);
 	}
-
 }

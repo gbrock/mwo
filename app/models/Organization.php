@@ -5,14 +5,8 @@ use Carbon\Carbon;
 /**
 * A business-type Party.
 */
-class Organization extends PartyType
-{
-	/**
-	 * The database table.  We use singular form.
-	 * @var string
-	 */
-	protected $table = 'organization';
-
+class Organization extends PartyType {
+	
 	/**
 	 * The fields which are guarded from input (i.e. used by the system).
 	 * @var array

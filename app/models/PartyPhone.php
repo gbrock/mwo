@@ -2,13 +2,6 @@
 
 class PartyPhone extends PartyLocator {
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'party_phone';
-
 	protected $guarded = array('id', 'party_id');
 	protected $fillable = array('type', 'number', 'extension');
 

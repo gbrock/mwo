@@ -3,9 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePersonTable extends Migration {
+class CreatePartyEmailTable extends Migration {
 
-	protected $table = 'person';
+	protected $table = 'party_emails';
 
 	/**
 	 * Run the migrations.
@@ -20,17 +20,18 @@ class CreatePersonTable extends Migration {
 			$table->engine = 'InnoDB';
 
 			// The primary key
-			$table->integer('party_id')->unsigned();
-			$table->primary('party_id');
+			$table->increments('id');
 			
 			// The data
-			$table->string('gender')->nullable();
-			$table->date('birth')->nullable();
+			$table->string('address', 254);
 			
 			// The trackers
+			$table->timestamps();
 
 			// The foreign relations
-			$table->foreign('party_id')->references('id')->on('party');
+			$table->integer('party_id')->unsigned();
+			$table->index('party_id');
+			$table->foreign('party_id')->references('id')->on('parties');
 		});
 	}
 

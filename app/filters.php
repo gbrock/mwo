@@ -16,7 +16,7 @@ App::before(function($request)
 	App::setLocale('en');
 
 	/**
-	 * HTML::icon($iconClassAndOthers, $nonBreakingSpaces)
+	 * Outputs a FontAwesome glyphicon.
 	 * @var [type]
 	 */
 	HTML::macro('icon', function($class, $nbs = 1)
@@ -24,10 +24,35 @@ App::before(function($request)
 	    return '<span class="fa fa-' . $class . '" aria-hidden="true">' . str_repeat('&nbsp;', $nbs) . '</span>';
 	});
 
+	/**
+	 * Prepends a URL with the provided scheme as needed.
+	 * @var string
+	 */
 	HTML::macro('prep_url', function($url, $scheme = 'http://')
 	{
 	  return parse_url($url, PHP_URL_SCHEME) === null ?
 	    $scheme . $url : $url;
+	});
+
+	/**
+	 * Set up our site menus.
+	 */
+	Menu::make('mainMenu', function($menu){
+		$menu->add('Contacts',  array('action' => 'PartyController@index'));
+	});
+
+	Menu::make('userMenu', function($menu){
+		if(Sentry::check())
+		{
+			$display_name = Sentry::getUser()->username;
+			$menu->add(HTML::icon('user') . $display_name,  array('action' => 'AuthController@update'));
+			$menu->add(Lang::get('titles.logout'),  array('action' => 'AuthController@logout'));
+		}
+		else
+		{
+			$menu->add(Lang::get('titles.register'),  array('action' => 'AuthController@create'));
+			$menu->add(Lang::get('titles.login'),  array('action' => 'AuthController@login'));
+		}
 	});
 });
 

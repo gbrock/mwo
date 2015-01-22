@@ -6,13 +6,6 @@ use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
 class User extends SentryUserModel {
 
     use SoftDeletingTrait;
-
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'user';
 	
 	/**
 	 * Which model(s) should have their timestamps updated ON UPDATE.

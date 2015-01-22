@@ -3,9 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartyPhoneTable extends Migration {
+class CreateOrganizationTable extends Migration {
 
-	protected $table = 'party_phone';
+	protected $table = 'organizations';
 
 	/**
 	 * Run the migrations.
@@ -20,20 +20,16 @@ class CreatePartyPhoneTable extends Migration {
 			$table->engine = 'InnoDB';
 
 			// The primary key
-			$table->increments('id');
+			$table->integer('party_id')->unsigned();
+			$table->primary('party_id');
 			
 			// The data
-			$table->string('number', 64);
-			$table->string('extension', 16)->nullable();
-			$table->string('type', 24)->nullable();
+			$table->date('founded')->nullable();
 			
 			// The trackers
-			$table->timestamps();
 
 			// The foreign relations
-			$table->integer('party_id')->unsigned();
-			$table->index('party_id');
-			$table->foreign('party_id')->references('id')->on('party');
+			$table->foreign('party_id')->references('id')->on('parties');
 		});
 	}
 

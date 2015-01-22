@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateApiLocationTable extends Migration {
 
-	protected $table = 'api_location_result';
+	protected $table = 'api_location_results';
 
 	/**
 	 * Run the migrations.

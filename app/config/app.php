@@ -126,6 +126,8 @@ return array(
 		'DaveJamesMiller\Breadcrumbs\ServiceProvider', // Breadcrumbs
 		'Krucas\Notification\NotificationServiceProvider', // Notifications
 		'Cartalyst\Sentry\SentryServiceProvider', // Users and Permissions
+ 		'Lavary\Menu\ServiceProvider', // Menus
+
 	),
 
 	/*
@@ -197,6 +199,7 @@ return array(
 		'Breadcrumbs'		=> 'DaveJamesMiller\Breadcrumbs\Facade',
         'Notification'		=> 'Krucas\Notification\Facades\Notification',
         'Sentry'			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+        'Menu'       		=> 'Lavary\Menu\Facade',
 	),
 
 );

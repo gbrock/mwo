@@ -3,12 +3,6 @@
 class PartyAddress extends PartyLocator {
 
 	/**
-	 * The database table used by the model.
-	 * @var string
-	 */
-	protected $table = 'party_location';
-
-	/**
 	 * The fields which are guarded from input (i.e. used by the system).
 	 * @var array
 	 */
