@@ -45,6 +45,17 @@ class User extends SentryUserModel {
         	->hasMany('PartyEmail', 'party_id');
     }
 
+    public function scopeWithEmails($query)
+    {
+    	$email = new PartyEmail;
+        return $query->join(
+			$email->getTable(),
+			$email->getTable() . '.' . 'party_id',
+			'=',
+			$this->getTable() . '.' . 'party_id'
+		);
+    }
+
 	/**
 	 * Validates the user and throws a number of
 	 * Exceptions if validation fails.
