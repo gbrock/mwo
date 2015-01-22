@@ -21,6 +21,11 @@ class ModifySentryTables extends Migration {
 		    $table->foreign('party_id')->references('id')->on('parties');
 
 		    /**
+		     * New columns
+		     */
+		    $table->softDeletes();
+
+		    /**
 		     * These fields will be fulfilled by other tables.
 		     */
 		    $table->dropUnique('users_email_unique');
