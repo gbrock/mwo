@@ -5,6 +5,6 @@
 		'placeholder' => 'user@example.com',
 		'autofocus',
 	),
-	'label' => FALSE,
-	'value' => $email->exists() ? $email->address : FALSE,
+	'label' => isset($label) ? $label : FALSE,
+	'value' => isset($email) && $email->exists() ? $email->address : FALSE,
 ))

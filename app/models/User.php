@@ -58,12 +58,12 @@ class User extends SentryUserModel {
 	{
 		if ( ! $login = $this->{static::$loginAttribute})
 		{
-			throw new LoginRequiredException("A login is required for a user, none given.");
+			throw new Cartalyst\Sentry\Users\LoginRequiredException("A login is required for a user, none given.");
 		}
 
 		if ( ! $password = $this->getPassword())
 		{
-			throw new PasswordRequiredException("A password is required for user [$login], none given.");
+			throw new Cartalyst\Sentry\Users\PasswordRequiredException("A password is required for user [$login], none given.");
 		}
 
 		// Check if the user already exists
@@ -72,7 +72,7 @@ class User extends SentryUserModel {
 
 		if ($persistedUser and $persistedUser->getId() != $this->getId())
 		{
-			throw new UserExistsException("A user already exists with login [$login], logins must be unique for users.");
+			throw new Cartalyst\Sentry\Users\UserExistsException("A user already exists with login [$login], logins must be unique for users.");
 		}
 
 		return true;

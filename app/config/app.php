@@ -125,7 +125,7 @@ return array(
 		// additions
 		'DaveJamesMiller\Breadcrumbs\ServiceProvider', // Breadcrumbs
 		'Krucas\Notification\NotificationServiceProvider', // Notifications
-		'Cartalyst\Sentry\SentryServiceProvider', // Users and Permissions
+		'Gbrock\Sentry\SentryServiceProvider', // Users and Permissions
  		'Lavary\Menu\ServiceProvider', // Menus
 
 	),

@@ -17,12 +17,14 @@ class ModifySentryTables extends Migration {
 		    /**
 		     * Set up the foreign dependence on `party`
 		     */
-		    $table->renameColumn('id', 'party_id');
+		    $table->dropColumn('id');
+		    $table->integer('party_id')->unsigned()->unique();
 		    $table->foreign('party_id')->references('id')->on('parties');
 
 		    /**
 		     * New columns
 		     */
+		    $table->string('username', 64);
 		    $table->softDeletes();
 
 		    /**

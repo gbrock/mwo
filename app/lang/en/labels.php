@@ -30,6 +30,7 @@ return array(
     'show_item' => 'Show :item',
 
     // Other titles
+    'please_confirm' => 'Confirm :field',
     'overview' => 'Overview',
     'visit_external' => 'visit link',
     'see_also' => 'See more for :item',
