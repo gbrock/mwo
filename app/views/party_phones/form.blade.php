@@ -4,7 +4,7 @@
 		' type' => 'tel', // the space before the key is there to trick Laravel... nasty.
 		'autofocus',
 	),
-	'label' => FALSE,
+	'label' => isset($label) ? $label : FALSE,
 	'value' => $phone->exists() ? $phone->number : FALSE,
 ))
 

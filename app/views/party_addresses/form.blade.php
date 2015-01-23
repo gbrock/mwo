@@ -5,7 +5,7 @@
 		'placeholder' => 'Street, Apt / Suite / Floor' . "\n" . 'City, Province, Postal Code',
 		'autofocus',
 	),
-	'label' => FALSE,
+	'label' => isset($label) ? $label : FALSE,
 	'value' => $address->exists() ? $address->provided_as : FALSE,
 ))
 

@@ -6,6 +6,6 @@
 	'attr' => array(
 		'autofocus',
 	),
-	'label' => FALSE,
+	'label' => isset($label) ? $label : FALSE,
 	'value' => $link->exists() ? $link->url : FALSE,
 ))

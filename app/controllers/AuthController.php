@@ -2,6 +2,15 @@
 
 class AuthController extends \BaseController {
 
+	function __construct()
+	{
+		parent::__construct();
+
+		// Menu::make('accountMenu', function($menu){
+		// 	$menu->add('')
+		// });
+	}
+
 	public function login()
 	{
 		if(Sentry::check())
@@ -155,14 +164,59 @@ class AuthController extends \BaseController {
 			->withInput();
 	}
 
+	public function show()
+	{
+		$aViewData = array(
+			'user' => Sentry::getUser(),
+		);
+
+		$this->loadView('auth.show', $aViewData);
+	}
+
 	public function edit()
 	{
-		
+		$aViewData = array(
+
+		);
+
+		Sentry::check();
+		$user = Sentry::getUser();
+
+		$aViewData['party'] =& $user->party;
+		$aViewData['email'] = new PartyEmail;
+		$aViewData['phone'] = new PartyPhone;
+		$aViewData['address'] = new PartyAddress;
+		$aViewData['link'] = new PartyLink;
+
+		$this->loadView('auth.edit', $aViewData);
 	}
 
 	public function update()
 	{
-		
+		Sentry::check();
+		$user = Sentry::getUser();
+		$user->password = Input::get('password');
+
+		$success = $user->party->validate();
+		$success = $user->validate() && $success;
+
+		$errors = array_merge(
+			$user->party->errors()->toArray(),
+			$user->errors()->toArray()
+		);
+
+		if($success)
+		{
+			$user->party->save();
+			$user->save();
+		    Notification::success(Lang::get('auth.account_updated'));
+		    return Redirect::action('AuthController@edit');
+		}
+
+		Notification::error($errors[key($errors)]);
+		return Redirect::action('AuthController@edit')
+			->withErrors($errors)
+			->withInput();
 	}
 
 }
