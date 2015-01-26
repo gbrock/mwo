@@ -8,6 +8,7 @@
 
 	{{ Form::open(array(
 		'action' => 'AuthController@update',
+		'method' => 'put',
 	)) }}
 		@include('parties.form')
 		{{-- @include('people.form')

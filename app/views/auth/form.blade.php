@@ -9,4 +9,3 @@
 	'password' => TRUE,
 	'label' => Lang::get('labels.please_confirm', array('field' => Lang::get('auth.password'))),
 ))
-

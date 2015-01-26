@@ -2,14 +2,25 @@
 
 class UserController extends \BaseController {
 
+	protected $layout = 'party';
+
 	/**
-	 * Display a listing of the resource.
+	 * Re-routes to Create or Edit a party's account.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($partyId)
 	{
-		//
+		try
+		{
+			$user = Sentry::findUserById($partyId);
+		}
+		catch(Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return $this->create($partyId);
+		}
+
+		return $this->show($partyId, $user->id);
 	}
 
 
@@ -18,9 +29,27 @@ class UserController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($partyId)
 	{
-		//
+		$party = Party::find($partyId);
+
+		if(!$party)
+		{
+			return App::abort(404);
+		}
+
+		// Set up the data needed by the view(s)
+		$aViewData = array(
+			'party' => $party,
+			'user' => new User,
+			'crumbs' => Breadcrumbs::render('action', Lang::choice('labels.account', 1), 'party', $party),
+		);
+
+		View::share($aViewData);
+
+		// Render the view
+		$this->loadView('users.create', $aViewData);
+
 	}
 
 
@@ -29,9 +58,56 @@ class UserController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($partyId)
 	{
-		//
+		$party = Party::find($partyId);
+
+		if(!$party)
+		{
+			return App::abort(404);
+		}
+
+		// $party = new Party;
+		// $party->type = 'p';
+		// $success = $party->validate();
+
+		// $person = new Person;
+
+		// $email = new PartyEmail;
+		// $success = ($email->validate() && $success);
+
+		$user = new User;
+		$user->removeRule('password', 'confirmed');
+		$user->password = Input::get('password');
+		$success = ($user->validate());
+
+		$errors = array_merge(
+			$user->errors()->toArray()
+		);
+
+		if($success)
+		{
+		    // Let's register a user.
+		    $user->party()->associate($party);
+		    $user->activated = 1; // auto-activate
+		    $user->save();
+		}
+
+		if(!count($errors))
+		{
+			 // All good, new account created.
+		    Notification::success(Lang::get('auth.account_created'));
+		    return Redirect::to('/');
+		}
+		else
+		{
+			// So, it failed.
+		}
+
+		Notification::error($errors[key($errors)]);
+		return Redirect::action('UserController@create', array($party->id))
+			->withErrors($errors)
+			->withInput();
 	}
 
 
@@ -41,7 +117,7 @@ class UserController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($partyId, $id)
 	{
 		$user = User::find($id);
 
@@ -64,13 +140,13 @@ class UserController extends \BaseController {
 		$aViewData = array(
 			'user' => $user,
 			'party' => $party,
+			'crumbs' => Breadcrumbs::render('action', Lang::choice('labels.account', 1), 'party', $party),
 		);
 
-		// Set up the breadcrumbs
-		$aViewData['crumbs'] = Breadcrumbs::render('action', Lang::choice('labels.account', 1), 'party', $party);
+		View::share($aViewData);
 
 		// Render the view
-		$this->layout->content = View::make('user/show', $aViewData);
+		$this->loadView('users.show', $aViewData);
 	}
 
 
@@ -80,9 +156,30 @@ class UserController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($partyId, $id)
 	{
-		//
+		$user = User::find($id);
+
+		if(!$user)
+		{
+			return App::abort(404);
+		}
+		else
+		{
+			$party = $user->party;
+		}
+
+		// Set up the data needed by the view(s)
+		$aViewData = array(
+			'user' => $user,
+			'party' => $party,
+			'crumbs' => Breadcrumbs::render('action', Lang::choice('labels.account', 1), 'party', $party),
+		);
+
+		View::share($aViewData);
+
+		// Render the view
+		$this->loadView('users.edit', $aViewData);
 	}
 
 
@@ -92,7 +189,7 @@ class UserController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($partyId, $id)
 	{
 		//
 	}
@@ -104,7 +201,7 @@ class UserController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($partyId, $id)
 	{
 		//
 	}

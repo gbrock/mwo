@@ -76,6 +76,83 @@ App::after(function($request, $response)
 	//
 });
 
+Route::filter('party', function($route, $request)
+{
+	/**
+	 * Set up our site menus.
+	 */
+	Menu::make('partyMenu', function($menu){
+	    $party = Party::all()->find(Request::segment(2));
+
+	    // The main party page
+		$menu->add(
+			HTML::icon($party->icon . ' fa-fw') . Lang::get('labels.overview'),
+			array(
+				'action' => array('PartyController@show', $party->id),
+			)
+		);
+
+	    // The user page
+		$menu->add(
+			HTML::icon('key fa-fw') . Lang::choice('labels.account', 1),
+			array(
+				'action' => array('UserController@show', $party->id),
+			)
+		);
+
+		// The locators
+		
+		// Links
+		$menu->add(
+			(
+				$party->links()->count() ? 
+				'<span class="badge pull-right">' . number_format($party->links()->count()) . '</span>' : 
+				''
+			) . HTML::icon('link fa-fw') . Lang::choice('labels.party_link', 0),
+			array(
+				'action' => array('PartyLinkController@index', $party->id),
+			)
+		)->active('party/*/links/*'); // active on these routes
+		
+		// E-mails
+		$menu->add(
+			(
+				$party->emails()->count() ? 
+				'<span class="badge pull-right">' . number_format($party->emails()->count()) . '</span>' : 
+				''
+			) . HTML::icon('envelope-o fa-fw') . Lang::choice('labels.party_email', 0),
+			array(
+				'action' => array('PartyEmailController@index', $party->id),
+			)
+		)->active('party/*/emails/*'); // active on these routes
+		
+		// Phones
+		$menu->add(
+			(
+				$party->phones()->count() ? 
+				'<span class="badge pull-right">' . number_format($party->phones()->count()) . '</span>' : 
+				''
+			) . HTML::icon('phone fa-fw') . Lang::choice('labels.party_phone', 0),
+			array(
+				'action' => array('PartyPhoneController@index', $party->id),
+			)
+		)->active('party/*/phones/*'); // active on these routes
+		
+		// Addresses
+		$menu->add(
+			(
+				$party->addresses()->count() ? 
+				'<span class="badge pull-right">' . number_format($party->addresses()->count()) . '</span>' : 
+				''
+			) . HTML::icon('map-marker fa-fw') . Lang::choice('labels.party_address', 0),
+			array(
+				'action' => array('PartyAddressController@index', $party->id),
+			)
+		)->active('party/*/addresses/*'); // active on these routes
+		
+	});
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters

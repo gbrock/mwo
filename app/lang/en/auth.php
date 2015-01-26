@@ -11,6 +11,8 @@ return array(
 	'vague_failure' => 'Username / e-mail / password combination invalid.',
 	'login_now' => 'Login Now',
 	'register_now' => 'Create Account',
+	'set_password' => 'Set Password',
+	'user_is_banned' => ':user is <strong>banned</strong>?',
 	'login_successful' => 'You have been logged in.',
 	'logout_successful' => 'You have been logged out.',
 	'account_created' => 'Your account has been created!  You are now logged in.',

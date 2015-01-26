@@ -19,6 +19,9 @@ Route::resource('party.links', 'PartyLinkController');
 Route::resource('party.emails', 'PartyEmailController');
 Route::resource('party.phones', 'PartyPhoneController');
 Route::resource('party.addresses', 'PartyAddressController');
+Route::resource('party.user', 'UserController');
+
+Route::when('party/*', 'party');
 
 
 // Authentication / Account management
@@ -28,15 +31,9 @@ Route::get('logout', 'AuthController@logout');
 Route::get('register', 'AuthController@create');
 Route::post('register', 'AuthController@store');
 Route::get('my_account', 'AuthController@edit');
-Route::post('my_account', 'AuthController@update');
+Route::put('my_account', 'AuthController@update');
 // Route::get('my_account/edit', 'AuthController@edit');
 
-
-
-// Edit user for party
-Route::get('party/{id}/user', 'UserController@show');
-Route::post('party/{id}/user/store', 'UserController@store');
-Route::put('party/{id}/user/update', 'UserController@update');
 
 /**
  * Assets

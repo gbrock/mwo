@@ -108,4 +108,55 @@ trait ValidatingTrait {
     {
         return with(new static)->getTable();
     }
+
+    public function addRule($field, $rule)
+    {
+    	$rules = $this->getRules($field);
+    }
+
+    public function removeRule($field, $rule)
+    {
+    	$rules = $this->getRules($field);
+    	
+    	if(isset($rules[$rule]))
+    	{
+    		unset($rules[$rule]);
+    	}
+
+    	return $this->setRules($field, $rules);
+    }
+
+    protected function setRules($field, $rules)
+    {
+    	$new_rules = array();
+    	foreach($rules as $k => $v)
+    	{
+    		
+    	}
+    	dd($rules);
+
+    	$this->rules[$field] = implode('|', $rules);
+
+    	dd($this->rules);
+    }
+
+    protected function getRules($field)
+    {
+    	$r = array();
+    	if(isset($this->rules[$field]))
+    	{
+	    	$a = explode('|', $this->rules[$field]);
+
+	    	if(count($a))
+	    	{
+	    		foreach($a as $v)
+	    		{
+		    		$e = explode(':', $v);
+	    			$r[$e[0]] = (isset($e[1]) ? $e[1] : TRUE);
+	    		}
+	    	}
+    	}
+
+    	return $r;
+    }
 }
