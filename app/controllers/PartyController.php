@@ -49,13 +49,15 @@ class PartyController extends \BaseController {
 		$parties = Party::paginate($iLimit);
 
 		// Set up the data needed by the view(s)
-		$aViewData = array();
+		$aViewData = array(
+			'page_title' => Lang::choice('labels.party', 0),
+			'crumbs' => Breadcrumbs::render('parties'),
+		);
+
+		View::share($aViewData);
+
 		$aViewData['records'] = $parties;
 		$aViewData['sort_url'] = 'directory?';
-
-		// Set up the breadcrumbs
-		$aViewData['crumbs'] = Breadcrumbs::render('parties');
-		$aViewData['page_title'] = Lang::choice('labels.party', 0);
 
 		// Render the view
 		$this->loadView('parties.index', $aViewData);
@@ -78,6 +80,8 @@ class PartyController extends \BaseController {
 			'crumbs' => Breadcrumbs::render('action', Lang::get('labels.create'), 'parties'),
 			'party_type' => $sPartyType,
 		);
+
+		View::share($aViewData);
 
 		switch($sPartyType)
 		{
