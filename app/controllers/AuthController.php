@@ -149,7 +149,7 @@ class AuthController extends \BaseController {
 		    $user = Sentry::findUserByID($user->id);
 
 			Sentry::login($user, FALSE);
-		    Notification::success(Lang::get('auth.account_created'));
+		    Notification::success(Lang::get('auth.registration_success'));
 		    return Redirect::to('/');
 		}
 		else

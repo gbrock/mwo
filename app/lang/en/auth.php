@@ -15,6 +15,8 @@ return array(
 	'user_is_banned' => ':user is <strong>banned</strong>?',
 	'login_successful' => 'You have been logged in.',
 	'logout_successful' => 'You have been logged out.',
-	'account_created' => 'Your account has been created!  You are now logged in.',
-	'account_updated' => 'Your account has been updated.',
+	'registration_success' => 'Your account has been created!  You are now logged in.',
+	'my_account_updated' => 'Your account has been updated.',
+	'account_created' => 'User account created.',
+	'account_updated' => 'User account updated.',
 );

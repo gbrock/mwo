@@ -2,10 +2,12 @@
 
 class ErrorController extends \BaseController {
 
+	protected $layout = 'master';
+
 	public function get404()
 	{
 		$this->setupLayout();
-		$this->layout->content = View::make('errors.missing');
+		$this->layout->rendered_view = View::make('errors.missing');
 
 		return Response::make($this->layout, 404);
 	}
@@ -13,7 +15,7 @@ class ErrorController extends \BaseController {
 	public function get405()
 	{
 		$this->setupLayout();
-		$this->layout->content = View::make('errors.bad_method');
+		$this->layout->rendered_view = View::make('errors.bad_method');
 
 		return Response::make($this->layout, 405);
 	}

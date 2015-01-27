@@ -29,13 +29,13 @@ trait ValidatingTrait {
 		static::saving(function($model) {
 			if($model->validateOnSave)
 			{
-				static::trimStrings($model);
-				static::setNullWhenEmpty($model);
-				
 				if(!$model->validate())
 				{
 					return FALSE;
 				}
+				
+				static::trimStrings($model);
+				static::setNullWhenEmpty($model);
 			}
 			
 			return TRUE;
@@ -109,37 +109,62 @@ trait ValidatingTrait {
         return with(new static)->getTable();
     }
 
-    public function addRule($field, $rule)
+    /**
+     * Adds a validation rule to a rule set.
+     * @param  string $field
+     * @param  string $rule 
+     */
+    public function addRule($field, $rule, $value = NULL)
     {
     	$rules = $this->getRules($field);
+
+    	$rules[$rule] = $value;
+
+    	$this->setRules($field, $rules);
     }
 
+    /**
+     * Removes a validation rule from a rule set.
+     * @param  string $field
+     * @param  string $rule 
+     */
     public function removeRule($field, $rule)
     {
     	$rules = $this->getRules($field);
-    	
-    	if(isset($rules[$rule]))
-    	{
-    		unset($rules[$rule]);
-    	}
 
-    	return $this->setRules($field, $rules);
+		unset($rules[$rule]);
+
+    	$this->setRules($field, $rules);
     }
 
+    /**
+     * Sets the field's rules to the given rule array, overwriting old rules.
+     * @param string $field
+     * @param array $rules
+     */
     protected function setRules($field, $rules)
     {
     	$new_rules = array();
     	foreach($rules as $k => $v)
     	{
-    		
+    		if($v === NULL)
+    		{
+				$new_rules[] = $k;
+    		}
+    		else
+    		{
+    			$new_rules[] = $k . ':' . (is_array($v) ? implode(',', $v) : $v);
+    		}
     	}
-    	dd($rules);
 
-    	$this->rules[$field] = implode('|', $rules);
-
-    	dd($this->rules);
+    	$this->rules[$field] = implode('|', $new_rules);
     }
 
+    /**
+     * Retrieves the validation rules for a given field.
+     * @param  string $field
+     * @return array
+     */
     protected function getRules($field)
     {
     	$r = array();
@@ -152,7 +177,7 @@ trait ValidatingTrait {
 	    		foreach($a as $v)
 	    		{
 		    		$e = explode(':', $v);
-	    			$r[$e[0]] = (isset($e[1]) ? $e[1] : TRUE);
+	    			$r[$e[0]] = (isset($e[1]) ? $e[1] : NULL);
 	    		}
 	    	}
     	}

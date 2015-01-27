@@ -2,37 +2,37 @@
 
 class PartyController extends \BaseController {
 
-	// /**
- //     * Instantiate a new UserController instance.
- //     */
- //    public function __construct()
- //    {
- //        $this->beforeFilter('@filterRequests');
+	/**
+     * Instantiate a new UserController instance.
+     */
+    public function __construct()
+    {
+        $this->beforeFilter('@filterRequests');
 
- //    	parent::__construct();
- //    }
+    	parent::__construct();
+    }
 
- //    /**
- //     * Filter the incoming requests.
- //     */
- //    public function filterRequests($route, $request)
- //    {
- //    	$target = explode('@', $route->getActionName());
+    /**
+     * Filter the incoming requests.
+     */
+    public function filterRequests($route, $request)
+    {
+    	$target = explode('@', $route->getActionName());
 
- //    	if(count($target) === 2)
- //    	{
- //    		$method = $target[1];
-	//     	switch($method)
-	//     	{
-	//     		// Change the layout for these requests
-	//     		case 'show':
-	//     		case 'edit':
-	//     			$this->layout = 'party';
-	//     			break;
-	//     	}
- //    	}
+    	if(count($target) === 2)
+    	{
+    		$method = $target[1];
+	    	switch($method)
+	    	{
+	    		// Change the layout for these requests
+	    		case 'show':
+	    		case 'edit':
+	    			$this->layout = 'party';
+	    			break;
+	    	}
+    	}
 
- //    }
+    }
 
 
 	/**

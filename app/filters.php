@@ -90,7 +90,7 @@ Route::filter('party', function($route, $request)
 			array(
 				'action' => array('PartyController@show', $party->id),
 			)
-		);
+		)->active('party/([0-9]*)/edit'); // active on this route
 
 	    // The user page
 		$menu->add(
@@ -98,7 +98,7 @@ Route::filter('party', function($route, $request)
 			array(
 				'action' => array('UserController@show', $party->id),
 			)
-		);
+		)->active('party/([0-9]*)/user/*'); // active on this route
 
 		// The locators
 		
@@ -112,7 +112,7 @@ Route::filter('party', function($route, $request)
 			array(
 				'action' => array('PartyLinkController@index', $party->id),
 			)
-		)->active('party/*/links/*'); // active on these routes
+		)->active('party/([0-9]*)/links/*'); // active on these routes
 		
 		// E-mails
 		$menu->add(
@@ -124,7 +124,7 @@ Route::filter('party', function($route, $request)
 			array(
 				'action' => array('PartyEmailController@index', $party->id),
 			)
-		)->active('party/*/emails/*'); // active on these routes
+		)->active('party/([0-9]*)/emails/*'); // active on these routes
 		
 		// Phones
 		$menu->add(
@@ -136,7 +136,7 @@ Route::filter('party', function($route, $request)
 			array(
 				'action' => array('PartyPhoneController@index', $party->id),
 			)
-		)->active('party/*/phones/*'); // active on these routes
+		)->active('party/([0-9]*)/phones/*'); // active on these routes
 		
 		// Addresses
 		$menu->add(
@@ -148,7 +148,7 @@ Route::filter('party', function($route, $request)
 			array(
 				'action' => array('PartyAddressController@index', $party->id),
 			)
-		)->active('party/*/addresses/*'); // active on these routes
+		)->active('party/([0-9]*)/addresses/*'); // active on these routes
 		
 	});
 });
