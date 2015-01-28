@@ -29,12 +29,10 @@ Route::when('party/*', 'party');
 
 
 // Security
-// Route::resource('security/permissions', 'PermissionController');
 Route::resource('security', 'UserGroupController');
 Route::get('security/{id}/new_permission', 'UserGroupController@newPermission');
 Route::post('security/{id}/new_permission', 'UserGroupController@storePermission');
 Route::post('security/{id}', 'UserGroupController@updatePermissions');
-// Route::resource('security', 'SecurityController');
 
 
 // Authentication / Account management
