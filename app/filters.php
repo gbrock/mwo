@@ -38,7 +38,7 @@ App::before(function($request)
 	 * Set up our site menus.
 	 */
 	Menu::make('mainMenu', function($menu){
-		$menu->add('Contacts',  array('action' => 'PartyController@index'))
+		$menu->add(Lang::get('titles.parties'),  array('action' => 'PartyController@index'))
 			->active('party/*');
 	});
 
