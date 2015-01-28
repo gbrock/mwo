@@ -38,29 +38,17 @@ App::before(function($request)
 	 * Set up our site menus.
 	 */
 	Menu::make('mainMenu', function($menu){
-		$parties = $menu->add('Contacts',  array('action' => 'PartyController@index'));
-
-		switch(Request::segment(1))
-		{
-			case 'party':
-				$parties->active();
-				break;
-		}
+		$menu->add('Contacts',  array('action' => 'PartyController@index'))
+			->active('party/*');
 	});
 
 	Menu::make('userMenu', function($menu){
 		if(Sentry::check())
 		{
 			$display_name = Sentry::getUser()->party->name;
-			$user_menu = $menu->add(HTML::icon('user text-primary') . $display_name,  array('action' => 'AuthController@edit'));
+			$menu->add(HTML::icon('user text-primary') . $display_name,  array('action' => 'AuthController@edit'))
+				->active('my_account/*');
 			$menu->add(Lang::get('titles.logout'),  array('action' => 'AuthController@logout'));
-
-			switch(Request::segment(1))
-			{
-				case 'my_account':
-					$user_menu->active();
-					break;
-			}
 		}
 		else
 		{
