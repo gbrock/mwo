@@ -146,7 +146,7 @@ class AuthController extends \BaseController {
 		if(!count($errors))
 		{
 			 // All good, new account created.
-		    $user = Sentry::findUserByID($user->id);
+		    $user = Sentry::findUserByID($party->id);
 
 			Sentry::login($user, FALSE);
 		    Notification::success(Lang::get('auth.registration_success'));
