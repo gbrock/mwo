@@ -33,15 +33,9 @@ Breadcrumbs::register('party_locator', function($breadcrumbs, $locator_name, $pa
     $breadcrumbs->push('#' . $locator->id, action('Party' . ucfirst($locator_name) . 'Controller@show', array($party->id, $locator->id)));
 });
 
-// Security
-Breadcrumbs::register('security', function($breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push(Lang::get('titles.security'), action('SecurityController@index'));
-});
-
 // Usergroups
 Breadcrumbs::register('usergroups', function($breadcrumbs) {
-    $breadcrumbs->parent('security');
+    $breadcrumbs->parent('home');
     $breadcrumbs->push(Lang::choice('labels.usergroup', 0), action('UserGroupController@index'));
 });
 

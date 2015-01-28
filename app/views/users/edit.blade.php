@@ -1,5 +1,5 @@
 {{ Form::open(array(
-	'action' => array('PartyController@update', $party->id),
+	'action' => array('UserController@update', $party->id, $user->id),
 	'method' => 'put',
 )) }}
 <div class="panel panel-default">

@@ -86,6 +86,6 @@ class User extends UserBase {
 
 	protected function getIdAttribute()
 	{
-		return $this->party->id;
+		return $this->party_id;
 	}
 }

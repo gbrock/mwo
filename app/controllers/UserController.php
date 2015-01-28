@@ -38,6 +38,16 @@ class UserController extends \BaseController {
 			return App::abort(404);
 		}
 
+		$groups = Sentry::findAllGroups();
+		$group_options = array();
+		if(count($groups))
+		{
+			foreach($groups as $g)
+			{
+				$group_options[$g->id] = $g->name;
+			}
+		}
+
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'party' => $party,
@@ -46,6 +56,9 @@ class UserController extends \BaseController {
 		);
 
 		View::share($aViewData);
+
+		$aViewData['group_options'] = $group_options;
+		$aViewData['set_group_ids'] = array();
 
 		// Render the view
 		$this->loadView('users.create', $aViewData);
@@ -80,10 +93,7 @@ class UserController extends \BaseController {
 		$user->removeRule('password', 'confirmed');
 		$user->password = Input::get('password');
 		$success = ($user->validate());
-
-		$errors = array_merge(
-			$user->errors()->toArray()
-		);
+		$errors = array();
 
 		if($success)
 		{
@@ -91,13 +101,43 @@ class UserController extends \BaseController {
 		    $user->party()->associate($party);
 		    $user->activated = 1; // auto-activate
 		    $user->save();
+
+			$user = User::find($partyId);
+			$user->removeRule('password', 'confirmed');
+
+			try
+			{
+				$set_groups = Input::get('groups');
+
+				if(count($set_groups))
+				{
+					foreach($set_groups as $g)
+					{
+						if($group = Sentry::findGroupById($g))
+						{
+							$user->addGroup($group);
+						}
+					}
+				}
+			}
+			catch(Exception $e)
+			{
+				$errors['groups[]'] = $e->getMessage();
+			}
+
+			$user->save();
 		}
+
+		$errors = array_merge(
+			$user->errors()->toArray(),
+			$errors
+		);
 
 		if(!count($errors))
 		{
 			 // All good, new account created.
 		    Notification::success(Lang::get('auth.account_created'));
-		    return Redirect::to('/');
+		    return Redirect::action('UserController@show', array($party->id, $user->id));
 		}
 		else
 		{
@@ -169,10 +209,31 @@ class UserController extends \BaseController {
 			$party = $user->party;
 		}
 
+		$groups = Sentry::findAllGroups();
+		$group_options = array();
+		if(count($groups))
+		{
+			foreach($groups as $g)
+			{
+				$group_options[$g->id] = $g->name;
+			}
+		}
+
+		$group_ids = array();
+		if($user->groups)
+		{
+			foreach($user->groups as $g)
+			{
+				$group_ids[] = $g->id;
+			}
+		}
+
 		// Set up the data needed by the view(s)
 		$aViewData = array(
 			'user' => $user,
 			'party' => $party,
+			'group_options' => $group_options,
+			'set_group_ids' => $group_ids,
 			'crumbs' => Breadcrumbs::render('action', Lang::choice('labels.account', 1), 'party', $party),
 		);
 
@@ -191,7 +252,71 @@ class UserController extends \BaseController {
 	 */
 	public function update($partyId, $id)
 	{
-		//
+		$errors = array();
+		$user = User::find($id);
+
+		if(!$user)
+		{
+			return App::abort(404);
+		}
+		else
+		{
+			$party = $user->party;
+		}
+
+
+		try
+		{
+			$user->removeRule('password', 'confirmed');
+			if(Input::get('password'))
+			{
+				$user->password = Input::get('password');
+			}
+			$success = ($user->validate());
+
+			$set_groups = Input::get('groups');
+
+			$existing_groups = $user->groups;
+			if(count($existing_groups))
+			{
+				foreach($existing_groups as $g)
+				{
+					$user->removeGroup($g);
+				}
+			}
+
+			if(count($set_groups))
+			{
+				foreach($set_groups as $g)
+				{
+					if($group = Sentry::findGroupById($g))
+					{
+						$user->addGroup($group);
+					}
+				}
+			}
+
+			$user->save();
+		}
+		catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+		{
+		    $errors['groups[]'] = 'Group was not found.';
+		}
+
+
+		if(!count($errors))
+		{
+			Notification::success(Lang::get('messages.updated', array(
+				'name' => Lang::choice('labels.user', 1),
+			)));
+			
+			return Redirect::action('UserController@show', array($party->id, $user->id));
+		}
+
+		Notification::error($errors[key($errors)]);
+		return Redirect::action('UserController@edit', array($party->id, $user->id))
+			->withErrors($errors)
+			->withInput();
 	}
 
 

@@ -40,7 +40,7 @@ App::before(function($request)
 	Menu::make('mainMenu', function($menu){
 		$menu->add(Lang::get('titles.parties'),  array('action' => 'PartyController@index'))
 			->active('party/*');
-		$menu->add(Lang::get('titles.security'),  array('action' => 'SecurityController@index'))
+		$menu->add(Lang::get('titles.security'),  array('action' => 'UserGroupController@index'))
 			->active('security/*');
 	});
 
