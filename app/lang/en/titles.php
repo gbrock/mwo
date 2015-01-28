@@ -8,4 +8,5 @@ return array(
     'register' => 'Register',
 	'parties' => 'Contacts',
 	'security' => 'Security',
+	'dashboard' => 'Dashboard',
 );

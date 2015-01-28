@@ -67,11 +67,13 @@ class UserGroupController extends \BaseController {
 		}
 		catch (Cartalyst\Sentry\Groups\NameRequiredException $e)
 		{
-		    $errors['name'] = 'Name field is required';
+			$errors['name'] = Lang::get('validation.required', array(
+				'attribute' => Lang::get('usergroups.name'),
+			));
 		}
 		catch (Cartalyst\Sentry\Groups\GroupExistsException $e)
 		{
-		    $errors['name'] = 'Group already exists';
+		    $errors['name'] = Lang::get('usergroups.already_exists');
 		}
 
 		if(!count($errors)) // valid, and done
@@ -174,11 +176,13 @@ class UserGroupController extends \BaseController {
 		}
 		catch (Cartalyst\Sentry\Groups\NameRequiredException $e)
 		{
-		    $errors['name'] = 'Name field is required';
+			$errors['name'] = Lang::get('validation.required', array(
+				'attribute' => Lang::get('usergroups.name'),
+			));
 		}
 		catch (Cartalyst\Sentry\Groups\GroupExistsException $e)
 		{
-		    $errors['name'] = 'Group already exists.';
+		    $errors['name'] = Lang::get('usergroups.already_exists');
 		}
 		catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
 		{

@@ -80,15 +80,6 @@ class UserController extends \BaseController {
 			return App::abort(404);
 		}
 
-		// $party = new Party;
-		// $party->type = 'p';
-		// $success = $party->validate();
-
-		// $person = new Person;
-
-		// $email = new PartyEmail;
-		// $success = ($email->validate() && $success);
-
 		$user = new User;
 		$user->removeRule('password', 'confirmed');
 		$user->password = Input::get('password');
@@ -300,7 +291,7 @@ class UserController extends \BaseController {
 		}
 		catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
 		{
-		    $errors['groups[]'] = 'Group was not found.';
+			$errors['groups[]'] = Lang::get('usergroups.not_found');
 		}
 
 
