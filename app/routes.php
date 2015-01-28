@@ -14,25 +14,33 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 */
 
 // Homepage
-Route::get('/', 'PartyController@index');
+Route::get('/', 'HomeController@index');
 
 
-// Parties
-Route::resource('party.links', 'PartyLinkController');
-Route::resource('party.emails', 'PartyEmailController');
-Route::resource('party.phones', 'PartyPhoneController');
-Route::resource('party.addresses', 'PartyAddressController');
-Route::resource('party', 'PartyController');
-Route::resource('party.user', 'UserController');
+// Administration
+Route::group(array(
+	'before' => array('admin'),
+	'prefix' => 'dashboard',
+), function() {
+	// Dashboard
+	Route::get('/', 'DashboardController@index');
 
-Route::when('party/*', 'party');
+	// Parties
+	Route::resource('contacts.links', 'PartyLinkController');
+	Route::resource('contacts.emails', 'PartyEmailController');
+	Route::resource('contacts.phones', 'PartyPhoneController');
+	Route::resource('contacts.addresses', 'PartyAddressController');
+	Route::resource('contacts', 'PartyController');
+	Route::resource('contacts.user', 'UserController');
 
+	// Security
+	Route::resource('security', 'UserGroupController');
+	Route::get('security/{id}/new_permission', 'UserGroupController@newPermission');
+	Route::post('security/{id}/new_permission', 'UserGroupController@storePermission');
+	Route::post('security/{id}', 'UserGroupController@updatePermissions');
+});
 
-// Security
-Route::resource('security', 'UserGroupController');
-Route::get('security/{id}/new_permission', 'UserGroupController@newPermission');
-Route::post('security/{id}/new_permission', 'UserGroupController@storePermission');
-Route::post('security/{id}', 'UserGroupController@updatePermissions');
+Route::when('dashboard/contacts/*', 'party');
 
 
 // Authentication / Account management

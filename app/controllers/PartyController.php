@@ -2,6 +2,8 @@
 
 class PartyController extends \BaseController {
 
+	protected $layout = 'admin';
+
 	/**
      * Instantiate a new UserController instance.
      */

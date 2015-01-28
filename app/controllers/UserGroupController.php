@@ -2,6 +2,8 @@
 
 class UserGroupController extends \BaseController {
 
+	protected $layout = 'admin';
+
 	function __construct()
 	{
 		parent::__construct();

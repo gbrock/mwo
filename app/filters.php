@@ -38,16 +38,15 @@ App::before(function($request)
 	 * Set up our site menus.
 	 */
 	Menu::make('mainMenu', function($menu){
-		$menu->add(Lang::get('titles.parties'),  array('action' => 'PartyController@index'))
-			->active('party/*');
-		$menu->add(Lang::get('titles.security'),  array('action' => 'UserGroupController@index'))
-			->active('security/*');
 	});
 
 	Menu::make('userMenu', function($menu){
 		if(Sentry::check())
 		{
 			$display_name = Sentry::getUser()->party->name;
+			$menu->add(HTML::icon('dashboard') . Lang::get('titles.dashboard'), array(
+				'action' => 'DashboardController@index',
+			));
 			$menu->add(HTML::icon('user text-primary') . $display_name,  array('action' => 'AuthController@edit'))
 				->active('my_account/*');
 			$menu->add(Lang::get('titles.logout'),  array('action' => 'AuthController@logout'));
@@ -66,6 +65,19 @@ App::after(function($request, $response)
 	//
 });
 
+Route::filter('admin', function($route, $request)
+{
+	/**
+	 * Set up our admin menus.
+	 */
+	Menu::make('adminMenu', function($menu){
+		$menu->add(Lang::get('titles.parties'),  array('action' => 'PartyController@index'))
+			->active('dashboard/contacts/*');
+		$menu->add(Lang::get('titles.security'),  array('action' => 'UserGroupController@index'))
+			->active('dashboard/security/*');
+	});
+});
+
 Route::filter('party', function($route, $request)
 {
 	/**
@@ -73,7 +85,7 @@ Route::filter('party', function($route, $request)
 	 */
 	Menu::make('partyMenu', function($menu)
 	{
-	    if($party = Party::all()->find(Request::segment(2)))
+	    if($party = Party::all()->find(Request::segment(3)))
 	    {
 		    // The main party page
 			$menu->add(
