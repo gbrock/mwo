@@ -13,15 +13,28 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 |
 */
 
+// Homepage
 Route::get('/', 'PartyController@index');
-Route::resource('party', 'PartyController');
+
+
+// Parties
 Route::resource('party.links', 'PartyLinkController');
 Route::resource('party.emails', 'PartyEmailController');
 Route::resource('party.phones', 'PartyPhoneController');
 Route::resource('party.addresses', 'PartyAddressController');
+Route::resource('party', 'PartyController');
 Route::resource('party.user', 'UserController');
 
 Route::when('party/*', 'party');
+
+
+// Security
+Route::resource('security/permissions', 'PermissionController');
+Route::resource('security/groups', 'UserGroupController');
+Route::get('security/groups/{id}/new_permission', 'UserGroupController@newPermission');
+Route::post('security/groups/{id}/new_permission', 'UserGroupController@storePermission');
+Route::post('security/groups/{id}', 'UserGroupController@updatePermissions');
+Route::resource('security', 'SecurityController');
 
 
 // Authentication / Account management

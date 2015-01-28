@@ -184,6 +184,9 @@ class AssetController extends BaseController {
 				case 'woff':
 					$sHeader = 'application/x-font-woff';
 					break;
+				case 'woff2':
+					$sHeader = 'application/x-font-woff2';
+					break;
 				case 'otf':
 					$sHeader = 'application/x-font-otf';
 					break;

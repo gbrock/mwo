@@ -41,7 +41,7 @@ if(!function_exists('dd'))
 		if(!$bContinue)
 		{
 			// Set the header so output looks correct in-browser
-			header('Content-Type: text/html; charset=UTF-8');
+			// header('Content-Type: text/html; charset=UTF-8');
 			exit;
 		}
 	}

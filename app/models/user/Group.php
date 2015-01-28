@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Cartalyst\Sentry\Users\Eloquent\User as SentryGroupModel;
+use Cartalyst\Sentry\Groups\Eloquent\Group as SentryGroupModel;
 
 class Group extends SentryGroupModel {
-
 }

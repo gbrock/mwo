@@ -40,6 +40,8 @@ App::before(function($request)
 	Menu::make('mainMenu', function($menu){
 		$menu->add(Lang::get('titles.parties'),  array('action' => 'PartyController@index'))
 			->active('party/*');
+		$menu->add(Lang::get('titles.security'),  array('action' => 'SecurityController@index'))
+			->active('security/*');
 	});
 
 	Menu::make('userMenu', function($menu){
@@ -67,9 +69,10 @@ App::after(function($request, $response)
 Route::filter('party', function($route, $request)
 {
 	/**
-	 * Set up our site menus.
+	 * Set up our party menu.
 	 */
-	Menu::make('partyMenu', function($menu){
+	Menu::make('partyMenu', function($menu)
+	{
 	    if($party = Party::all()->find(Request::segment(2)))
 	    {
 		    // The main party page
@@ -139,6 +142,23 @@ Route::filter('party', function($route, $request)
 			)->active('party/([0-9]*)/addresses/*'); // active on these routes
 	    }
 		
+	});
+
+	Route::filter('security', function($route, $request)
+	{
+		/**
+		 * Set up our security menu.
+		 */
+		Menu::make('securityMenu', function($menu)
+		{
+		    // The main security page
+			$menu->add(
+				HTML::icon($party->icon . ' fa-fw') . Lang::get('labels.overview'),
+				array(
+					'action' => array('PartyController@show', $party->id),
+				)
+			)->active('party/([0-9]*)/edit'); // active on this route
+		});
 	});
 });
 

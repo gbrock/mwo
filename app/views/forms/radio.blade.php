@@ -5,8 +5,8 @@
 		<div>
 			<div class="btn-group{{ isset($btn_group_class) ? ' ' . $btn_group_class : '' }}" data-toggle="buttons">
 				@foreach($options as $k => $v)
-					<label class="btn btn-{{ isset($btn_class) ? $btn_class : 'default' }}">
-						{{ Form::radio($name, $k, ($k == $value)) . $v }} 
+					<label class="radio-inline">
+						{{ Form::radio($name, $k, (isset($value) && $k == $value)) . $v }} 
 					</label>
 				@endforeach
 			</div>

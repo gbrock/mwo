@@ -7,4 +7,5 @@ return array(
     'logout' => 'Logout',
     'register' => 'Register',
 	'parties' => 'Contacts',
+	'security' => 'Security',
 );

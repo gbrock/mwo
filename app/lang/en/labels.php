@@ -12,6 +12,8 @@ return array(
     'party_email' => 'E-mail|E-mails',
     'party_phone' => 'Phone|Phones',
     'party_address' => 'Address|Addresses',
+    'usergroup' => 'Group|Groups',
+    'permission' => 'Permission|Permissions',
 
     // Data labels
     'record_id' => ':type #:id',
@@ -25,6 +27,7 @@ return array(
     'save' => 'Save',
     'edit' => 'Edit',
     'destroy' => 'Delete',
+    'save_item' => 'Save :item',
     'create_item' => 'Add :item',
     'edit_item' => 'Edit :item',
     'show_item' => 'Show :item',
