@@ -41,13 +41,14 @@ class User extends UserBase implements StaplerableInterface {
 	 */
 	protected $rules = array(
 		'password'                  => 'required|confirmed',
+		'avatar'                  	=> 'image',
 	);
 	
     public function __construct(array $attributes = array()) {
         $this->hasAttachedFile('avatar', [
             'styles' => [
-	            'medium' => '400x400',
-	            'thumb' => '96x96',
+	            'medium' => '400x400#',
+	            'thumb' => '96x96#',
             ]
         ]);
 
@@ -89,7 +90,7 @@ class User extends UserBase implements StaplerableInterface {
 		);
     }
 
-	public function validate()
+	public function validate($values = FALSE)
 	{
 		if($this->autoHydrate)
 		{
@@ -102,7 +103,7 @@ class User extends UserBase implements StaplerableInterface {
 				'password' => Input::get('password'),
 				'password_confirmation' => Input::get('password_confirmation'),
 			);
-			$this->validator = Validator::make(array_merge($this->toArray(), $forced_addins), $this->rules, $this->messages);
+			$this->validator = Validator::make(array_merge($values ? $values : $this->toArray(), $forced_addins), $this->rules, $this->messages);
 			return $this->validator->passes();
 		}
 

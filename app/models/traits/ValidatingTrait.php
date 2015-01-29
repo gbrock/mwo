@@ -42,7 +42,7 @@ trait ValidatingTrait {
 		});
 	}
 
-	public function validate()
+	public function validate($values = FALSE)
 	{
 		if($this->autoHydrate)
 		{
@@ -51,7 +51,8 @@ trait ValidatingTrait {
 
 		if($this->rules)
 		{
-			$this->validator = Validator::make($this->toArray(), $this->rules, $this->messages);
+			dd($this->rules());
+			$this->validator = Validator::make($values ? $values : $this->toArray(), $this->rules, $this->messages);
 			return $this->validator->passes();
 		}
 
@@ -165,7 +166,7 @@ trait ValidatingTrait {
      * @param  string $field
      * @return array
      */
-    protected function getRules($field)
+    public function getRules($field)
     {
     	$r = array();
     	if(isset($this->rules[$field]))

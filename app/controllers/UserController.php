@@ -258,11 +258,7 @@ class UserController extends \BaseController {
 		try
 		{
 			$user->removeRule('password', 'confirmed');
-			if(Input::get('password'))
-			{
-				$user->password = Input::get('password');
-			}
-			$success = ($user->validate());
+			$user->removeRule('password', 'required');
 
 			$set_groups = Input::get('groups');
 
@@ -286,14 +282,29 @@ class UserController extends \BaseController {
 				}
 			}
 
-			$user->avatar = Input::file('avatar');
+			$to_validate = array(
+				'avatar' => Input::file('avatar'),
+			);
 
-			$user->save();
+			if(Input::get('password'))
+			{
+				$to_validate['password'] = Input::get('password');
+				$user->password = $to_validate['password'];
+			}
+
+
+			if($user->validate($to_validate))
+			{
+				$user->fill($to_validate);
+				$user->save($to_validate);
+			}
 		}
 		catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
 		{
 			$errors['groups[]'] = Lang::get('usergroups.not_found');
 		}
+
+		$errors = array_merge($user->errors()->toArray(), $errors);
 
 
 		if(!count($errors))
