@@ -22,13 +22,13 @@
 	</nav>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 col-sidebar hidden-xs">
+			<div class="col-sm-3 col-md-2 admin-sidebar hidden-xs">
 				{{ $adminMenu->asUl(array('class' => 'nav nav-pills nav-stacked')) }}
 			</div>
 			<div class="col-sm-9 col-md-10">
 				@section('breadcrumbs')
 					@if(isset($crumbs))
-						<div class="breadcrumbs-admin">
+						<div class="admin-crumbs">
 							{{ $crumbs }}
 						</div>
 					@endif

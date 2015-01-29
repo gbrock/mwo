@@ -31,7 +31,7 @@
 				{{ $crumbs }}
 			@endif
 		@show
-		<div class="blink">
+		<div class="blink-awake">
 			{{ Notification::showAll() }}
 		</div>
 		@section('content')
