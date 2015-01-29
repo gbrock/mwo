@@ -19,6 +19,12 @@ class Party extends Base {
         	->hasOne('Person');
     }
 
+	public function user()
+    {
+        return $this
+        	->hasOne('User');
+    }
+
 	public function links()
     {
         return $this

@@ -46,8 +46,8 @@ class User extends UserBase implements StaplerableInterface {
     public function __construct(array $attributes = array()) {
         $this->hasAttachedFile('avatar', [
             'styles' => [
-	            'medium' => '300x300',
-	            'thumb' => '100x100'
+	            'medium' => '400x400',
+	            'thumb' => '96x96',
             ]
         ]);
 

@@ -33,6 +33,10 @@ Route::group(array(
 	Route::resource('contacts', 'PartyController');
 	Route::resource('contacts.user', 'UserController');
 
+	// DIRTY HACK because Laravel apparently doesn't route PUT requests from Multipart forms correctly.
+	// Use this when needing a page (which is not normally POST'ed) to accept uploads.
+	Route::post('contacts/{partyId}/user/{id}', 'UserController@postUpdate');
+
 	// Security
 	Route::resource('security', 'UserGroupController');
 	Route::get('security/{id}/new_permission', 'UserGroupController@newPermission');
@@ -66,6 +70,9 @@ Route::get('includes/js/{script}', 'AssetController@getJavascript')
 
 Route::get('includes/fonts/{script}', 'AssetController@getFont')
 	->where('script', '[A-Za-z0-9\/\-_\.]+');
+
+Route::get('includes/img/s/{filepath}', 'AssetController@getImg')
+	->where('filepath', '[A-Za-z0-9\/\-_\.]+');
 
 
 /**

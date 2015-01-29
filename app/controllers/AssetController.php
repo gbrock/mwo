@@ -207,6 +207,35 @@ class AssetController extends BaseController {
 		App::abort(404);
 	}
 
+	public function getImg($request_path)
+	{
+		$root = app_path() . '/uploads/';
+		$path = $root . $request_path;
+
+		try
+		{
+			$file = new Symfony\Component\HttpFoundation\File\File($path);
+		}
+		catch(Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException $e)
+		{
+			return App::abort(404);
+		}
+
+		// Craft the response
+		$response = Response::make(
+			File::get($path), 
+			200
+		);
+
+		// Set the main content headers
+		$response->header(
+			'Content-type',
+			$file->getMimeType()
+		);
+
+		return $response;
+	}
+
 	protected function cacheHeaders($iSeconds = 3600, $respObj = FALSE)
 	{
 		$sValidUntil = gmdate('D, d M Y H:i:s', time() + $iSeconds) . ' GMT';

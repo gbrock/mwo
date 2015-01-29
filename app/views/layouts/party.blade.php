@@ -4,8 +4,11 @@
 	<div class="row">
 		<div class="col-sm-3 col-lg-2">
 			<div class="thumbnail">
-				<object type="image/svg+xml" data="{{ asset('includes/img/avatar.svg') }}">
-				</object>
+				@if($party->user && $party->user->avatar)
+					<img src="{{ asset($party->user->avatar->url('medium')) }}" class="img-responsive">
+				@else
+					<object type="image/svg+xml" data="{{ asset('includes/img/avatar.svg') }}"></object>
+				@endif
 				<div class="caption">
 					<h4>
 						{{ HTML::icon($party->icon) }}
