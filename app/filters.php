@@ -67,6 +67,10 @@ App::after(function($request, $response)
 
 Route::filter('admin', function($route, $request)
 {
+	if(!Sentry::check())
+	{
+		return App::abort(403);
+	}
 	/**
 	 * Set up our admin menus.
 	 */

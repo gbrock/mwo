@@ -4,6 +4,14 @@ class ErrorController extends \BaseController {
 
 	protected $layout = 'master';
 
+	public function get403()
+	{
+		$this->setupLayout();
+		$this->layout->rendered_view = View::make('errors.no_access');
+
+		return Response::make($this->layout, 403);
+	}
+
 	public function get404()
 	{
 		$this->setupLayout();

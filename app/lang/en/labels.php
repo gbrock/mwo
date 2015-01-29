@@ -37,6 +37,7 @@ return array(
     'overview' => 'Overview',
     'visit_external' => 'visit link',
     'see_also' => 'See more for :item',
+    'no_access' => '403 - Forbidden',
     'missing_page' => '404 - Not Found',
     'bad_method' => '405 - Bad Method',
 );

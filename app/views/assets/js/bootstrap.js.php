@@ -4,12 +4,12 @@ $sFolder = base_path('vendor/twbs/bootstrap/js');
 $aPlugins = array(
 	// 'affix',
 	// 'alert',
-	'button',
+	// 'button',
 	// 'carousel',
 	'collapse',
-	'dropdown',
-	'modal',
-	'tooltip', // popover requires tooltip, otherwise alpha load order works
+	// 'dropdown',
+	// 'modal',
+	// 'tooltip', // popover requires tooltip, otherwise alphabetical load order works
 	// 'popover',
 	// 'scrollspy',
 	// 'tab',

@@ -82,7 +82,7 @@ class AuthController extends \BaseController {
 		{
 			// Logged in successfully!
 			Notification::success(Lang::get('auth.login_successful'));
-			return Redirect::to('/');
+			return Redirect::intended('/');
 		}
 	}
 
@@ -150,7 +150,7 @@ class AuthController extends \BaseController {
 
 			Sentry::login($user, FALSE);
 		    Notification::success(Lang::get('auth.registration_success'));
-		    return Redirect::to('/');
+		    return Redirect::intended('/');
 		}
 		else
 		{

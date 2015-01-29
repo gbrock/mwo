@@ -72,10 +72,26 @@ Route::get('includes/fonts/{script}', 'AssetController@getFont')
  * Errors
  */
 
-// Missing routes return a 404
-App::missing(function($exception)
+App::error(function($exception, $code)
 {
-	return App::make('ErrorController')->get404();
+    switch ($code)
+    {
+        case 403:
+        	if(!Sentry::check())
+        	{
+        		Notification::warning('Please log in first.');
+        		return Redirect::guest('login');
+        	}
+        	else
+        	{
+				return App::make('ErrorController')->get403();
+        	}
+			break;
+
+        case 404:
+			return App::make('ErrorController')->get404();
+			break;
+    }
 });
 
 // MethodNotAllowed gets tossed separately
