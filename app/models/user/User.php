@@ -1,6 +1,11 @@
 <?php
 
-class User extends UserBase {
+use Codesleeve\Stapler\ORM\StaplerableInterface;
+use Codesleeve\Stapler\ORM\EloquentTrait AS StaplerEloquence;
+
+class User extends UserBase implements StaplerableInterface {
+
+	use StaplerEloquence;
 
 	protected $validateOnSave = FALSE;
 	protected $autoHydrate = FALSE;
@@ -18,6 +23,9 @@ class User extends UserBase {
 	 */
 	protected $primaryKey = 'party_id';
 
+	protected $fillable = array(
+		'avatar',
+	);
 
 	protected $hidden = array(
 		'password',
@@ -34,6 +42,23 @@ class User extends UserBase {
 	protected $rules = array(
 		'password'                  => 'required|confirmed',
 	);
+	
+    public function __construct(array $attributes = array()) {
+        $this->hasAttachedFile('avatar', [
+            'styles' => [
+	            'medium' => '300x300',
+	            'thumb' => '100x100'
+            ]
+        ]);
+
+        parent::__construct($attributes);
+    }
+
+    public static function boot()
+	{
+	    parent::boot();
+	    static::bootStapler();
+	}
 
     /**
      * The main parent relationship to Party.

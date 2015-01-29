@@ -1,5 +1,13 @@
+@include('forms.upload', array(
+	'name' => 'avatar',
+	'label' => Lang::get('auth.avatar'),
+))
+
 @include('forms.input', array(
 	'name' => 'password',
+	'attr' => array(
+		'autofocus',
+	),
 	'label' => Lang::get('auth.set_password'),
 ))
 

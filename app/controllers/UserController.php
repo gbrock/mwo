@@ -255,7 +255,6 @@ class UserController extends \BaseController {
 			$party = $user->party;
 		}
 
-
 		try
 		{
 			$user->removeRule('password', 'confirmed');
@@ -286,6 +285,8 @@ class UserController extends \BaseController {
 					}
 				}
 			}
+
+			$user->avatar = Input::file('avatar');
 
 			$user->save();
 		}

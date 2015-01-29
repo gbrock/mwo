@@ -1,6 +1,7 @@
 {{ Form::open(array(
 	'action' => array('UserController@update', $party->id, $user->id),
 	'method' => 'put',
+	'files' => TRUE,
 )) }}
 <div class="panel panel-default">
 	<div class="panel-heading">

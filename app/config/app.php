@@ -127,6 +127,8 @@ return array(
 		'Krucas\Notification\NotificationServiceProvider', // Notifications
 		'Gbrock\Sentry\SentryServiceProvider', // Users and Permissions
  		'Lavary\Menu\ServiceProvider', // Menus
+ 		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider', // Uploads
+ 		'Intervention\Image\ImageServiceProvider', // Images
 
 	),
 
@@ -200,6 +202,7 @@ return array(
         'Notification'		=> 'Krucas\Notification\Facades\Notification',
         'Sentry'			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Menu'       		=> 'Lavary\Menu\Facade',
+		'Image' 			=> 'Intervention\Image\Facades\Image',
 	),
 
 );

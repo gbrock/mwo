@@ -14,7 +14,9 @@
 		"davejamesmiller/laravel-breadcrumbs": "~2.3",
 	    "edvinaskrucas/notification": "3.*",
 	    "cartalyst/sentry": "2.1.*",
-	    "lavary/laravel-menu": "dev-master"
+	    "lavary/laravel-menu": "dev-master",
+	    "codesleeve/laravel-stapler": "1.0.*",
+		"intervention/image": "~2.1"
 	},
 	"autoload": {
 		"classmap": [

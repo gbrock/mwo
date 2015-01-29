@@ -3,6 +3,7 @@
 return array(
 	'username' => 'Username',
 	'password' => 'Password',
+	'avatar' => 'Avatar',
 	'provide_username' => 'Please provide one of your registered e-mail addresses:',
 	'provide_password' => '...and your password:',
 	'username_help' => 'You will use this to log in.',
