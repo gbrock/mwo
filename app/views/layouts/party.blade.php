@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-sm-3 col-lg-2">
 			<div class="thumbnail">
-				@if($party->user && $party->user->avatar)
+				@if($party->user && $party->user->avatar_file_name)
 					<img src="{{ asset($party->user->avatar->url('medium')) }}" class="img-responsive">
 				@else
 					<object type="image/svg+xml" data="{{ asset('includes/img/avatar.svg') }}"></object>

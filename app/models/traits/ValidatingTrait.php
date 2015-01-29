@@ -51,7 +51,6 @@ trait ValidatingTrait {
 
 		if($this->rules)
 		{
-			dd($this->rules());
 			$this->validator = Validator::make($values ? $values : $this->toArray(), $this->rules, $this->messages);
 			return $this->validator->passes();
 		}
