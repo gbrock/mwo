@@ -129,7 +129,7 @@ return array(
  		'Lavary\Menu\ServiceProvider', // Menus
  		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider', // Uploads
  		'Intervention\Image\ImageServiceProvider', // Images
-
+ 		'Barryvdh\Debugbar\ServiceProvider', // Debug
 	),
 
 	/*
@@ -203,6 +203,7 @@ return array(
         'Sentry'			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Menu'       		=> 'Lavary\Menu\Facade',
 		'Image' 			=> 'Intervention\Image\Facades\Image',
+		'Debugbar'			=> 'Barryvdh\Debugbar\Facade',
 	),
 
 );

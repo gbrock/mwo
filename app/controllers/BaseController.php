@@ -30,8 +30,7 @@ class BaseController extends Controller {
 			$this->nav_controller = substr_replace(get_class($this), '', -strlen('Controller'));
 		}
 
-		// Let's see how long until we need JS.
-		// $this->js->push('jquery.js');
+		$this->js->push('jquery.js');
 		// $this->js->push('bootstrap.js');
 	}
 

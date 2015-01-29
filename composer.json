@@ -16,7 +16,8 @@
 	    "cartalyst/sentry": "2.1.*",
 	    "lavary/laravel-menu": "dev-master",
 	    "codesleeve/laravel-stapler": "1.0.*",
-		"intervention/image": "~2.1"
+		"intervention/image": "~2.1",
+		"barryvdh/laravel-debugbar": "~1.8"
 	},
 	"autoload": {
 		"classmap": [
