@@ -41,9 +41,9 @@ App::before(function($request)
 	});
 
 	Menu::make('userMenu', function($menu){
-		if(Sentry::check())
+		if($user = Sentry::getUser())
 		{
-			$display_name = Sentry::getUser()->party->name;
+			$display_name = $user->party->name;
 			$menu->add(HTML::icon('dashboard') . Lang::get('titles.dashboard'), array(
 				'action' => 'DashboardController@index',
 			));
@@ -67,10 +67,14 @@ App::after(function($request, $response)
 
 Route::filter('admin', function($route, $request)
 {
+	/**
+	 * Determine if the user is logged in.
+	 */
 	if(!Sentry::check())
 	{
 		return App::abort(403);
 	}
+
 	/**
 	 * Set up our admin menus.
 	 */
@@ -82,99 +86,20 @@ Route::filter('admin', function($route, $request)
 	});
 });
 
-Route::filter('party', function($route, $request)
+Route::filter('security', function($route, $request)
 {
 	/**
-	 * Set up our party menu.
+	 * Set up our security menu.
 	 */
-	Menu::make('partyMenu', function($menu)
+	Menu::make('securityMenu', function($menu)
 	{
-	    if($party = Party::all()->find(Request::segment(3)))
-	    {
-		    // The main party page
-			$menu->add(
-				HTML::icon($party->icon . ' fa-fw') . Lang::get('labels.overview'),
-				array(
-					'action' => array('PartyController@show', $party->id),
-				)
-			)->active('party/([0-9]*)/edit'); // active on this route
-
-		    // The user page
-			$menu->add(
-				HTML::icon('key fa-fw') . Lang::choice('labels.account', 1),
-				array(
-					'action' => array('UserController@show', $party->id),
-				)
-			)->active('party/([0-9]*)/user/*'); // active on this route
-
-			// The locators
-			
-			// Links
-			$menu->add(
-				(
-					$party->links()->count() ? 
-					'<span class="badge pull-right">' . number_format($party->links()->count()) . '</span>' : 
-					''
-				) . HTML::icon('link fa-fw') . Lang::choice('labels.party_link', 0),
-				array(
-					'action' => array('PartyLinkController@index', $party->id),
-				)
-			)->active('party/([0-9]*)/links/*'); // active on these routes
-			
-			// E-mails
-			$menu->add(
-				(
-					$party->emails()->count() ? 
-					'<span class="badge pull-right">' . number_format($party->emails()->count()) . '</span>' : 
-					''
-				) . HTML::icon('envelope-o fa-fw') . Lang::choice('labels.party_email', 0),
-				array(
-					'action' => array('PartyEmailController@index', $party->id),
-				)
-			)->active('party/([0-9]*)/emails/*'); // active on these routes
-			
-			// Phones
-			$menu->add(
-				(
-					$party->phones()->count() ? 
-					'<span class="badge pull-right">' . number_format($party->phones()->count()) . '</span>' : 
-					''
-				) . HTML::icon('phone fa-fw') . Lang::choice('labels.party_phone', 0),
-				array(
-					'action' => array('PartyPhoneController@index', $party->id),
-				)
-			)->active('party/([0-9]*)/phones/*'); // active on these routes
-			
-			// Addresses
-			$menu->add(
-				(
-					$party->addresses()->count() ? 
-					'<span class="badge pull-right">' . number_format($party->addresses()->count()) . '</span>' : 
-					''
-				) . HTML::icon('map-marker fa-fw') . Lang::choice('labels.party_address', 0),
-				array(
-					'action' => array('PartyAddressController@index', $party->id),
-				)
-			)->active('party/([0-9]*)/addresses/*'); // active on these routes
-	    }
-		
-	});
-
-	Route::filter('security', function($route, $request)
-	{
-		/**
-		 * Set up our security menu.
-		 */
-		Menu::make('securityMenu', function($menu)
-		{
-		    // The main security page
-			$menu->add(
-				HTML::icon($party->icon . ' fa-fw') . Lang::get('labels.overview'),
-				array(
-					'action' => array('PartyController@show', $party->id),
-				)
-			)->active('party/([0-9]*)/edit'); // active on this route
-		});
+	    // The main security page
+		$menu->add(
+			HTML::icon($party->icon . ' fa-fw') . Lang::get('labels.overview'),
+			array(
+				'action' => array('PartyController@show', $party->id),
+			)
+		)->active('party/([0-9]*)/edit'); // active on this route
 	});
 });
 

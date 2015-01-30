@@ -44,7 +44,6 @@ Route::group(array(
 	Route::post('security/{id}', 'UserGroupController@updatePermissions');
 });
 
-Route::when('dashboard/contacts/*', 'party');
 
 
 // Authentication / Account management
