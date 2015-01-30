@@ -33,12 +33,10 @@ trait ValidatingTrait {
 				{
 					return FALSE;
 				}
-				
+
 				static::trimStrings($model);
 				static::setNullWhenEmpty($model);
 			}
-			
-			return TRUE;
 		});
 	}
 

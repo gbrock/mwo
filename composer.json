@@ -17,7 +17,8 @@
 	    "lavary/laravel-menu": "dev-master",
 	    "codesleeve/laravel-stapler": "1.0.*",
 		"intervention/image": "~2.1",
-		"barryvdh/laravel-debugbar": "~1.8"
+		"barryvdh/laravel-debugbar": "~1.8",
+		"venturecraft/revisionable": "1.*"
 	},
 	"autoload": {
 		"classmap": [
