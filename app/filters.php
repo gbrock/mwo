@@ -79,6 +79,8 @@ Route::filter('admin', function($route, $request)
 	 * Set up our admin menus.
 	 */
 	Menu::make('adminMenu', function($menu){
+		$menu->add(Lang::get('titles.pages'),  array('action' => 'PageController@index'))
+			->active('dashboard/pages/*');
 		$menu->add(Lang::get('titles.parties'),  array('action' => 'PartyController@index'))
 			->active('dashboard/contacts/*');
 		$menu->add(Lang::get('titles.security'),  array('action' => 'UserGroupController@index'))

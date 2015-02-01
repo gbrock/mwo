@@ -43,3 +43,14 @@ Breadcrumbs::register('usergroup', function($breadcrumbs, $group) {
     $breadcrumbs->parent('usergroups');
     $breadcrumbs->push($group->name, action('UserGroupController@show', $group->id));
 });
+
+// Pages
+Breadcrumbs::register('pages', function($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push(Lang::choice('labels.page', 0), action('PageController@index'));
+});
+
+Breadcrumbs::register('page', function($breadcrumbs, $page) {
+    $breadcrumbs->parent('pages');
+    $breadcrumbs->push($page->name, action('PageController@show', $page->url));
+});

@@ -19,9 +19,10 @@ Route::get('/', 'HomeController@index');
 
 // Administration
 Route::group(array(
-	'before' => array('admin'),
-	'prefix' => 'dashboard',
+	'before' => array('admin'), // run the 'admin' filter
+	'prefix' => 'dashboard', // anything withing this route is behind
 ), function() {
+
 	// Dashboard
 	Route::get('/', 'DashboardController@index');
 
@@ -32,10 +33,12 @@ Route::group(array(
 	Route::resource('contacts.addresses', 'PartyAddressController');
 	Route::resource('contacts', 'PartyController');
 	Route::resource('contacts.user', 'UserController');
-
 	// DIRTY HACK because Laravel apparently doesn't route PUT requests from Multipart forms correctly.
-	// Use this when needing a page (which is not normally POST'ed) to accept uploads.
+	// Use this when needing a page (which is not normally POST'ed) to accept uploads:
 	Route::post('contacts/{partyId}/user/{id}', 'UserController@postUpdate');
+
+	// Pages
+	Route::resource('pages', 'PageController');
 
 	// Security
 	Route::resource('security', 'UserGroupController');
@@ -71,8 +74,15 @@ Route::get('includes/fonts/{script}', 'AssetController@getFont')
 	->where('script', '[A-Za-z0-9\/\-_\.]+');
 
 Route::get('includes/img/s/{filepath}', 'AssetController@getImg')
-	->where('filepath', '[A-Za-z0-9\/\-_\.]+');
+	->where('filepath', '[A-Za-z0-9\/\-\.]+');
 
+
+/**
+ * Finally, try to find the URL in our site Pages
+ */
+
+Route::get('{page_url}', 'PagesController@read')
+	->where('page_url', '[A-Za-z0-9\/\-_]+');
 
 /**
  * Errors

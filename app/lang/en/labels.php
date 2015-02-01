@@ -14,6 +14,7 @@ return array(
     'party_address' => 'Address|Addresses',
     'usergroup' => 'Group|Groups',
     'permission' => 'Permission|Permissions',
+    'page' => 'Page|Pages',
 
     // Data labels
     'record_id' => ':type #:id',

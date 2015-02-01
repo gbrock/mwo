@@ -1,0 +1,7 @@
+{
+	"name": "Default",
+	"fillable": {
+		"heading": "string",
+		"body": "text"
+	}
+}
