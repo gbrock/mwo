@@ -2,6 +2,7 @@
 
 
 return array(
+    'minimum_image_size' => 'Image must be at least :resolution.',
     'no_access' => 'You do not have the required permission level to access this resource.',
 	'missing_page' => 'Sorry, the requested resource could not be located.',
     'bad_method' => 'Maybe you typed whatever you wanted into the address bar, or maybe the developer needs to fix this.',

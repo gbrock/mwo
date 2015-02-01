@@ -47,16 +47,16 @@ if(!function_exists('dd'))
 	}
 }
 
+/**
+ * Make a simple key-value pair based on an array of objects, usually
+ * database records.
+ * @param  array $oVar  The array of objects
+ * @param  string $key   Which object key should be used as the new Key
+ * @param  string $value Which object key should be used as the new Value
+ * @return array        The simplified array
+ */
 if(!function_exists('pairify'))
 {
-	/**
-	 * Make a simple key-value pair based on an array of objects, usually
-	 * database records.
-	 * @param  array $oVar  The array of objects
-	 * @param  string $key   Which object key should be used as the new Key
-	 * @param  string $value Which object key should be used as the new Value
-	 * @return array        The simplified array
-	 */
 	function pairify($oVar, $key, $value)
 	{
 		/**
@@ -91,5 +91,26 @@ if(!function_exists('pairify'))
 		}
 
 		return $r;
+	}
+}
+
+/**
+ * Humanize a string.
+ * http://snipplr.com/view/45370/humanize-a-string/
+ * @param  string $str
+ * @return string
+ */
+if(!function_exists('humanize'))
+{
+	function humanize($str)
+	{
+		$str = trim(strtolower($str));
+		$str = preg_replace('/[^a-z0-9\s+]/', '', $str);
+		$str = preg_replace('/\s+/', ' ', $str);
+		$str = explode(' ', $str);
+		
+		$str = array_map('ucwords', $str);
+		
+		return implode(' ', $str);
 	}
 }

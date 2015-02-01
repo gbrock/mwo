@@ -50,7 +50,7 @@ class Template implements ArrayAccess, ArrayableInterface {
 					if(is_object($json_contents))
 					{
 						$json_contents->key = $key;
-						$this[$key] = $json_contents;
+						$this[$key] = $this->preFilter($json_contents);
 					}
 				}
 			}
@@ -87,5 +87,43 @@ class Template implements ArrayAccess, ArrayableInterface {
     public function toArray()
     {
     	return $this->container;
+    }
+
+    private function preFilter($obj)
+    {
+    	if(count($obj->fillable) > 0)
+		{
+			$obj->fillable = $this->setEmptyValues($obj);
+		}
+
+		return $obj;
+    }
+
+    private function setEmptyValues($obj)
+    {
+    	$new_fillable = array();
+    	
+    	foreach($obj->fillable as $k => $v)
+		{
+			// if a simple string was passed
+			if(is_string($v))
+			{
+				$v = (object) array('name' => $k, 'type' => $v);
+			}
+
+			if(!isset($v->name))
+			{
+				$v->name = $k;
+			}
+
+			if(isset($v->fillable))
+			{
+				$v->fillable = $this->setEmptyValues($v);
+			}
+
+			$new_fillable[$k] = $v;
+		}
+
+		return (object) $new_fillable;
     }
 }

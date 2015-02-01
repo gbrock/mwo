@@ -16,7 +16,7 @@
 					array(
 						'name' => 'template',
 						'value' => $t->key,
-						'class' => ($selected_template == $t->key ? 'active' : '')
+						'class' => ($selected_template->key == $t->key ? 'active' : '')
 					)
 				) }}
 
@@ -27,6 +27,7 @@
 
 {{ Form::open(array(
 	'action' => 'PageController@store',
+	'files' => TRUE,
 )) }}
 
 	@include('pages.form')

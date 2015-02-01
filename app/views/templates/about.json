@@ -1,6 +1,10 @@
 {
 	"name": "About",
 	"fillable": {
+		"banner": {
+			"type": "image",
+			"size": "1920x400"
+		},
 		"heading": "string",
 		"body": "text",
 		"people": {
@@ -10,8 +14,8 @@
 					"type": "image",
 					"size": "800x600"
 				},
-				"heading": "string",
-				"body": "text"
+				"name": "string",
+				"description": "text"
 			}
 		}
 	}

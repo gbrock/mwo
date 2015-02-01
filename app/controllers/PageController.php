@@ -51,7 +51,7 @@ class PageController extends \BaseController {
 		View::share($aViewData);
 
 		$aViewData['templates'] = Template::all();
-		$aViewData['selected_template'] = $selected_template;
+		$aViewData['selected_template'] = $aViewData['templates'][$selected_template];
 
 		// Render the view
 		$this->loadView('pages/create', $aViewData);
@@ -67,12 +67,41 @@ class PageController extends \BaseController {
 	{
 		if(Input::get('save') !== NULL) // save attempt
 		{
+			$page = new Page();
 
+			if($page->save())
+			{
+				dd($page->toArray());
+			}
 		}
-		elseif(Input::get('template') !== NULL)
+		elseif(
+			Input::get('template') !== NULL ||
+			Input::get('add_to_template') !== NULL || 
+			Input::get('remove_from_template') !== NULL
+		)
 		{
+			$input = Input::all();
+			if(($i_to_remove = Input::get('remove_from_template')) !== NULL)
+			{
+				foreach($i_to_remove as $k => $v)
+				{
+					$remove = key($v);
+					unset($input[$k][$remove]);
+					$input['current_totals'][$k]--;
+					$input[$k] = array_values($input[$k]);
+				}
+			}
+
+			if(($i_to_add = Input::get('add_to_template')) !== NULL)
+			{
+				foreach($i_to_add as $k => $v)
+				{
+					$input['current_totals'][$k]++;
+				}
+			}
+
 			return Redirect::action('PageController@create')
-				->withInput();
+				->withInput($input);
 		}
 
 		// If we got this far, the request failed.

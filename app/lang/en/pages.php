@@ -6,6 +6,7 @@ return array(
 	'title' => 'Title',
 	'url' => 'URL',
 	'template' => 'Template',
+	'contents' => 'Content',
 	'create' => Lang::get('labels.create_item', array(
     	'item' => Lang::choice('labels.page', 1),
     )),

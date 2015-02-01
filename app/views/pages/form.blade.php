@@ -21,4 +21,13 @@ $url_input = array(
 ?>
 @include('forms.input', $title_input)
 @include('forms.input', $url_input)
-
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			@lang('pages.contents')
+		</h3>
+	</div>
+	<div class="panel-body">
+		@include('pages.template_form')
+	</div>
+</div>
