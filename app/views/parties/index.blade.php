@@ -5,7 +5,7 @@
 	</a>
 </div>
 <p class="lead text-muted">
-	<span class="fa fa-book">&nbsp;</span>
+	{{ HTML::icon('book') }}
 	<strong>@choice('labels.party', 0)</strong>: 
 	@lang('parties.description')
 </p>
