@@ -1,6 +1,13 @@
 <?php
+use Codesleeve\Stapler\ORM\StaplerableInterface;
+use Codesleeve\Stapler\ORM\EloquentTrait AS StaplerEloquence;
 
-class PageContent extends Base {
+class PageContent extends Base implements StaplerableInterface {
+
+	use StaplerEloquence;
+
+	protected $validateOnSave = FALSE;
+	protected $autoHydrate = FALSE;
 
 	public function page()
     {

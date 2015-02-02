@@ -51,7 +51,10 @@ class PageController extends \BaseController {
 		View::share($aViewData);
 
 		$aViewData['templates'] = Template::all();
-		$aViewData['selected_template'] = $aViewData['templates'][$selected_template];
+		if(isset($aViewData['templates'][$selected_template]))
+		{
+			$aViewData['selected_template'] = $aViewData['templates'][$selected_template];
+		}
 
 		// Render the view
 		$this->loadView('pages/create', $aViewData);
@@ -65,13 +68,57 @@ class PageController extends \BaseController {
 	 */
 	public function store()
 	{
-		if(Input::get('save') !== NULL) // save attempt
+		if(Input::get('save') !== NULL && $template = Template::get(Input::get('template'))) // save attempt
 		{
 			$page = new Page();
-
-			if($page->save())
+			if($page->save() && count($template->fillable) > 0)
 			{
-				dd($page->toArray());
+				$errors = array();
+				$post = Input::get($template->key);
+
+				foreach($template->fillable as $f)
+				{
+					$content = new PageContent();
+					$fill_with = array();
+
+					if($f->type == 'collection')
+					{
+
+					}
+					else
+					{
+						if(isset($post[$f->name]))
+						{
+							$content->fill(array(
+								'key' => $f->name,
+								'value' => $post[$f->name],
+								// 'pos' => 
+							));
+
+							$content->page()->associate($page);
+							$content->save();
+						}
+					}
+				}
+
+				if(empty($errors))
+				{
+					Notification::success(Lang::get('messages.created', array('name' => $page->name)));
+					return Redirect::action('PageController@show', $page->url);
+				}
+			}
+			else
+			{
+
+
+				// Otherwise, it failed.
+				Notification::error($page->errors()->all());
+				return Redirect::action('PageController@create')
+					->withErrors(array_merge(
+						$page->errors()->toArray(),
+						array()
+					))
+					->withInput();
 			}
 		}
 		elseif(
@@ -115,7 +162,7 @@ class PageController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($url)
 	{
 		//
 	}

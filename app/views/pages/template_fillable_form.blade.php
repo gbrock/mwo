@@ -50,7 +50,7 @@
 		@foreach($fillable->fillable as $f)
 			@include('pages.template_fillable_form', array(
 				'fillable' => $f,
-				'name' => $fillable->name . '[' . $i . ']',
+				'name' => (isset($name) && $name ? $name . '[' . $fillable->name . ']' : $fillable->name) . '[' . $i . ']',
 			))
 		@endforeach
 	@endfor

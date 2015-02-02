@@ -24,6 +24,7 @@ class CreatePageContentsTable extends Migration {
 			
 			// The data
 			$table->string('key', 128);
+			$table->smallInteger('pos')->nullable();
 			$table->text('value')->nullable();
 			
 			// The trackers

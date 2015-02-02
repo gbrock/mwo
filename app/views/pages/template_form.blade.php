@@ -46,6 +46,7 @@ foreach($selected_template->fillable as & $v)
 	{{ Form::hidden('current_totals[' . $fillable->name . ']', $fillable->show_items) }}
 	@include('pages.template_fillable_form', array(
 		'fillable' => $fillable,
+		'name' => $selected_template->key,
 		'items' => $fillable->show_items,
 	))
 @endforeach

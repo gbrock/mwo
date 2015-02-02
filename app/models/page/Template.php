@@ -19,6 +19,18 @@ class Template implements ArrayAccess, ArrayableInterface {
 		return $instance->toArray();
 	}
 
+	public static function get($id)
+	{
+		$instance = new static;
+
+		if(isset($instance[$id]))
+		{
+			return $instance[$id];
+		}
+
+		return NULL;
+	}
+
     private function loadAll()
     {
     	$templates = array();
