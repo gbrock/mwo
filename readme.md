@@ -3,7 +3,7 @@ A [Laravel](http://laravel.com) project intended to be used as a sample when
 building applications.  Once complete, it should include the basics for getting
 apps launched quickly.
 
-Completed/In-progress Goals
+## Goals
 - Address Book based on the Party model
 - Pages which implement dynamic templates for creating public web documents
 - extended Auth (via Sentry), linked to the Address Book
@@ -19,29 +19,8 @@ available to models
 - Uses Bootstrap 3 and FontAwesome
 - No JavaScript (subject to change in the future)
 
-Future Goals
 
-
-## Sample Usage
-
-## Capabilities
-
-### Address Book
-### Pages
-### Authentication
-### Assets
-### Dashboard
-### Light Styling
-### Translatable
-
-## Code
-
-## Third-party
-MWO is built on [Laravel](http://laravel.com) and could not have been possible
-without a lot of packages.  While we develop, just check out
-[composer.json](https://github.com/gbrock/mwo/blob/master/composer.json)
-to see who gets all the credit.
-
-## License
-
-This software is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## Status
+MWO is under active development.  `/master` is empty until there's something 
+worth chiseling into bit-stone.  Check out the
+[develop branch](https://github.com/gbrock/mwo/tree/develop) to see the latest.
