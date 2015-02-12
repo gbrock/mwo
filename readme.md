@@ -5,11 +5,6 @@ apps launched quickly.
 
 **This branch is for developing Wordpress-like blog software.**
 
-Completed/In-progress Goals
-
-Future Goals
-
-
 ## Sample Usage
 
 ## Capabilities
