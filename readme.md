@@ -1,47 +1,23 @@
-# Middleware Organizer
-A [Laravel](http://laravel.com) project intended to be used as a sample when
-building applications.  Once complete, it should include the basics for getting
-apps launched quickly.
+## Laravel PHP Framework
 
-Completed/In-progress Goals
-- Address Book based on the Party model
-- Pages which implement dynamic templates for creating public web documents
-- extended Auth (via Sentry), linked to the Address Book
-    - UI for login, registration, and account management
-    - UI for managing groups and permissions
-- a simplified asset pipeline for rendering LESS/JavaScript files
-- Base Model and Validation Trait eases CRUD operations
-- Revisionable (revision history) and Staplerable (associate uploaded file data)
-available to models
-- Admin dashboard for managing content
-- Notifications, Breadcrumbs, and Menus implemented
-- Debugbar installed and available
-- Uses Bootstrap 3 and FontAwesome
-- No JavaScript (subject to change in the future)
+[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
+[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-Future Goals
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
+Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-## Sample Usage
+## Official Documentation
 
-## Capabilities
+Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
-### Address Book
-### Pages
-### Authentication
-### Assets
-### Dashboard
-### Light Styling
-### Translatable
+## Contributing
 
-## Code
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-## Third-party
-MWO is built on [Laravel](http://laravel.com) and could not have been possible
-without a lot of packages.  While we develop, just check out
-[composer.json](https://github.com/gbrock/mwo/blob/master/composer.json)
-to see who gets all the credit.
+### License
 
-## License
-
-This software is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
