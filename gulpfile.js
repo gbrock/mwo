@@ -16,21 +16,37 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
- mix.scripts([
-  "../../vendor/components/jquery/jquery.js",
-  "../../vendor/twbs/bootstrap/js/affix.js",
-  "../../vendor/twbs/bootstrap/js/alert.js",
-  "../../vendor/twbs/bootstrap/js/button.js",
-  "../../vendor/twbs/bootstrap/js/carousel.js",
-  "../../vendor/twbs/bootstrap/js/collapse.js",
-  "../../vendor/twbs/bootstrap/js/dropdown.js",
-  "../../vendor/twbs/bootstrap/js/modal.js",
-  "../../vendor/twbs/bootstrap/js/tooltip.js", // required by tooltip, so load it first
-  "../../vendor/twbs/bootstrap/js/popover.js",
-  "../../vendor/twbs/bootstrap/js/scrollspy.js",
-  "../../vendor/twbs/bootstrap/js/tab.js",
-  "../../vendor/twbs/bootstrap/js/transition.js",
-  "app.js"
- ], 'public/js/plugins.js');
+ var plugins = [];
+ var vendorFolder = '../../vendor/';
+ var bsPath = 'twbs/bootstrap/js/';
+ var bsPlugins = [
+  'affix.js',
+  'alert.js',
+  'button.js',
+  'carousel.js',
+  'collapse.js',
+  'dropdown.js',
+  'modal.js',
+  'tooltip.js',
+  'popover.js',
+  'scrollspy.js',
+  'tab.js',
+  'transition.js'
+ ];
+
+ // add jquery
+ plugins.push(vendorFolder + 'components/jquery/jquery.js');
+
+ // add bootstrap plugins
+ for(var i = 0; i < bsPlugins.length; i++)
+ {
+  plugins.push(vendorFolder + bsPath + bsPlugins[i]);
+ }
+
+ // add our app scripts
+ plugins.push('app.js');
+
+ // mix 'em together
+ mix.scripts(plugins, 'public/js/plugins.js');
 });
 
