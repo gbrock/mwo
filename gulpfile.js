@@ -12,8 +12,7 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
- mix.less('app.less')
-     .minify();
+ mix.less('app.less');
 });
 
 elixir(function(mix) {
@@ -32,7 +31,6 @@ elixir(function(mix) {
   "../../vendor/twbs/bootstrap/js/tab.js",
   "../../vendor/twbs/bootstrap/js/transition.js",
   "app.js"
- ], 'public/js/plugins.js')
-     .uglify();
+ ], 'public/js/plugins.js');
 });
 
