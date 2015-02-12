@@ -1,4 +1,4 @@
-<?php namespace App\Events;
+<?php namespace MWO\Events;
 
 abstract class Event {
 
