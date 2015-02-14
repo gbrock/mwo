@@ -1,0 +1,33 @@
+// via http://css-tricks.com/snippets/css/sticky-footer/
+//
+// But we don't need their reset
+//* {
+//  margin: 0;
+//}
+
+@footer-height: 50px;
+
+html, body {
+  height: 100%;
+}
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+    margin-bottom: -@footer-height;
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+@media (min-width: @screen-sm-min) {
+  .site-footer, .page-wrap:after {
+    height: @footer-height;
+  }
+}
+
+.site-footer .navbar {
+  margin-bottom: 0;
+}

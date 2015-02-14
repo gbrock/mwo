@@ -10,8 +10,45 @@ apps launched quickly.
 ## Capabilities
 
 ### Users
+
+We're using Laravel's default user implementation, since it got a turbocharge (oAuth and included authentication views) in L5.  Each user has a:
+
+- [Display] Name
+- E-mail address
+- Password
+- Avatar
+
+Users can register individually or through third-party service:
+
+- Google
+- Facebook
+- Twitter
+
 ### Posts
+
+Posts need to operate as simply as possible, detailing all the essentials of an HTML page including:
+
+- Title
+- Description
+- Thumbnail
+- Author
+- Date
+- Content (actual post body)
+- Publish Settings
+
 ### Comments
+
+Comments should be toggleable site-wide or on a per-post basis, and should be
+submittable by logged-in and guest users.
+
+Comments can be posted in reply to other comments, and should be arranged in a tree view (sortable by user).  Comments need to be reportable, and each should show:
+
+- Name
+- User Avatar
+- Date posted
+- Last edited
+- Comment
+
 ### Dashboard
 
 ## Code

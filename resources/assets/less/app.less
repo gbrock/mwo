@@ -1,2 +1,14 @@
 @bs_path: '../../../vendor/twbs/bootstrap/less/';
 @import "bootstrap.less";
+@media (min-width: @screen-sm-min) {
+  @import "sticky-footer.less";
+}
+@footer-height: @navbar-height;
+
+html, body {
+  background-color: @navbar-inverse-bg;
+}
+
+.page-wrap {
+  background-color: @body-bg;
+}
