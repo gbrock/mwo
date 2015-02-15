@@ -135,6 +135,7 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
+		'Illuminate\Html\HtmlServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -144,6 +145,8 @@ return [
 		'MWO\Providers\ConfigServiceProvider',
 		'MWO\Providers\EventServiceProvider',
 		'MWO\Providers\RouteServiceProvider',
+        'Zizaco\Entrust\EntrustServiceProvider',
+        'DaveJamesMiller\Breadcrumbs\ServiceProvider',
 
 	],
 
@@ -160,6 +163,9 @@ return [
 
 	'aliases' => [
 
+        /*
+         * Laravel Framework Facades
+         */
 		'App'       => 'Illuminate\Support\Facades\App',
 		'Artisan'   => 'Illuminate\Support\Facades\Artisan',
 		'Auth'      => 'Illuminate\Support\Facades\Auth',
@@ -192,6 +198,14 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+		'Form'      => 'Illuminate\Html\FormFacade',
+		'Html'      => 'Illuminate\Html\HtmlFacade',
+
+        /*
+         * Application Facades
+         */
+        'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
+        'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
 
 	],
 

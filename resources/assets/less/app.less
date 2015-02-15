@@ -9,6 +9,69 @@ html, body {
   background-color: @navbar-inverse-bg;
 }
 
+.site-footer .navbar {
+  margin-bottom: 0;
+  border-bottom: 0;
+  border-radius: 0;
+
+  @media (max-width: @screen-xs-max) {
+    padding-top: @padding-large-vertical;
+  }
+}
+
 .page-wrap {
+  position: relative;
   background-color: @body-bg;
+}
+
+.navbar-dashboard {
+    margin-bottom: 0;
+}
+
+// The dashboard sidebar.  Yep.
+.dashboard-sidebar {
+    .hidden-xs;
+
+    // Level 1 list
+    & > ul {
+        padding: 0;
+        list-style: none;
+        margin: 0 -(@grid-gutter-width/2);
+        position: relative;
+
+        // Level 1 links
+        & > li > a {
+            display: block;
+            padding: @padding-large-vertical (@grid-gutter-width/2);
+        }
+    }
+
+    // Main content
+    & + .content {
+        .make-sm-column(9);
+        .make-lg-column(10);
+
+        padding-bottom: 4em;
+
+        & > .breadcrumb {
+            margin: 0 -(@grid-gutter-width/2) (@grid-gutter-width/2);
+            border-radius: 0;
+        }
+    }
+
+    // Sizing the sidebar and its background together
+    &, &:before {
+      .make-sm-column(3);
+      .make-lg-column(2);
+    }
+
+    // Full-page sidebar background
+    &:before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: @gray-lighter;
+    }
 }

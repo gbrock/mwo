@@ -14,7 +14,7 @@ html, body {
 .page-wrap {
   min-height: 100%;
   /* equal to footer height */
-    margin-bottom: -@footer-height;
+    margin-bottom: -(@footer-height + 1px);
 }
 
 .page-wrap:after {
@@ -26,8 +26,4 @@ html, body {
   .site-footer, .page-wrap:after {
     height: @footer-height;
   }
-}
-
-.site-footer .navbar {
-  margin-bottom: 0;
 }

@@ -18,5 +18,12 @@ Route::get('home', 'HomeController@index');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-	env('ADMIN_PREFIX', 'dashboard') . '/posts' => 'Blog\ManagePostController',
 ]);
+
+Route::group(['prefix' => env('ADMIN_PREFIX', 'dashboard')], function() {
+    Route::get('/', 'DashboardController@index');
+
+    Route::controllers([
+    	'posts' => 'Blog\ManagePostController',
+    ]);
+});

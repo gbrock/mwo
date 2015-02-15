@@ -18,19 +18,23 @@
 	<![endif]-->
 </head>
 <body>
-    <div class="page-wrap">
-	    @include('navbar', array(
-	        'brand' => Lang::get('site.name'),
-	    ))
-	    @yield('content')
-    </div>
-    <footer class="site-footer">
+    @section('body')
+        <div class="page-wrap">
+    	    @include('includes.navbar', array(
+    	        'brand' => Lang::get('site.name'),
+    	    ))
+    	    @yield('content')
+        </div>
         @section('footer')
-            @include('navbar', array(
-                'class' => 'navbar-inverse navbar-static-top',
+        <footer class="site-footer">
+            @include('includes.navbar', array(
+                'class' => 'navbar-inverse',
+                'content' => '<span class="navbar-left"><span class="navbar-text">MWO Blog created by gBrock</span></span>',
             ))
+        </footer>
         @show
-    </footer>
+
+    @show
 
 	<!-- Scripts -->
 	<script src="{{ url('js/plugins.js') }}"></script>

@@ -18,7 +18,7 @@
         </div>
         @endif
 
-        {{ $content or '' }}
+        {!! $content or '' !!}
 
         @if(isset($collapse) && $collapse)
             <div class="collapse navbar-collapse">
