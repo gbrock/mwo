@@ -1,14 +1,20 @@
-<table class="{{ $class or 'table' }}">
+<table class="table {{ $class or '' }}">
+    @if(count($headers))
     <thead>
         <tr>
-            @foreach($header as $h)
+            @foreach($headers as $h)
             <th>
-                <span></span>
-                {{ HTML::icon($h->getSortIcon()) }}
+                @if($h->sortable)
+                <a href="{{ $h->sort_link }}">
+                    <span>{{ $h->label }}</span>
+                    {{ HTML::icon($h->sort_icon) }}
+                </a>
+                @endif
             </th>
             @endforeach
         </tr>
     </thead>
+    @endif
     <tbody>
         @foreach($rows as $r)
         <tr>

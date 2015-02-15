@@ -9,7 +9,23 @@
         <div class="container-fluid">
             <div class="row">
                 <nav class="dashboard-sidebar">
-                    
+                    <ul>
+                        <li>
+                            <a href="{{ action('DashboardController@getIndex') }}">
+                                {{ Lang::get('site.dashboard') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ action('Blog\PostController@getIndex') }}">
+                                {{ Lang::get('site.blog') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ action('Auth\UserController@getIndex') }}">
+                                {{ Lang::get('site.users') }}
+                            </a>
+                        </li>
+                    </ul>
                 </nav>
                 <div class="content">
                     {!! Breadcrumbs::render(isset($breadcrumbs) ? $breadcrumbs : 'dashboard') !!}

@@ -5,7 +5,7 @@ use MWO\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class ManagePostController extends Controller {
+class PostController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -14,7 +14,12 @@ class ManagePostController extends Controller {
 	 */
 	public function getIndex()
 	{
-		//
+		$data = array(
+			'table_headers' => PostRepository::tableHeaders(),
+			'table_rows' => PostRepository::tableRows(),
+		);
+
+		return view('posts.index', $data);
 	}
 
 	/**

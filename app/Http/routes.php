@@ -21,9 +21,11 @@ Route::controllers([
 ]);
 
 Route::group(['prefix' => env('ADMIN_PREFIX', 'dashboard')], function() {
-    Route::get('/', 'DashboardController@index');
+    Route::get('/', 'DashboardController@getIndex');
 
     Route::controllers([
-    	'posts' => 'Blog\ManagePostController',
+        // '/' => 'DashboardController',
+        'posts' => 'Blog\PostController',
+    	'users' => 'Auth\UserController',
     ]);
 });
