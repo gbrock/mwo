@@ -28,7 +28,7 @@
                     </ul>
                 </nav>
                 <div class="content">
-                    {!! Breadcrumbs::render(isset($breadcrumbs) ? $breadcrumbs : 'dashboard') !!}
+                    @include('breadcrumbs')
                     @yield('content')
                 </div>
             </div>
