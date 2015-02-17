@@ -11,42 +11,44 @@ var elixir = require('laravel-elixir');
  |
  */
 
+// Mix our single Less file
 elixir(function(mix) {
- mix.less('app.less');
+	mix.less('app.less');
 });
 
+// Mix our JS scripts down to a single file
 elixir(function(mix) {
- var plugins = [];
- var vendorFolder = '../../vendor/';
- var bsPath = 'twbs/bootstrap/js/';
- var bsPlugins = [
-  'affix.js',
-  'alert.js',
-  'button.js',
-  'carousel.js',
-  'collapse.js',
-  'dropdown.js',
-  'modal.js',
-  'tooltip.js',
-  'popover.js',
-  'scrollspy.js',
-  'tab.js',
-  'transition.js'
- ];
+	var mixScripts = [];
+	var vendorFolder = '../../vendor/';
+	var bootstrapPath = 'twbs/bootstrap/js/';
+	var bootstrapModules = [
+		'affix.js',
+		'alert.js',
+		'button.js',
+		'carousel.js',
+		'collapse.js',
+		'dropdown.js',
+		'modal.js',
+		'tooltip.js',
+		'popover.js',
+		'scrollspy.js',
+		'tab.js',
+		'transition.js'
+	];
 
- // add jquery
- plugins.push(vendorFolder + 'components/jquery/jquery.js');
+	// add jquery
+	mixScripts.push(vendorFolder + 'components/jquery/jquery.js');
 
- // add bootstrap plugins
- for(var i = 0; i < bsPlugins.length; i++)
- {
-  plugins.push(vendorFolder + bsPath + bsPlugins[i]);
- }
+	// add bootstrap modules
+	for(var i = 0; i < bootstrapModules.length; i++)
+	{
+		mixScripts.push(vendorFolder + bootstrapPath + bootstrapModules[i]);
+	}
 
- // add our app scripts
- plugins.push('app.js');
+	// add our app scripts
+	mixScripts.push('app.js');
 
- // mix 'em together
- mix.scripts(plugins, 'public/js/plugins.js');
+	// mix 'em together
+	mix.scripts(plugins, 'public/js/plugins.js');
 });
 
